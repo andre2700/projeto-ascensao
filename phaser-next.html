@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1d19">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Projeto Ascensão — Nova Fundação Phaser</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+:root{color-scheme:dark;--gold:#edc985;--ivory:#f4eedc;--night:#08151b;--mint:#8ef5db}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:var(--night);color:var(--ivory);font-family:Outfit,system-ui,sans-serif;touch-action:none}
+button{font-family:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent;cursor:pointer}
+#stage{position:fixed;inset:0}
+#stage canvas{touch-action:none;display:block}
+[hidden]{display:none!important}
+#hud{position:fixed;z-index:7;left:0;top:0;right:0;pointer-events:none;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 17px;
+background:linear-gradient(#0a191ce8,#09151ac2 62%,#0a161900)}
+.top{display:flex;gap:11px;align-items:center}
+.sigil{width:47px;height:47px;flex:none;transform:rotate(45deg);border:1px solid #edcd8dc4;background:#142938;border-radius:5px;display:grid;place-items:center;box-shadow:0 0 14px #ddbb7b2f}
+.sigil span{transform:rotate(-45deg);font-family:Cinzel,serif;color:var(--gold);font-size:24px}
+.progress{flex:1;min-width:0}
+.progress-labels{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:8px;color:#f2e3c3;font-size:10px;font-weight:700;letter-spacing:.8px}
+.bar{height:10px;margin-bottom:5px;border:1px solid #c7b48e88;background:#0a131cf2;border-radius:20px;overflow:hidden}
+#hp-fill,#xp-fill{display:block;height:100%;width:100%;border-radius:20px;transition:width .12s linear}
+#hp-fill{background:linear-gradient(90deg,#b3375c,#f47b86);box-shadow:0 0 8px #eb5460aa}
+#xp-fill{background:linear-gradient(90deg,#4a9bc5,#8af4f9);box-shadow:0 0 8px #8af4fb8c;width:0%}
+.hudbox{flex:none;border:1px solid #d2b78277;background:#132431de;border-radius:12px;text-align:center;min-width:54px;padding:9px 8px 6px}
+.hudbox b{font-size:15px;color:#fff0cf}.hudbox small{font-size:8px;letter-spacing:1px;display:block;color:#d5ddd5;margin-top:3px}
+.hud-weapon{font-size:11px;color:#ffe5a7;text-align:right;letter-spacing:1px;margin:7px 2px 0}
+#pause{position:fixed;right:17px;top:calc(env(safe-area-inset-top,0px) + 115px);z-index:9;width:42px;height:42px;color:#f7ddb5;background:#152633dd;border:1px solid #dac08e91;border-radius:50%;font-size:19px}
+#controls{position:fixed;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 19px);z-index:8;display:flex;gap:8px}
+#controls button{width:35px;height:35px;background:#142633b9;border:1px solid #e5ca916e;border-radius:10px;font-size:19px;color:#f7dbac}
+#stick{position:fixed;z-index:8;left:0;top:0;width:114px;height:114px;border:2px solid #f6f3d887;border-radius:50%;background:#e8fff010;pointer-events:none;box-shadow:0 0 16px #0a1a1640}
+#knob{width:54px;height:54px;border:2px solid #fffbdab8;position:absolute;left:28px;top:28px;border-radius:50%;background:#d5e9dbad;box-shadow:inset 0 1px 9px #f3ffed4d}
+#footnote{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 17px);z-index:3;text-align:center;pointer-events:none;text-shadow:0 1px 5px #112523;font-size:10px;letter-spacing:2px;color:#e7ead8be}
+.overlay{position:fixed;z-index:20;inset:0;padding:22px;background:linear-gradient(#091923b8,#061318e9);display:grid;place-items:center;text-align:center}
+.panel{width:min(100%,480px);padding:30px 23px 23px;border:1px solid #bfa46ed1;background:linear-gradient(140deg,#1b3040f7,#0c1b29fa);border-radius:21px;box-shadow:0 18px 70px #050c13a8}
+.kicker{color:#ead7b0;font-size:10px;font-weight:700;letter-spacing:4px}
+h1{font:700 clamp(30px,8vw,41px)/1.21 Cinzel,Georgia,serif;color:#f5d79c;margin:12px 0 18px}
+h2{font:700 clamp(23px,7vw,31px) Cinzel,Georgia,serif;color:#f3d79d;margin:8px 0 18px}
+p{line-height:1.55;font-size:14px;color:#ccd9d8}
+small{color:#afbfbf}
+.primary{border:1px solid #fff2bf;background:linear-gradient(#fae3a4,#d3a95b);width:100%;border-radius:12px;color:#21221d;font-size:15px;font-weight:800;padding:15px 8px;margin-top:19px;box-shadow:0 4px 16px #e9c57b33}
+.primary:disabled{opacity:.45}
+.secondary{border:1px solid #d8c3968c;color:#efdbad;background:#102332;width:100%;border-radius:12px;font-size:14px;font-weight:700;padding:14px 8px;margin-top:12px}
+#loading{font-size:11px;color:#b8c6c5;margin-top:13px}
+#choices{display:grid;gap:10px}
+.choice{text-align:left;padding:15px 13px;border:1px solid #d6bb8578;background:#203345d4;border-radius:13px;color:#f5e8d3}
+.choice strong{display:block;font-size:16px;color:#f4ddad;letter-spacing:.3px}
+.choice span{display:block;font-size:12px;line-height:1.4;color:#d0dbd7;margin-top:6px}
+#version-note{font-size:11px;letter-spacing:.2px;color:#b7cbc4;line-height:1.5;margin-top:12px}
+@media(max-width:380px){#hud{padding-left:7px;padding-right:7px}.top{gap:6px}.sigil{width:38px;height:38px}.hudbox{padding:7px 5px;min-width:43px}.hudbox b{font-size:12px}.progress-labels{font-size:9px}.panel{padding:24px 16px}}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<header id="hud" hidden>
+ <div class="top">
+  <div class="sigil"><span>✦</span></div>
+  <div class="progress">
+   <div class="progress-labels"><span>NV. <b id="level">1</b></span><span id="hp-label">120 / 120</span></div>
+   <div class="bar"><span id="hp-fill"></span></div>
+   <div class="bar" style="height:6px"><span id="xp-fill"></span></div>
+  </div>
+  <div class="hudbox"><b id="time">00:00</b><small>TEMPO</small></div>
+  <div class="hudbox"><b id="kills">0</b><small>ABATES</small></div>
+ </div>
+ <div class="hud-weapon" id="weapon">⚔ 1 ◈ 0 ✧ 0</div>
+</header>
+<button id="pause" aria-label="Pausar partida" hidden>Ⅱ</button>
+<div id="controls"><button id="zoom-out" aria-label="Afastar câmera">−</button><button id="zoom-in" aria-label="Aproximar câmera">+</button></div>
+<div id="stick" hidden><div id="knob"></div></div>
+<div id="footnote">MOVIMENTE O DEDO PARA EXPLORAR A FLORESTA</div>
+<section class="overlay" id="menu">
+ <div class="panel">
+  <div class="kicker">PROJETO ASCENSÃO · NOVA FUNDAÇÃO</div>
+  <h1>A Floresta da Aurora</h1>
+  <p>Uma primeira partida jogável construída em <b>Phaser</b>: katana direcional, inimigos, experiência, melhorias, câmera e floresta ilustrada.</p>
+  <p style="font-size:12px;color:#efd59f">Experimento de tecnologia e jogabilidade. Os sprites atuais ainda não têm animação direcional de qualidade final.</p>
+  <button class="primary" id="start" disabled>INICIAR JORNADA</button>
+  <div id="loading">Carregando a floresta e o motor Phaser…</div>
+  <div id="version-note">O jogo original continua intacto.</div>
+ </div>
+</section>
+<section class="overlay" id="levelmenu" hidden>
+ <div class="panel"><div class="kicker">O PODER DESPERTA</div><h2>Escolha uma melhoria</h2><div id="choices"></div></div>
+</section>
+<section class="overlay" id="pausemenu" hidden>
+ <div class="panel"><div class="kicker">JORNADA INTERROMPIDA</div><h2>Pausa</h2>
+  <button class="primary" id="resume">CONTINUAR</button><button class="secondary" id="restart">RECOMEÇAR</button></div>
+</section>
+<section class="overlay" id="defeat" hidden>
+ <div class="panel"><div class="kicker">A FLORESTA PERMANECE</div><h2>Sua jornada continua</h2>
+ <p id="defeat-info"></p><button class="primary" id="again">RECOMEÇAR</button></div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.90.0/phaser.min.js"></script>
+<script src="./assets-data-v07.js"></script>
+<script src="./tree-data-v07.js"></script>
+<script src="./terrain-data-v07.js"></script>
+<script src="./phaser-next.js?v=1"></script>
+</body>
+</html>
