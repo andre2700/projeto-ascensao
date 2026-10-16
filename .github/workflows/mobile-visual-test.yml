@@ -85,6 +85,8 @@ jobs:
         run: |
           mkdir -p qa
           cp test-output/webkit-iphone-game.jpg qa/forest-iphone.jpg 2>/dev/null || true
+          cp test-output/webkit-iphone-katana-evolved.jpg qa/katana-iphone.jpg 2>/dev/null || true
+          cp test-output/chromium-mobile-katana-evolved.jpg qa/katana-android.jpg 2>/dev/null || true
           rm -f qa/forest-iphone-FAILED.jpg qa/forest-android-FAILED.jpg
           cp test-output/webkit-iphone-FAILED.jpg qa/forest-iphone-FAILED.jpg 2>/dev/null || true
           cp test-output/chromium-mobile-FAILED.jpg qa/forest-android-FAILED.jpg 2>/dev/null || true
