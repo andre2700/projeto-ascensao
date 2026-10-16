@@ -1,48 +1,113 @@
 {
-  "art": {
-    "illustrated": {
-      "loaded": {
-        "hero": true,
-        "wraith": true,
-        "beast": true
-      },
-      "failed": {
-        "hero": false,
-        "wraith": false,
-        "beast": false
-      },
-      "framesDrawn": {
-        "hero": 1,
-        "wraith": 0,
-        "beast": 0,
-        "fallback": 0
-      }
-    },
-    "terrain": {
-      "loaded": true,
-      "failed": false,
-      "preparations": 1
-    },
-    "tree": {
-      "loaded": true,
-      "failed": false,
-      "drawn": 4,
-      "visible": 4,
-      "total": 340,
-      "dom": true
-    }
-  },
   "browser": "webkit-iphone",
-  "status": "PASS",
-  "time": "3.8",
-  "enemies": 3,
-  "kills": 1,
-  "playerMovePx": 27,
-  "motionDuringMove": 0.91001088,
-  "motionIdle": 1.5190774663649227e-8,
-  "color": {
-    "meanBrightness": 101,
-    "greenMinusRed": 25
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=0 FPS=0 stick={\"dx\":0.8674570262744272,\"dy\":-0.49751211801033324} eventos=[{\"event\":\"touchstart\",\"identifier\":7,\"x\":120.9,\"y\":498},{\"event\":\"touchmove\",\"identifier\":7,\"x\":188.9,\"y\":459}]",
+  "captured": {
+    "lastError": null,
+    "debug": {
+      "mode": "play",
+      "seconds": 0.9020000000000006,
+      "x": 23.421339709409533,
+      "y": -13.432827186278995,
+      "motion": 0.000002138190666447695,
+      "attackPulse": 0.21000000000000002,
+      "kills": 0,
+      "enemies": 0,
+      "shots": 0,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 1,
+      "stick": null,
+      "touchActive": false,
+      "terrain": "Floresta da Aurora",
+      "illustrated": {
+        "loaded": {
+          "hero": true,
+          "wraith": true,
+          "beast": true
+        },
+        "failed": {
+          "hero": false,
+          "wraith": false,
+          "beast": false
+        },
+        "framesDrawn": {
+          "hero": 14,
+          "wraith": 0,
+          "beast": 0,
+          "fallback": 0
+        },
+        "normalized": true,
+        "lockedWraithLantern": true,
+        "frameHeights": {
+          "hero": [
+            88,
+            78,
+            64,
+            75,
+            72
+          ],
+          "wraith": [
+            81,
+            75,
+            74,
+            70
+          ],
+          "beast": [
+            70,
+            61,
+            65,
+            61
+          ]
+        }
+      },
+      "wind": {
+        "paints": 28,
+        "cachedSprites": true,
+        "worldSpaceLeaves": true,
+        "leafDraws": 574
+      },
+      "tree": {
+        "spriteReady": true,
+        "failed": false,
+        "trees": 334,
+        "collisions": 1,
+        "footsteps": 0,
+        "draws": 64,
+        "worldCanvas": true
+      },
+      "terrainDetails": {
+        "loaded": true,
+        "failed": false,
+        "preparations": 1,
+        "sharpened": true,
+        "gradient": 20,
+        "tileSize": 640
+      },
+      "shakeEvents": 0,
+      "shakeLevel": 0,
+      "version": "0.8.0"
+    },
+    "pointerTrace": [
+      {
+        "event": "touchstart",
+        "identifier": 7,
+        "x": 120.9,
+        "y": 498
+      },
+      {
+        "event": "touchmove",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      },
+      {
+        "event": "touchend",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      }
+    ]
   },
   "errors": [],
   "failedResources": []
