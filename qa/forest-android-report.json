@@ -1,0 +1,132 @@
+{
+  "browser": "chromium-mobile",
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: personagem precisa voltar à pose parada",
+  "captured": {
+    "lastError": {
+      "where": "renderização",
+      "message": "Cannot read properties of undefined (reading 'wraith')",
+      "stack": "TypeError: Cannot read properties of undefined (reading 'wraith')\n    at drawEnemy (http://127.0.0.1:8765/motion-v06.js?v=6.2.0:180:77)\n    at http://127.0.0.1:8765/cache-v06.js?v=6.2.0:39:3\n    at mkCanvas (http://127.0.0.1:8765/cache-v06.js?v=6.2.0:8:177)\n    at getChar (http://127.0.0.1:8765/cache-v06.js?v=6.2.0:10:90)\n    at Object.paintEnemy [as drawEnemy] (http://127.0.0.1:8765/cache-v06.js?v=6.2.0:36:14)\n    at enemySprite (http://127.0.0.1:8765/game-v06.js?v=6.2.0:119:41)\n    at render (http://127.0.0.1:8765/game-v06.js?v=6.2.0:123:123)\n    at frame (http://127.0.0.1:8765/game-v06.js?v=6.2.0:133:314)"
+    },
+    "debug": {
+      "mode": "error",
+      "seconds": 2.219899999999999,
+      "x": 356.6212604410268,
+      "y": -204.5327814630159,
+      "motion": 0.9999999999999578,
+      "attackPulse": 0,
+      "kills": 0,
+      "enemies": 2,
+      "shots": 1,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 59,
+      "stick": null,
+      "touchActive": false,
+      "terrain": "Floresta da Aurora",
+      "version": "0.6.2"
+    },
+    "pointerTrace": [
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 127.72000122070312,
+        "y": 629.25
+      },
+      {
+        "event": "pointerdown",
+        "identifier": 1,
+        "x": 127.72000122070312,
+        "y": 629.25
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 133.3866729736328,
+        "y": 626
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 139.05332946777344,
+        "y": 622.75
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 144.72000122070312,
+        "y": 619.5
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 150.3866729736328,
+        "y": 616.25
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 156.05332946777344,
+        "y": 613
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 161.72000122070312,
+        "y": 609.75
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 167.3866729736328,
+        "y": 606.5
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 173.05332946777344,
+        "y": 603.25
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 178.72000122070312,
+        "y": 600
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 184.3866729736328,
+        "y": 596.75
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 190.05332946777344,
+        "y": 593.5
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 195.72000122070312,
+        "y": 590.25
+      },
+      {
+        "event": "pointerup",
+        "identifier": 1,
+        "x": 195.72000122070312,
+        "y": 590.25
+      },
+      {
+        "event": "lostpointercapture",
+        "identifier": 1,
+        "x": 195.72000122070312,
+        "y": 590.25
+      }
+    ]
+  },
+  "errors": [
+    "[Ascensao] renderização TypeError: Cannot read properties of undefined (reading 'wraith')\n    at drawEnemy (http://127.0.0.1:8765/motion-v06.js?v=6.2.0:180:77)\n    at http://127.0.0.1:8765/cache-v06.js?v=6.2.0:39:3\n    at mkCanvas (http://127.0.0.1:8765/cache-v06.js?v=6.2.0:8:177)\n    at getChar (http://127.0.0.1:8765/cache-v06.js?v=6.2.0:10:90)\n    at Object.paintEnemy [as drawEnemy] (http://127.0.0.1:8765/cache-v06.js?v=6.2.0:36:14)\n    at enemySprite (http://127.0.0.1:8765/game-v06.js?v=6.2.0:119:41)\n    at render (http://127.0.0.1:8765/game-v06.js?v=6.2.0:123:123)\n    at frame (http://127.0.0.1:8765/game-v06.js?v=6.2.0:133:314)"
+  ],
+  "failedResources": []
+}
