@@ -1,0 +1,30 @@
+{
+  "status": "CAPTURED_REVIEW_REQUIRED",
+  "count": 12,
+  "version": "phaser-0.1",
+  "sizes": [
+    [
+      106,
+      97
+    ]
+  ],
+  "rotations": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "framesUsed": [
+    0
+  ],
+  "movementDistance": 378,
+  "warning": "A animação original ainda não está pronta. Capturas e testes de escala não certificam qualidade visual."
+}
