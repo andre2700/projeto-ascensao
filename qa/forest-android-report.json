@@ -69,12 +69,12 @@
     "spriteReady": true,
     "failed": false,
     "trees": 334,
-    "collisions": 1,
-    "footsteps": 2,
-    "draws": 1325,
+    "collisions": 2,
+    "footsteps": 6,
+    "draws": 1320,
     "worldCanvas": true
   },
-  "shakeEvents": 0,
+  "shakeEvents": 1,
   "collision": {
     "radius": 34.80777588337662,
     "required": 34.757775883376596,
@@ -85,12 +85,12 @@
   "time": "4.0",
   "enemies": 3,
   "kills": 1,
-  "playerMovePx": 41,
-  "motionDuringMove": 0.957736913730545,
-  "motionIdle": 0.014262405125017858,
+  "playerMovePx": 45,
+  "motionDuringMove": 0.9683238168410434,
+  "motionIdle": 0.0020737327712282653,
   "color": {
     "meanBrightness": 99,
-    "greenMinusRed": 21
+    "greenMinusRed": 23
   },
   "errors": [],
   "failedResources": []

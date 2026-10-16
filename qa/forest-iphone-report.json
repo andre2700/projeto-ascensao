@@ -12,10 +12,10 @@
         "beast": false
       },
       "framesDrawn": {
-        "hero": 0,
+        "hero": 1,
         "wraith": 0,
         "beast": 0,
-        "fallback": 1
+        "fallback": 0
       },
       "normalized": true,
       "lockedWraithLantern": true,
@@ -69,9 +69,9 @@
     "spriteReady": true,
     "failed": false,
     "trees": 334,
-    "collisions": 1,
+    "collisions": 11,
     "footsteps": 1,
-    "draws": 159,
+    "draws": 192,
     "worldCanvas": true
   },
   "shakeEvents": 1,
@@ -82,15 +82,15 @@
   },
   "browser": "webkit-iphone",
   "status": "PASS",
-  "time": "3.3",
+  "time": "3.2",
   "enemies": 2,
   "kills": 1,
   "playerMovePx": 27,
   "motionDuringMove": 0.91001088,
-  "motionIdle": 0.016806521327882202,
+  "motionIdle": 0.02194045210145617,
   "color": {
     "meanBrightness": 98,
-    "greenMinusRed": 28
+    "greenMinusRed": 27
   },
   "errors": [],
   "failedResources": []
