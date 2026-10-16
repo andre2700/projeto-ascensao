@@ -1,0 +1,38 @@
+name: Mobile visual smoke test
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'game-v06.js'
+      - 'forest-v06.js'
+      - 'motion-v06.js'
+      - 'preview-v06.html'
+      - 'index.html'
+      - 'tests/**'
+      - '.github/workflows/mobile-visual-test.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile-browsers:
+    name: iPhone WebKit + Android Chromium
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar navegadores reais e dependencias
+        run: |
+          npm install --no-save playwright@1.56.1 pngjs@7.0.0
+          npx playwright install --with-deps webkit chromium
+      - name: Testar inicio, controle, animacoes e floresta
+        run: node tests/mobile-smoke.cjs
+      - name: Guardar capturas e relatorios para revisao visual
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-visual-smoke
+          path: test-output/
+          retention-days: 7
