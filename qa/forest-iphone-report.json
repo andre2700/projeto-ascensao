@@ -141,11 +141,11 @@
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
-    "footsteps": 5,
-    "draws": 118,
+    "footsteps": 7,
+    "draws": 123,
     "worldCanvas": true
   },
-  "shakeEvents": 1,
+  "shakeEvents": 0,
   "collision": {
     "hit": true,
     "radiusX": 38.57060270234942,
@@ -160,15 +160,15 @@
   },
   "browser": "webkit-iphone",
   "status": "PASS",
-  "time": "2.1",
+  "time": "2.0",
   "enemies": 3,
   "kills": 0,
-  "playerMovePx": 41,
-  "motionDuringMove": 0.8053758024579362,
-  "motionIdle": 0.007936555815185127,
+  "playerMovePx": 71,
+  "motionDuringMove": 0.9462290878779118,
+  "motionIdle": 0.10283486381597909,
   "color": {
     "meanBrightness": 98,
-    "greenMinusRed": 24
+    "greenMinusRed": 22
   },
   "errors": [],
   "failedResources": []
