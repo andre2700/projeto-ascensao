@@ -21,9 +21,9 @@ function air(c,cam,W,H,t){
  const y1=Math.floor((cam.y-H*.5-100)/unit),y2=Math.ceil((cam.y+H*.5+100)/unit);
  c.save();
  for(let i=x1;i<=x2;i++)for(let j=y1;j<=y2;j++){
-  for(let k=0;k<2;k++){
+  for(let k=0;k<1;k++){
    const h=hash(i*3+k,j*7+k*13),v=hash(i*17+k,j*19);
-   if(h<.24)continue;
+   if(h<.22)continue;
    // Posições em coordenadas ABSOLUTAS do mapa, e não relativas à câmera.
    const vx=(8+v*16)*w.strength;
    const x=(i+fract(h+t*vx/unit))*unit;
