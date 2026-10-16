@@ -1,12 +1,12 @@
 {
   "browser": "chromium-mobile",
   "status": "PASS",
-  "time": "6.4",
-  "enemies": 5,
+  "time": "6.0",
+  "enemies": 4,
   "kills": 2,
-  "playerMovePx": 285,
-  "motionDuringMove": 0.9999999999669666,
-  "motionIdle": 4.355077086459774e-9,
+  "playerMovePx": 281,
+  "motionDuringMove": 0.9999999995738394,
+  "motionIdle": 1.8584773218491773e-8,
   "visualSprites": {
     "loaded": {
       "hero": true,
@@ -19,20 +19,20 @@
       "beast": false
     },
     "framesDrawn": {
-      "hero": 325,
-      "wraith": 45,
-      "beast": 31,
+      "hero": 408,
+      "wraith": 48,
+      "beast": 0,
       "fallback": 0
     }
   },
   "wind": {
-    "paints": 978,
+    "paints": 1227,
     "cachedSprites": true
   },
-  "framesPerSecond": 43,
+  "framesPerSecond": 60,
   "color": {
     "meanBrightness": 120,
-    "greenMinusRed": 33
+    "greenMinusRed": 32
   },
   "errors": [],
   "failedResources": []
