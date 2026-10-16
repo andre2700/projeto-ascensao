@@ -244,13 +244,13 @@ function drawHeroLive(c,p,t,game){
  if(game&&p.attackPulse>0){let power=p.attackPulse,al=Math.min(1,power/.25);c.save();c.globalAlpha=al;c.rotate(-.3+(.25-power)*4);c.strokeStyle=game.fire>0?'#ffc37a':game.ice>0?'#a5eeff':'#fff4b4';c.lineWidth=2+game.blade*.25;c.shadowColor=c.strokeStyle;c.shadowBlur=14;c.beginPath();c.arc(0,-6,38,-1.38,-.17);c.stroke();c.globalAlpha*=.4;c.beginPath();c.arc(0,-6,43,-1.52,-.12);c.stroke();c.restore()}
  c.restore();
 }
-function drawEnemyLive(c,e,t){
+function drawEnemyLive(c,e,t,crowd=0){
  c.save();c.translate(e.x,e.y);c.fillStyle='#060c17ba';c.beginPath();c.ellipse(0,e.r*.88,e.r*1.25,e.r*.38,0,0,TAU);c.fill();
  let bob=Math.sin(e.phase)*(e.kind==='wraith'?5:e.kind==='boss'?2.8:1.2);
- if(e.kind==='wraith')softAura(c,0,-8,41,'#6e99df20');
+ if(e.kind==='wraith'&&crowd<45)softAura(c,0,-8,41,'#6e99df20');
  if(e.kind==='boss')softAura(c,0,-30,95,'#b55de83d');
- if(e.kind==='hound')softAura(c,0,0,48,'#d6783c12');
- if(e.kind==='sentinel')softAura(c,0,0,43,'#77e4b019');
+ if(e.kind==='hound'&&crowd<28)softAura(c,0,0,48,'#d6783c12');
+ if(e.kind==='sentinel'&&crowd<45)softAura(c,0,0,43,'#77e4b019');
  c.scale(e.face||1,1);
  const name=e.kind in DRAW?e.kind:'wraith',size=name==='boss'?240:160,scale=SCALE[name],pulse=e.flash>0?1.045:1;
  c.scale(scale*pulse,scale*pulse);c.translate(0,bob);
