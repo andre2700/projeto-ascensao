@@ -1,15 +1,48 @@
 {
+  "art": {
+    "illustrated": {
+      "loaded": {
+        "hero": true,
+        "wraith": true,
+        "beast": true
+      },
+      "failed": {
+        "hero": false,
+        "wraith": false,
+        "beast": false
+      },
+      "framesDrawn": {
+        "hero": 1,
+        "wraith": 0,
+        "beast": 0,
+        "fallback": 0
+      }
+    },
+    "terrain": {
+      "loaded": true,
+      "failed": false,
+      "preparations": 1
+    },
+    "tree": {
+      "loaded": true,
+      "failed": false,
+      "drawn": 4,
+      "visible": 4,
+      "total": 340,
+      "dom": true
+    }
+  },
   "browser": "webkit-iphone",
   "status": "PASS",
-  "time": "4.5",
+  "time": "5.2",
   "enemies": 3,
   "kills": 2,
-  "playerMovePx": 81,
-  "motionDuringMove": 0.9992371048685421,
-  "motionIdle": 2.2402064185149324e-8,
+  "playerMovePx": 164,
+  "motionDuringMove": 0.9999994519079164,
+  "motionIdle": 1.2063008710031463e-9,
   "color": {
-    "meanBrightness": 130,
-    "greenMinusRed": 29
+    "meanBrightness": 103,
+    "greenMinusRed": 19
   },
   "errors": [],
   "failedResources": []
