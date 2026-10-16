@@ -11,7 +11,7 @@ fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.json':'application/json'};
 const server=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://localhost');
- let requestPath=decodeURIComponent(u.pathname);if(requestPath==='/')requestPath='/preview-v06.html';
+ let requestPath=decodeURIComponent(u.pathname);if(requestPath==='/')requestPath='/preview-v07.html';
  const file=path.resolve(root,'.'+requestPath);
  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end('Not found: '+requestPath)}
  res.writeHead(200,{'content-type':mime[path.extname(file)]||'application/octet-stream','cache-control':'no-store'});
@@ -36,8 +36,13 @@ async function testEngine(kind,device){
  page.on('response',r=>{if(r.status()>=400&&new URL(r.url()).origin==='http://127.0.0.1:8765')failedResources.push(r.url()+' '+r.status())});
  let label=kind===webkit?'webkit-iphone':'chromium-mobile';
  try{
-  await page.goto('http://127.0.0.1:8765/preview-v06.html?test='+label,{waitUntil:'load',timeout:45000});
+  await page.goto('http://127.0.0.1:8765/preview-v07.html?test='+label,{waitUntil:'load',timeout:45000});
   await page.waitForFunction(()=>!!window.AscensionGame,{timeout:45000});
+  await page.waitForFunction(()=>window.AscensionIllustrated?.ready?.()&&window.AscensionTerrain?.ready?.()&&window.AscensionTree?.ready?.(),{timeout:25000});
+  const art=await page.evaluate(()=>({illustrated:window.AscensionIllustrated.stats(),terrain:window.AscensionTerrain.stats(),tree:window.AscensionTree.stats()}));
+  assert.equal(art.illustrated.loaded.hero,true,'sprite do heroi ilustrado carregado');
+  assert.equal(art.illustrated.loaded.wraith,true,'espectro ilustrado carregado');
+  assert.equal(art.illustrated.loaded.beast,true,'fera ilustrada carregada');
   let init=await page.evaluate(()=>window.AscensionGame.debug());
   assert.equal(init.mode,'menu','deve abrir no menu');
   assert.equal(init.tiles,4,'precisa gerar quatro texturas de floresta antes de jogar');
@@ -94,7 +99,7 @@ async function testEngine(kind,device){
   const image=fs.readFileSync(path.join(out,label+'-game.png')),pixels=brightness(image);
   assert(pixels.meanBrightness>65,'floresta deve ser CLARA; brilho='+pixels.meanBrightness);
   assert(pixels.greenMinusRed>=-10,'floresta deve ter predominância verde; diferença='+pixels.greenMinusRed);
-  const report={browser:label,status:'PASS',time:state.seconds.toFixed(1),enemies:state.enemies,kills:state.kills,playerMovePx:Math.round(dis),motionDuringMove:moving.motion,motionIdle:still.motion,color:pixels,errors,failedResources};
+  const report={art,browser:label,status:'PASS',time:state.seconds.toFixed(1),enemies:state.enemies,kills:state.kills,playerMovePx:Math.round(dis),motionDuringMove:moving.motion,motionIdle:still.motion,color:pixels,errors,failedResources};
   fs.writeFileSync(path.join(out,label+'-report.json'),JSON.stringify(report,null,2));
   console.log(JSON.stringify(report));
   return report;
