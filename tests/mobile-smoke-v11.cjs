@@ -115,6 +115,18 @@ async function testEngine(kind,device){
   await page.waitForFunction(()=>window.AscensionGame?.debug?.().motion <.11,null,{timeout:60000,polling:250});
   const still=await page.evaluate(()=>window.AscensionGame.debug());
   assert(still.motion<moving.motion,'personagem precisa voltar à pose parada');
+  // Partida real com katana evoluída: duas feras, uma delas fora do alcance corpo a corpo.
+  await page.evaluate(()=>{
+    window.AscensionQATools.clear();window.AscensionQATools.setBuild(6,4);
+    window.AscensionQATools.spawn('hound',58,0,2000);
+    window.AscensionQATools.spawn('hound',185,0,600);
+  });
+  await page.waitForFunction(()=>{const v=window.AscensionGame.debug();return v.totalWaves>0&&v.waveHits>=2},{},{timeout:60000,polling:200});
+  const evolved=await page.evaluate(()=>window.AscensionGame.debug());
+  assert.equal(evolved.katanaStage,2,'katana avançada deve mudar de estágio visual');
+  assert(evolved.cameraZoom<=initialZoom+.005,'câmera deve recuar com aumento de poder');
+  await page.screenshot({path:path.join(out,label+'-katana-evolved.jpg'),type:'jpeg',quality:84});
+  await page.evaluate(()=>{window.AscensionQATools.clear();window.AscensionQATools.setBuild(0,0)});
   // QA determinístico: inimigo real ao alcance da espada, sem projéteis.
   assert.equal(await page.evaluate(()=>!!window.AscensionQATools),true,'ganchos de QA devem existir apenas com ?qa=1');
   await page.evaluate(()=>{window.AscensionQATools.clear();window.AscensionQATools.spawn('hound',33,0,320)});
@@ -146,7 +158,7 @@ async function testEngine(kind,device){
   const image=fs.readFileSync(path.join(out,label+'-game.png')),pixels=brightness(image);
   assert(pixels.meanBrightness>65,'floresta deve ser CLARA; brilho='+pixels.meanBrightness);
   assert(pixels.greenMinusRed>=-10,'floresta deve ter predominância verde; diferença='+pixels.greenMinusRed);
-  const report={katana,contact,initialZoom,cameraZoom:state.cameraZoom,directionTest,upgrades,art,world:state.tree,shakeEvents:state.shakeEvents,collision,combat:{meleeHits:action.meleeHits,enemyStrikes:action.enemyStrikes,projectiles:action.projectiles,swordSwings:action.swordSwings},browser:label,status:'PASS',time:state.seconds.toFixed(1),enemies:state.enemies,kills:state.kills,playerMovePx:Math.round(dis),motionDuringMove:moving.motion,motionIdle:still.motion,color:pixels,errors,failedResources};
+  const report={katana,contact,initialZoom,cameraZoom:state.cameraZoom,evolved:{stage:evolved.katanaStage,waveHits:evolved.waveHits,totalWaves:evolved.totalWaves,cameraZoom:evolved.cameraZoom},directionTest,upgrades,art,world:state.tree,shakeEvents:state.shakeEvents,collision,combat:{meleeHits:action.meleeHits,enemyStrikes:action.enemyStrikes,projectiles:action.projectiles,swordSwings:action.swordSwings},browser:label,status:'PASS',time:state.seconds.toFixed(1),enemies:state.enemies,kills:state.kills,playerMovePx:Math.round(dis),motionDuringMove:moving.motion,motionIdle:still.motion,color:pixels,errors,failedResources};
   fs.writeFileSync(path.join(out,label+'-report.json'),JSON.stringify(report,null,2));
   console.log(JSON.stringify(report));
   return report;
