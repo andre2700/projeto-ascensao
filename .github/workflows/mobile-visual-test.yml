@@ -76,7 +76,10 @@ jobs:
           npm install --no-save playwright@1.56.1 pngjs@7.0.0
           npx playwright install --with-deps webkit chromium
       - name: Testar inicio, controle, animacoes e floresta
-        run: node tests/mobile-smoke-v12.cjs
+        run: node tests/mobile-smoke-v11.cjs
+      - name: Capturar sequencia de quadros para revisao artistica
+        if: always()
+        run: node tests/motion-review.cjs
       - name: Guardar capturas e relatorios para revisao visual
         if: always()
         uses: actions/upload-artifact@v4
@@ -89,6 +92,8 @@ jobs:
         run: |
           mkdir -p qa
           cp test-output/webkit-iphone-game.jpg qa/forest-iphone.jpg 2>/dev/null || true
+          cp test-output/motion-review.png qa/motion-review.png 2>/dev/null || true
+          cp test-output/motion-review.json qa/motion-review.json 2>/dev/null || true
           cp test-output/webkit-iphone-katana-evolved.jpg qa/katana-iphone.jpg 2>/dev/null || true
           cp test-output/chromium-mobile-katana-evolved.jpg qa/katana-android.jpg 2>/dev/null || true
           rm -f qa/forest-iphone-FAILED.jpg qa/forest-android-FAILED.jpg
