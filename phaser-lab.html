@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#12251f">
+<title>Projeto Ascensão — laboratório Phaser</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html,body{height:100%;width:100%;margin:0;overflow:hidden;background:#0b1a17;color:#faefda;touch-action:none}
+#stage{position:fixed;inset:0;width:100%;height:100%;z-index:1}
+canvas{display:block;touch-action:none}
+#head{position:fixed;z-index:5;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 10px) 15px 11px;background:linear-gradient(#0c1828f3,#0c1828a0 73%,#0c182800);pointer-events:none}
+.brand{font-size:12px;font-weight:750;letter-spacing:2px;color:#f1d396;text-transform:uppercase}
+.sub{font-size:10px;color:#d7e0d8;letter-spacing:.8px;margin-top:4px}
+.stats{display:flex;gap:10px;align-items:center;font-weight:700;font-size:14px}
+.stat{background:#172a30bb;border:1px solid #dbc08e6e;border-radius:9px;padding:7px 10px;text-align:center}
+.stat small{display:block;font-size:8px;font-weight:500;letter-spacing:1.3px;color:#e0e7df;margin-top:2px}
+#tools{position:fixed;z-index:5;top:calc(env(safe-area-inset-top,0px) + 78px);right:14px;display:flex;gap:6px}
+#tools button{color:#f4ddaa;border:1px solid #ecd6ac75;background:#15252cce;font-size:20px;font-weight:bold;width:39px;height:39px;border-radius:11px;touch-action:manipulation}
+#menu{position:fixed;z-index:10;inset:0;background:linear-gradient(#102328ad,#08171ce9);display:grid;place-items:center;padding:23px;text-align:center}
+#menu[hidden],#hud[hidden]{display:none!important}
+.panel{max-width:480px;width:100%;border:1px solid #d3bb85a3;background:#142431eb;border-radius:22px;padding:31px 22px;box-shadow:0 30px 80px #07110da0}
+.kicker{font-size:10px;letter-spacing:4px;color:#e6d199;text-transform:uppercase}
+h1{font:700 clamp(27px,7vw,38px)/1.19 Georgia,serif;color:#f1d19a;margin:14px 0}
+p{line-height:1.6;color:#d3deda;font-size:14px}
+#start{display:block;width:100%;border-radius:12px;padding:17px 10px;border:1px solid #ffe8af;background:linear-gradient(#f5dd91,#cda55a);font-size:16px;font-weight:800;color:#1e2423;margin-top:25px;touch-action:manipulation}
+#start:disabled{opacity:.55}
+#status{color:#dbcdab;margin-top:15px;font-size:11px}
+#stick{display:none;position:fixed;z-index:4;width:112px;height:112px;left:0;top:0;border:1px solid #fff9dd7c;background:#ffffff18;border-radius:50%;pointer-events:none;box-shadow:0 0 12px #09160d6b}
+#knob{position:absolute;width:55px;height:55px;top:27px;left:27px;border-radius:50%;background:#dfefdfa8;border:2px solid #fff8de}
+#foot{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);left:0;right:0;z-index:3;text-align:center;font-size:10px;color:#e5ead5bb;text-shadow:0 1px 5px #17291e;letter-spacing:.8px;pointer-events:none}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<header id="head">
+  <div><div class="brand">Projeto Ascensão</div><div class="sub">Experimento de motor · <span id="engine">Phaser carregando…</span></div></div>
+  <div id="hud" hidden class="stats"><div class="stat"><span id="time">0s</span><small>TEMPO</small></div><div class="stat"><span id="kills">0</span><small>ABATES</small></div></div>
+</header>
+<div id="tools"><button id="zoom-out" aria-label="Afastar câmera">−</button><button id="zoom-in" aria-label="Aproximar câmera">+</button></div>
+<div id="stick"><div id="knob"></div></div>
+<div id="foot">ARRASTE O DEDO PARA MOVER • CÂMERA ±</div>
+<section id="menu">
+  <div class="panel">
+    <div class="kicker">Laboratório de tecnologia</div>
+    <h1>Floresta da Aurora</h1>
+    <p>Uma cena construída usando o motor <strong>Phaser 3</strong>, com nossa arte atual, câmera, controle por toque, camadas de profundidade e colisão dos troncos.</p>
+    <p>É um <strong>teste de tecnologia</strong>, não uma animação artística final. O jogo principal não foi alterado.</p>
+    <button id="start" disabled>INICIAR TESTE</button>
+    <div id="status">Carregando motor e ilustrações…</div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.90.0/phaser.min.js"></script>
+<script src="./assets-data-v07.js"></script>
+<script src="./tree-data-v07.js"></script>
+<script src="./terrain-data-v07.js"></script>
+<script src="./phaser-lab.js?v=1"></script>
+</body>
+</html>
