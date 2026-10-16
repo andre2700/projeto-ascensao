@@ -1,8 +1,131 @@
 {
   "browser": "webkit-iphone",
   "status": "FAIL",
-  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=0",
-  "captured": null,
-  "errors": [],
+  "error": "AssertionError [ERR_ASSERTION]: o motor gráfico não pode mostrar erro de recuperação",
+  "captured": {
+    "lastError": {
+      "where": "renderização",
+      "message": "undefined is not an object (evaluating 'this[e.kind]')",
+      "stack": "drawEnemy@http://127.0.0.1:8765/motion-v06.js:180:77\n@http://127.0.0.1:8765/cache-v06.js:39:12\nmkCanvas@http://127.0.0.1:8765/cache-v06.js:8:183\ngetChar@http://127.0.0.1:8765/cache-v06.js:10:98\npaintEnemy@http://127.0.0.1:8765/cache-v06.js:36:21\nenemySprite@http://127.0.0.1:8765/game-v06.js:119:50\nrender@http://127.0.0.1:8765/game-v06.js:123:134\nframe@http://127.0.0.1:8765/game-v06.js:133:320"
+    },
+    "debug": {
+      "mode": "error",
+      "seconds": 2.1280000000000006,
+      "x": 46.84267941881907,
+      "y": -26.865654372557987,
+      "motion": 4.1806318221220184e-15,
+      "attackPulse": 0,
+      "kills": 0,
+      "enemies": 2,
+      "shots": 1,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 19,
+      "stick": null,
+      "terrain": "Floresta da Aurora",
+      "version": "0.6.2"
+    },
+    "pointerTrace": [
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 120,
+        "y": 498
+      },
+      {
+        "event": "pointerdown",
+        "identifier": 1,
+        "x": 120,
+        "y": 498
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 126,
+        "y": 494
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 132,
+        "y": 491
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 137,
+        "y": 488
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 143,
+        "y": 485
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 149,
+        "y": 481
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 154,
+        "y": 478
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 160,
+        "y": 475
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 166,
+        "y": 472
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 171,
+        "y": 468
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 177,
+        "y": 465
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 183,
+        "y": 462
+      },
+      {
+        "event": "pointermove",
+        "identifier": 1,
+        "x": 188,
+        "y": 459
+      },
+      {
+        "event": "pointerup",
+        "identifier": 1,
+        "x": 188,
+        "y": 459
+      },
+      {
+        "event": "lostpointercapture",
+        "identifier": 1,
+        "x": 0,
+        "y": 0
+      }
+    ]
+  },
+  "errors": [
+    "[Ascensao] renderização drawEnemy@http://127.0.0.1:8765/motion-v06.js:180:77\n@http://127.0.0.1:8765/cache-v06.js:39:12\nmkCanvas@http://127.0.0.1:8765/cache-v06.js:8:183\ngetChar@http://127.0.0.1:8765/cache-v06.js:10:98\npaintEnemy@http://127.0.0.1:8765/cache-v06.js:36:21\nenemySprite@http://127.0.0.1:8765/game-v06.js:119:50\nrender@http://127.0.0.1:8765/game-v06.js:123:134\nframe@http://127.0.0.1:8765/game-v06.js:133:320"
+  ],
   "failedResources": []
 }
