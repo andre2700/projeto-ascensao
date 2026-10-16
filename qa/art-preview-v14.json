@@ -1,0 +1,159 @@
+{
+  "version": "0.11.0",
+  "sampledFrames": 12,
+  "method": "12 gameplay screenshots: 6 run poses without enemies and 6 action frames with combat. Preview art only.",
+  "artStats": {
+    "loaded": {
+      "hero": true,
+      "wraith": true,
+      "beast": true
+    },
+    "failed": {
+      "hero": false,
+      "wraith": false,
+      "beast": false
+    },
+    "framesDrawn": {
+      "hero": 431,
+      "wraith": 1392,
+      "beast": 593,
+      "fallback": 0
+    },
+    "runReady": true,
+    "runFailed": false,
+    "runDraws": 164,
+    "attackDraws": 93,
+    "distinctRunFrames": 5,
+    "paintedRunFrames": 7,
+    "heroPivotLocked": true,
+    "proceduralWarp": false,
+    "normalized": true,
+    "lockedWraithLantern": true,
+    "outlined": true,
+    "sharpened": true,
+    "interpolatedMotion": true,
+    "directionalSecondaryMotion": true,
+    "footfallRhythm": true,
+    "frameHeights": {
+      "hero": [
+        88,
+        78,
+        64,
+        75,
+        72
+      ],
+      "wraith": [
+        81,
+        75,
+        74,
+        70
+      ],
+      "beast": [
+        70,
+        61,
+        65,
+        61
+      ]
+    }
+  },
+  "frameSequence": [
+    {
+      "seconds": 0.48339999999999994,
+      "x": 80.7254767932037,
+      "y": -29.150866619768003,
+      "motion": 0.9722760223884165,
+      "fps": 0,
+      "heroDraws": 35
+    },
+    {
+      "seconds": 1.1567000000000003,
+      "x": 223.17354994496512,
+      "y": -80.59044859123742,
+      "motion": 0.9999769759718554,
+      "fps": 22,
+      "heroDraws": 63
+    },
+    {
+      "seconds": 1.6767000000000003,
+      "x": 333.21834959409165,
+      "y": -120.32884846453314,
+      "motion": 0.9999999197843048,
+      "fps": 21,
+      "heroDraws": 88
+    },
+    {
+      "seconds": 2.1433,
+      "x": 431.9624007455615,
+      "y": -155.9864224914528,
+      "motion": 0.9999999995173082,
+      "fps": 21,
+      "heroDraws": 116
+    },
+    {
+      "seconds": 2.8331,
+      "x": 577.941068747195,
+      "y": -208.70094149204263,
+      "motion": 0.9999999999997523,
+      "fps": 22,
+      "heroDraws": 145
+    },
+    {
+      "seconds": 3.353099999999999,
+      "x": 687.985875011124,
+      "y": -248.43934375401685,
+      "motion": 0.9999999999999974,
+      "fps": 21,
+      "heroDraws": 170
+    },
+    {
+      "seconds": 3.819699999999998,
+      "x": 696.9014888544593,
+      "y": -251.6588709752213,
+      "motion": 0.011917949525761837,
+      "fps": 21,
+      "heroDraws": 198
+    },
+    {
+      "seconds": 4.3397000000000014,
+      "x": 696.902172053985,
+      "y": -251.6591176861612,
+      "motion": 0.000039358963438937555,
+      "fps": 23,
+      "heroDraws": 223
+    },
+    {
+      "seconds": 4.859700000000004,
+      "x": 696.9021720747764,
+      "y": -251.65911769366917,
+      "motion": 1.2909428915221091e-7,
+      "fps": 21,
+      "heroDraws": 248
+    },
+    {
+      "seconds": 5.499700000000008,
+      "x": 696.902172074777,
+      "y": -251.65911769366937,
+      "motion": 1.131029756617597e-10,
+      "fps": 21,
+      "heroDraws": 274
+    },
+    {
+      "seconds": 6.069700000000013,
+      "x": 696.902172074777,
+      "y": -251.65911769366937,
+      "motion": 2.1401668339327965e-13,
+      "fps": 23,
+      "heroDraws": 302
+    },
+    {
+      "seconds": 6.486300000000019,
+      "x": 696.902172074777,
+      "y": -251.65911769366937,
+      "motion": 2.1890200364992457e-15,
+      "fps": 23,
+      "heroDraws": 327
+    }
+  ],
+  "exceptions": [],
+  "artisticStatus": "REQUIRES HUMAN VISUAL REVIEW: never infer visual quality from green browser tests"
+}
