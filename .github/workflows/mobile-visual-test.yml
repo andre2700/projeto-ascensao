@@ -6,6 +6,7 @@ on:
       - 'game-v06.js'
       - 'forest-v06.js'
       - 'motion-v06.js'
+      - 'cache-v06.js'
       - 'preview-v06.html'
       - 'index.html'
       - 'tests/**'
