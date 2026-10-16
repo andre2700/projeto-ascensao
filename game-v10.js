@@ -269,7 +269,35 @@ if(new URLSearchParams(location.search).get('qa')==='1'){
     speed:kind==='wraith'?0:0,damage:6,burn:0,slow:0,flash:0,phase:0,face:-1,attackT:0,
     attackWindup:0,attackCooldown:.04,motion:0};enemies.push(e);return true
   },
-  heroStats:()=>({hp:game?.p.hp||0,x:game?.p.x||0,y:game?.p.y||0})
+  heroStats:()=>({hp:game?.p.hp||0,x:game?.p.x||0,y:game?.p.y||0}),
+  setBuild:(area=0,multi=0)=>{game.area=area;game.multi=multi},
+  verifyDirections:()=>{
+   if(!game||mode!=='play')return [];
+   const p=game.p,saveEnemies=enemies,saveSwings=swings,saveCombo={left:p.comboLeft,aim:p.comboAim,variant:p.comboVariant},reports=[];
+   try{
+    for(let n=0;n<8;n++){
+     const a=n*OCT;
+     enemies=[{x:p.x+Math.cos(a)*52,y:p.y+Math.sin(a)*52,kind:'hound',
+       hp:240,maxHp:240,r:16,speed:0,damage:0,phase:0,flash:0,burn:0,slow:0,face:1}];
+     swings=[];const prev=meleeHits;
+     p.comboLeft=0;
+     const selected=attack();
+     if(selected){createSwordCut(p);p.comboLeft=0;const sw=swings.pop();resolveSword(sw)}
+     reports.push({expected:n,actual:p.direction,hit:meleeHits>prev,started:selected});
+    }
+   }finally{enemies=saveEnemies;swings=saveSwings;p.comboLeft=saveCombo.left;p.comboAim=saveCombo.aim;p.comboVariant=saveCombo.variant}
+   return reports
+  },
+  verifyUpgrades:()=>{
+   const p=game.p,oldArea=game.area,oldMulti=game.multi,saveSwings=swings;
+   try{
+    swings=[];
+    game.area=0;game.multi=0;createSwordCut(p);let basic=swings.pop();
+    game.area=5;game.multi=3;createSwordCut(p);let upgraded=swings.pop();
+    return{basic:{radius:basic.radius,spread:basic.spread,cuts:1+oldMulti},
+      upgraded:{radius:upgraded.radius,spread:upgraded.spread,cuts:1+game.multi}};
+   }finally{game.area=oldArea;game.multi=oldMulti;swings=saveSwings}
+  }
  };
 }
 makeWorld();menu();window.AscensionGame={start,mode:()=>mode,debug:()=>({mode,seconds:game?.elapsed||0,x:game?.p.x||0,y:game?.p.y||0,motion:game?.p.motion||0,attackPulse:game?.p.attackPulse||0,kills:game?.kills||0,enemies:enemies.length,shots:shots.length,projectiles:shots.length,meleeHits,swordSwings:totalSwings,enemyStrikes,coinsCollected,combatMode:'eight-way-sword',direction:game?.p.direction??null,heading:game?.p.heading??null,areaLevel:game?.area||0,multiLevel:game?.multi||0,comboLeft:game?.p.comboLeft||0,tiles:tiles.length,props:props.length,fps:currentFps,stick:stick?{dx:stick.dx,dy:stick.dy}:null,touchActive:touchId!==null,terrain:'Floresta da Aurora',illustrated:window.AscensionIllustrated?.stats()||null,wind:AscensionWind.stats(),tree:AscensionWorld.stats(),terrainDetails:window.AscensionTerrain?.stats()||null,shakeEvents,shakeLevel:shake,version:'0.10.0'})};document.addEventListener('pointerup',e=>{if(mode==='menu'&&e.target&&e.target.closest&&e.target.closest('#start'))start()},{capture:true});document.addEventListener('touchend',e=>{if(mode==='menu'&&e.target&&e.target.closest&&e.target.closest('#start')){e.preventDefault();start()}},{capture:true,passive:false});requestAnimationFrame(frame);
