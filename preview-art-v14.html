@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#090f1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Projeto Ascensão — uma jornada de fantasia elemental.">
+<title>Projeto Ascensão — Prévia artística — Animação sem chacoalhar</title>
+<link rel="stylesheet" href="./style-v11.css?v=6.2.0">
+</head>
+<body>
+<canvas id="game" aria-label="Arena de combate do Projeto Ascensão"></canvas>
+<div id="veil"></div>
+<div id="hud" class="hidden">
+  <div class="hudrow">
+    <div class="sigil"><span>✦</span></div>
+    <div class="hudleft">
+      <div class="hudtitle"><span id="level">NV. 1</span><em id="hpText">125 / 125</em></div>
+      <div class="meter hp"><div class="fill" id="hpFill"></div></div>
+      <div class="meter xp"><div class="fill" id="xpFill"></div></div>
+    </div>
+    <div class="hudright">
+      <div class="counter"><b id="clock">00:00</b><small>TEMPO</small></div>
+      <div class="counter"><b id="kills">0</b><small>ABATES</small></div>
+    </div>
+  </div>
+  <div class="hudbottom"><span class="progress-pill" id="objective">Sobreviva até o Guardião</span><strong class="hint" id="buffs">⚔ 1 🔥 0 ❄ 0 ⚡ 0</strong></div>
+</div>
+<button id="pause" class="pause hidden" aria-label="Pausar partida">Ⅱ</button>
+<div id="bossbar">GUARDIÃO DAS RUÍNAS<div class="meter"><div id="bossFill" class="fill" style="width:100%"></div></div></div>
+<div id="joystick"><div id="knob"></div></div>
+<div id="toast"></div>
+<div id="footer">✦ &nbsp; A FLORESTA DA AURORA &nbsp; ✦</div>
+<div id="overlay"><div id="panel" class="panel"></div></div>
+<script src="./forest-v06.js?v=11.1.0"></script>
+<script src="./motion-v06.js?v=11.1.0"></script>
+<script src="./cache-v06.js?v=11.1.0"></script>
+<script src="./wind-v07.js?v=11.1.0"></script>
+<script src="./wind-world-v08.js?v=11.1.0"></script>
+<script src="./assets-data-v07.js?v=11.1.0"></script>
+<script src="./tree-data-v07.js?v=11.1.0"></script>
+<script src="./clean-props-v07.js?v=11.1.0"></script>
+<script src="./run-art-v14.js?v=14.0.0"></script>
+<script src="./illustrated-v14.js?v=14.0.0"></script>
+<script src="./terrain-data-v07.js?v=11.1.0"></script>
+<script src="./terrain-v08.js?v=11.1.0"></script>
+<script src="./world-v09.js?v=11.1.0"></script>
+<script src="./combat-v10.js?v=11.1.0"></script>
+<script src="./katana-v11.js?v=11.1.0"></script>
+<script>
+(function(){
+  const stable=new URLSearchParams(location.search).get('engine')==='stable';
+  function recovery(message){
+    const ov=document.getElementById('overlay'),p=document.getElementById('panel');
+    if(!ov||!p||document.getElementById('emergencyStart'))return;
+    ov.classList.remove('hidden');
+    p.innerHTML='<div class="eyebrow">RECUPERAÇÃO DO JOGO</div><h1>VAMOS TENTAR OUTRA VEZ</h1><p class="lead">O navegador não conseguiu carregar o motor do jogo. Você pode abrir a versão estável sem perder o acesso ao Projeto Ascensão.</p><button class="button" id="emergencyStart">JOGAR VERSÃO ESTÁVEL</button><p class="fine" id="errorInfo"></p>';
+    document.getElementById('errorInfo').textContent=message||'Falha na inicialização';
+    document.getElementById('emergencyStart').onclick=function(){location.href='./?engine=stable&v=11.1.0'};
+  }
+  window.addEventListener('error',function(e){
+    if(e.target&&e.target.tagName==='SCRIPT'&&!stable)recovery('Não foi possível carregar um arquivo do jogo.');
+  },true);
+  var sc=document.createElement('script');
+  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v11.js?v=11.1.0';
+  sc.onerror=function(){recovery('Arquivo do motor indisponível.')};
+  sc.onload=function(){if(!stable&&!window.AscensionGame)recovery('Motor gráfico não iniciou.')};
+  document.body.appendChild(sc);
+  // Se houver falha de rede ou carregamento incompleto, nunca deixar o botão sem resposta.
+  if(!stable)setTimeout(function(){if(!window.AscensionGame)recovery('Inicialização excedeu o tempo de espera.')},8000);
+})();
+</script>
+</body></html>
