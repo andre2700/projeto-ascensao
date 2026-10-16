@@ -1,0 +1,34 @@
+[
+  {
+    "status": "PASS",
+    "browser": "iphone",
+    "engine": "Phaser",
+    "version": "phaser-0.1",
+    "movement": 59,
+    "totalHits": 1,
+    "attacks": 1,
+    "level": 2,
+    "zoomInitial": 0.9,
+    "zoomFinal": 0.8,
+    "trees": 60,
+    "enemies": 1,
+    "animationTechnique": "single stable illustrated pose until coherent directional atlas exists",
+    "errors": []
+  },
+  {
+    "status": "PASS",
+    "browser": "android",
+    "engine": "Phaser",
+    "version": "phaser-0.1",
+    "movement": 71,
+    "totalHits": 1,
+    "attacks": 1,
+    "level": 2,
+    "zoomInitial": 0.9,
+    "zoomFinal": 0.8,
+    "trees": 60,
+    "enemies": 1,
+    "animationTechnique": "single stable illustrated pose until coherent directional atlas exists",
+    "errors": []
+  }
+]
