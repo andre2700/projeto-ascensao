@@ -228,12 +228,13 @@ function enemy(c,e,t){
  c.save();c.translate(e.x,e.y);
  const attackProgress=e.attackT>0?1-Math.min(1,e.attackT/.44):0;
  const bob=beast?Math.max(0,Math.sin(phase*1.4))*1.15:Math.sin(phase*.82)*2.2;
- c.translate(0,-bob);
+ const recoil=Math.min(.9,(e.impactT||0)/.20)*(e.impactPower||.4);
+ c.translate(-recoil*(e.face===-1?-1:1)*4,-bob+recoil*1.5);
  if(attacking){const anticipation=attackProgress<.48?attackProgress/.48:(1-attackProgress)/.52;
    c.translate((e.face===-1?-1:1)*Math.sin(attackProgress*Math.PI)*6,-Math.sin(attackProgress*Math.PI)*4);
    c.scale(1+Math.max(0,anticipation)*.08,1-Math.max(0,anticipation)*.07)
  }
- if(beast)c.rotate(Math.sin(phase*.4)*.025);else c.rotate(Math.sin(phase*.66)*.028);
+ if(beast)c.rotate(Math.sin(phase*.4)*.025+recoil*.07);else c.rotate(Math.sin(phase*.66)*.028-recoil*.052);
  if(attacking||hit)sprite(c,name,cell,beast?64:70,e.face===-1?-1:1);
  else creatureSprite(c,name,phase,e.face===-1?-1:1);
  if(!beast){ // brilho da lanterna sempre do mesmo lado do sprite
@@ -246,7 +247,7 @@ function enemy(c,e,t){
    c.beginPath();if(beast)c.arc(16,-20,31,-1.05,.45);else c.arc(0,-28,32,-1.3,.05);
    c.stroke();c.restore()
  }
- if(hit){c.globalAlpha=.16;c.fillStyle='#fff6e7';c.beginPath();c.ellipse(0,-26,beast?29:19,beast?22:32,0,0,TAU);c.fill()}
+ if(hit||recoil>.15){c.globalAlpha=.11+recoil*.16;c.fillStyle='#fff6e7';c.beginPath();c.ellipse(0,-26,beast?29:19,beast?22:32,0,0,TAU);c.fill()}
  if(e.burn>0||e.slow>0){c.save();c.globalAlpha=.20;c.fillStyle=e.burn>0?'#ffb067':'#aaf6ff';c.beginPath();c.ellipse(0,-26,beast?30:22,beast?23:36,0,0,TAU);c.fill();c.restore()}
  c.restore();
 }
