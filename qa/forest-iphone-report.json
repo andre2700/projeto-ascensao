@@ -1,4 +1,37 @@
 {
+  "katana": [
+    {
+      "stage": 0,
+      "range": 127,
+      "size": 44,
+      "numberOfWaves": 0,
+      "uniqueDirections": 0,
+      "expectedCuts": 1
+    },
+    {
+      "stage": 1,
+      "range": 298,
+      "size": 77,
+      "numberOfWaves": 2,
+      "uniqueDirections": 1,
+      "expectedCuts": 2
+    },
+    {
+      "stage": 2,
+      "range": 542,
+      "size": 117,
+      "numberOfWaves": 6,
+      "uniqueDirections": 6,
+      "expectedCuts": 6
+    }
+  ],
+  "contact": {
+    "before": false,
+    "onContact": true,
+    "behind": false
+  },
+  "initialZoom": 0.9,
+  "cameraZoom": 0.90824491014384,
   "directionTest": [
     {
       "expected": 0,
@@ -124,7 +157,7 @@
       "baseRadiusY": 20.768786070495842,
       "collisions": 0,
       "footsteps": 0,
-      "draws": 5,
+      "draws": 6,
       "worldCanvas": true
     },
     "wind": {
@@ -141,8 +174,8 @@
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
-    "footsteps": 6,
-    "draws": 127,
+    "footsteps": 5,
+    "draws": 161,
     "worldCanvas": true
   },
   "shakeEvents": 1,
@@ -163,12 +196,12 @@
   "time": "2.1",
   "enemies": 3,
   "kills": 0,
-  "playerMovePx": 58,
-  "motionDuringMove": 0.9050921129167703,
-  "motionIdle": 0.046213967581409374,
+  "playerMovePx": 41,
+  "motionDuringMove": 0.8053758024579362,
+  "motionIdle": 0.008107768223689627,
   "color": {
-    "meanBrightness": 99,
-    "greenMinusRed": 22
+    "meanBrightness": 98,
+    "greenMinusRed": 24
   },
   "errors": [],
   "failedResources": []

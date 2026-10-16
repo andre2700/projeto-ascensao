@@ -1,4 +1,37 @@
 {
+  "katana": [
+    {
+      "stage": 0,
+      "range": 127,
+      "size": 44,
+      "numberOfWaves": 0,
+      "uniqueDirections": 0,
+      "expectedCuts": 1
+    },
+    {
+      "stage": 1,
+      "range": 298,
+      "size": 77,
+      "numberOfWaves": 2,
+      "uniqueDirections": 1,
+      "expectedCuts": 2
+    },
+    {
+      "stage": 2,
+      "range": 542,
+      "size": 117,
+      "numberOfWaves": 6,
+      "uniqueDirections": 6,
+      "expectedCuts": 6
+    }
+  ],
+  "contact": {
+    "before": false,
+    "onContact": true,
+    "behind": false
+  },
+  "initialZoom": 0.9006593924596838,
+  "cameraZoom": 0.9076252018718102,
   "directionTest": [
     {
       "expected": 0,
@@ -74,7 +107,7 @@
         "beast": false
       },
       "framesDrawn": {
-        "hero": 2,
+        "hero": 5,
         "wraith": 0,
         "beast": 0,
         "fallback": 0
@@ -124,14 +157,14 @@
       "baseRadiusY": 20.768786070495842,
       "collisions": 0,
       "footsteps": 0,
-      "draws": 12,
+      "draws": 30,
       "worldCanvas": true
     },
     "wind": {
-      "paints": 4,
+      "paints": 10,
       "cachedSprites": true,
       "worldSpaceLeaves": true,
-      "leafDraws": 50
+      "leafDraws": 125
     }
   },
   "world": {
@@ -140,12 +173,12 @@
     "trees": 334,
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
-    "collisions": 1,
+    "collisions": 51,
     "footsteps": 6,
-    "draws": 711,
+    "draws": 790,
     "worldCanvas": true
   },
-  "shakeEvents": 0,
+  "shakeEvents": 1,
   "collision": {
     "hit": true,
     "radiusX": 38.57060270234942,
@@ -160,15 +193,15 @@
   },
   "browser": "chromium-mobile",
   "status": "PASS",
-  "time": "2.2",
+  "time": "2.3",
   "enemies": 3,
   "kills": 0,
-  "playerMovePx": 34,
-  "motionDuringMove": 0.7475277158422882,
-  "motionIdle": 0.03158654197228114,
+  "playerMovePx": 27,
+  "motionDuringMove": 0.6648974959580317,
+  "motionIdle": 0.10248920963139568,
   "color": {
-    "meanBrightness": 97,
-    "greenMinusRed": 23
+    "meanBrightness": 98,
+    "greenMinusRed": 21
   },
   "errors": [],
   "failedResources": []
