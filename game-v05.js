@@ -107,7 +107,7 @@ for(let f of floaters){f.y-=dt*48;f.x+=f.vx*dt;f.life-=dt}floaters=floaters.filt
 let boss=enemies.find(e=>e.kind==='boss');if(boss){el('bossFill').style.width=clamp(boss.hp/boss.maxHp*100,0,100)+'%'}else if(game.boss){bossbar.classList.remove('visible')}
 updateHUD();if(game.levelQueue>0&&mode==='play'){game.levelQueue--;upgrade()}}
 function hero(x,y,p){AscensionArt.drawHero(ctx,p,worldTime,game)}
-function enemySprite(e){AscensionArt.drawEnemy(ctx,e,worldTime)}
+function enemySprite(e){AscensionArt.drawEnemy(ctx,e,worldTime,enemies.length)}
 function render(){ctx.setTransform(DPR,0,0,DPR,0,0);ctx.fillStyle='#121d29';ctx.fillRect(0,0,W,H);ctx.save();let jitterX=shake?(Math.sin(worldTime*173)*.78+Math.sin(worldTime*107)*.25)*shake:0,jitterY=shake?(Math.cos(worldTime*141)*.72+Math.sin(worldTime*87)*.27)*shake:0;if(impactZoom>0){ctx.translate(W/2,H/2);ctx.scale(1+impactZoom,1+impactZoom);ctx.translate(-W/2,-H/2)}ctx.translate(Math.round(W/2-camera.x+jitterX),Math.round(H/2-camera.y+jitterY));drawWorld();
 let left=camera.x-W/2-85,right=camera.x+W/2+85,top=camera.y-H/2-85,bottom=camera.y+H/2+85;for(let o of props)if(o.x>left&&o.x<right&&o.y>top&&o.y<bottom)deco(o);
 for(let o of orbs){let z=Math.sin(o.phase)*2;glow(ctx,o.x,o.y+z,24,o.value>1?'#efba504a':'#62ddff4a');ctx.save();ctx.translate(o.x,o.y+z);ctx.rotate(.785);ctx.shadowColor=o.value>1?'#ffe08a':'#63e0ff';ctx.shadowBlur=13;ctx.fillStyle=o.value>1?'#ffdb76':'#63daff';ctx.fillRect(-o.r,-o.r,o.r*2,o.r*2);ctx.shadowBlur=0;ctx.fillStyle='#e8ffff';ctx.fillRect(-o.r*.4,-o.r*.4,o.r*.75,o.r*.75);ctx.restore()}
