@@ -43,7 +43,7 @@ on:
   workflow_dispatch:
 concurrency:
   group: ascension-visual-test
-  cancel-in-progress: true
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
