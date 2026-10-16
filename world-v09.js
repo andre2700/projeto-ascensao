@@ -64,22 +64,22 @@ function segmentBlocked(ax,ay,bx,by,margin=12){
  }
  return false
 }
-const shadowCanvas=document.createElement('canvas');shadowCanvas.width=190;shadowCanvas.height=96;const shadowCtx=shadowCanvas.getContext('2d');const shadowGrad=shadowCtx.createRadialGradient(95,48,9,95,48,83);shadowGrad.addColorStop(0,'#193c2875');shadowGrad.addColorStop(.45,'#224c3960');shadowGrad.addColorStop(.8,'#264f3b28');shadowGrad.addColorStop(1,'#264f3b00');shadowCtx.fillStyle=shadowGrad;shadowCtx.fillRect(0,0,190,96);
+const shadowCanvas=document.createElement('canvas');shadowCanvas.width=190;shadowCanvas.height=96;const shadowCtx=shadowCanvas.getContext('2d');const shadowGrad=shadowCtx.createRadialGradient(95,48,9,95,48,83);shadowGrad.addColorStop(0,'#244f3251');shadowGrad.addColorStop(.45,'#2e5a3c3c');shadowGrad.addColorStop(.8,'#3c64431c');shadowGrad.addColorStop(1,'#264f3b00');shadowCtx.fillStyle=shadowGrad;shadowCtx.fillRect(0,0,190,96);
 function drawTree(ctx,tr,t){
  stats.draws++;
  const w=treeWidth*tr.s,h=treeHeight*tr.s;
  // Sombra ancorada no solo, nao na copa. A arvore recebe o MESMO camera shake do personagem.
  // Sombra dupla: penumbra de copa e contato firme na base do tronco.
  ctx.save();ctx.translate(tr.x+13*tr.s,tr.y+27*tr.s);ctx.rotate(-.24);
- ctx.globalAlpha=.62;ctx.drawImage(shadowCanvas,-85*tr.s,-35*tr.s,180*tr.s,77*tr.s);ctx.restore();
- contact(ctx,tr.x,tr.y+15*tr.s,28*tr.s,6.5*tr.s,.94);
+ ctx.globalAlpha=.49;ctx.drawImage(shadowCanvas,-85*tr.s,-35*tr.s,180*tr.s,77*tr.s);ctx.restore();
+ contact(ctx,tr.x,tr.y+15*tr.s,22*tr.s,4.6*tr.s,.43);
  if(!ready){forest.prop(ctx,{x:tr.x,y:tr.y,s:tr.s,rot:0,variant:tr.variant,type:'tree'},t);return}
  ctx.save();ctx.translate(tr.x,tr.y+16*tr.s);
  // Transformação da copa em torno da base: vento suave sem deslocar o tronco do chão.
  const lean=.013*Math.sin(t*.92+tr.phase)+.009*Math.sin(t*.45+tr.phase*2);
  ctx.rotate(lean);
  ctx.scale(tr.flip,1);
- ctx.drawImage(image,-w/2,-h,w,h);
+ ctx.drawImage(image,-w/2,-h+19*tr.s,w,h);
  ctx.restore();
 }
 function footstep(x,y,kind,t,pressure=1){
