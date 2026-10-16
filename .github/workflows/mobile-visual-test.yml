@@ -44,6 +44,9 @@ jobs:
         run: |
           mkdir -p qa
           cp test-output/webkit-iphone-game.jpg qa/forest-iphone.jpg 2>/dev/null || true
+          rm -f qa/forest-iphone-FAILED.jpg qa/forest-android-FAILED.jpg
+          cp test-output/webkit-iphone-FAILED.jpg qa/forest-iphone-FAILED.jpg 2>/dev/null || true
+          cp test-output/chromium-mobile-FAILED.jpg qa/forest-android-FAILED.jpg 2>/dev/null || true
           cp test-output/chromium-mobile-game.jpg qa/forest-android.jpg 2>/dev/null || true
           cp test-output/webkit-iphone-report.json qa/forest-iphone-report.json 2>/dev/null || true
           cp test-output/chromium-mobile-report.json qa/forest-android-report.json 2>/dev/null || true
