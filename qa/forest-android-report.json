@@ -30,13 +30,13 @@
     "onContact": true,
     "behind": false
   },
-  "initialZoom": 0.9015954366015912,
-  "cameraZoom": 0.9002990220611619,
+  "initialZoom": 0.9006613283110289,
+  "cameraZoom": 0.9006408974287554,
   "evolved": {
     "stage": 2,
-    "waveHits": 3,
-    "totalWaves": 2,
-    "cameraZoom": 0.8630032169930987
+    "waveHits": 2,
+    "totalWaves": 1,
+    "cameraZoom": 0.8630587001810343
   },
   "directionTest": [
     {
@@ -113,7 +113,7 @@
         "beast": false
       },
       "framesDrawn": {
-        "hero": 5,
+        "hero": 4,
         "wraith": 0,
         "beast": 0,
         "fallback": 0
@@ -163,14 +163,14 @@
       "baseRadiusY": 20.768786070495842,
       "collisions": 0,
       "footsteps": 0,
-      "draws": 30,
+      "draws": 24,
       "worldCanvas": true
     },
     "wind": {
-      "paints": 10,
+      "paints": 8,
       "cachedSprites": true,
       "worldSpaceLeaves": true,
-      "leafDraws": 125
+      "leafDraws": 100
     }
   },
   "world": {
@@ -180,8 +180,8 @@
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
-    "footsteps": 9,
-    "draws": 1000,
+    "footsteps": 8,
+    "draws": 1051,
     "worldCanvas": true
   },
   "shakeEvents": 2,
@@ -192,10 +192,10 @@
     "normalized": 1.0006786812285675
   },
   "combat": {
-    "meleeHits": 12,
+    "meleeHits": 11,
     "enemyStrikes": 1,
     "projectiles": 0,
-    "swordSwings": 16
+    "swordSwings": 14
   },
   "browser": "chromium-mobile",
   "status": "PASS",
@@ -203,11 +203,11 @@
   "enemies": 3,
   "kills": 0,
   "playerMovePx": 27,
-  "motionDuringMove": 0.6648970911503586,
-  "motionIdle": 0.08451974470650876,
+  "motionDuringMove": 0.6648951259480733,
+  "motionIdle": 0.008140062143040902,
   "color": {
     "meanBrightness": 99,
-    "greenMinusRed": 21
+    "greenMinusRed": 22
   },
   "errors": [],
   "failedResources": []
