@@ -6,6 +6,7 @@ on:
       - 'phaser-next.html'
       - 'phaser-next.js'
       - 'tests/phaser-next-smoke.cjs'
+      - 'tests/phaser-next-motion.cjs'
       - 'phaser-lab.html'
       - 'phaser-lab.js'
       - 'tests/phaser-lab-smoke.cjs'
@@ -39,12 +40,14 @@ jobs:
           node-version: '22'
       - name: Instalar browsers de teste
         run: |
-          npm install --no-save playwright@1.56.1
+          npm install --no-save playwright@1.56.1 pngjs@7.0.0
           npx playwright install --with-deps webkit chromium
       - name: Testar Phaser WebKit e Chromium
         run: node tests/phaser-lab-smoke.cjs
       - name: Testar vertical slice Phaser Safari e Android
         run: node tests/phaser-next-smoke.cjs
+      - name: Capturar corrida e combate para revisão visual
+        run: node tests/phaser-next-motion.cjs
       - name: Arquivar as capturas
         if: always()
         uses: actions/upload-artifact@v4
@@ -64,6 +67,8 @@ jobs:
           cp test-output/phaser-next-iphone.jpg qa/phaser-next-iphone.jpg 2>/dev/null || true
           cp test-output/phaser-next-android.jpg qa/phaser-next-android.jpg 2>/dev/null || true
           cp test-output/phaser-next-report.json qa/phaser-next-report.json 2>/dev/null || true
+          cp test-output/phaser-next-motion.png qa/phaser-next-motion.png 2>/dev/null || true
+          cp test-output/phaser-next-motion.json qa/phaser-next-motion.json 2>/dev/null || true
           cp test-output/phaser-next-iphone-FAILED.jpg qa/phaser-next-iphone-FAILED.jpg 2>/dev/null || true
           cp test-output/phaser-next-android-FAILED.jpg qa/phaser-next-android-FAILED.jpg 2>/dev/null || true
           git config user.name "github-actions[bot]"
