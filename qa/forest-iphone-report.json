@@ -1,7 +1,7 @@
 {
   "browser": "webkit-iphone",
   "status": "FAIL",
-  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=8.325000000000001",
+  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=0",
   "captured": null,
   "errors": [],
   "failedResources": []
