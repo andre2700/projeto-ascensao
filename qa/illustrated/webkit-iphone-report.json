@@ -1,38 +1,74 @@
 {
   "browser": "webkit-iphone",
-  "status": "PASS",
-  "time": "4.9",
-  "enemies": 3,
-  "kills": 2,
-  "playerMovePx": 118,
-  "motionDuringMove": 0.9999713426632225,
-  "motionIdle": 3.865264011691866e-9,
-  "visualSprites": {
-    "loaded": {
-      "hero": true,
-      "wraith": true,
-      "beast": true
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=0 FPS=0 stick={\"dx\":0.8674570262744272,\"dy\":-0.49751211801033324} eventos=[{\"event\":\"touchstart\",\"identifier\":7,\"x\":120.9,\"y\":498},{\"event\":\"touchmove\",\"identifier\":7,\"x\":188.9,\"y\":459}]",
+  "captured": {
+    "lastError": null,
+    "debug": {
+      "mode": "play",
+      "seconds": 0.7730000000000005,
+      "x": 23.421339709409533,
+      "y": -13.432827186278995,
+      "motion": 0.000018145128138746853,
+      "attackPulse": 0,
+      "kills": 0,
+      "enemies": 0,
+      "shots": 0,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 1,
+      "stick": null,
+      "touchActive": false,
+      "terrain": "Floresta da Aurora",
+      "illustrated": {
+        "loaded": {
+          "hero": true,
+          "wraith": true,
+          "beast": true
+        },
+        "failed": {
+          "hero": false,
+          "wraith": false,
+          "beast": false
+        },
+        "framesDrawn": {
+          "hero": 14,
+          "wraith": 0,
+          "beast": 0,
+          "fallback": 0
+        }
+      },
+      "wind": {
+        "paints": 42,
+        "cachedSprites": true
+      },
+      "tree": {
+        "loaded": true,
+        "failed": false,
+        "drawn": 19
+      },
+      "version": "0.7.2"
     },
-    "failed": {
-      "hero": false,
-      "wraith": false,
-      "beast": false
-    },
-    "framesDrawn": {
-      "hero": 90,
-      "wraith": 71,
-      "beast": 0,
-      "fallback": 1
-    }
-  },
-  "wind": {
-    "paints": 273,
-    "cachedSprites": true
-  },
-  "framesPerSecond": 18,
-  "color": {
-    "meanBrightness": 126,
-    "greenMinusRed": 28
+    "pointerTrace": [
+      {
+        "event": "touchstart",
+        "identifier": 7,
+        "x": 120.9,
+        "y": 498
+      },
+      {
+        "event": "touchmove",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      },
+      {
+        "event": "touchend",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      }
+    ]
   },
   "errors": [],
   "failedResources": []
