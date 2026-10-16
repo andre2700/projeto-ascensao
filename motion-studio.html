@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0c1b1b">
+<title>Projeto Ascensão — Estúdio de Movimento</title>
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#f5e9ce;background:#081714}
+*{box-sizing:border-box}body,html{margin:0;height:100%;width:100%;overflow:hidden;touch-action:none}button{touch-action:manipulation;cursor:pointer;font:inherit}
+#stage{position:fixed;inset:0}#head{position:fixed;z-index:4;top:0;left:0;right:0;padding:calc(env(safe-area-inset-top,0px) + 12px) 14px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;pointer-events:none;background:linear-gradient(#091b21ed 0%,#091b21ad 70%,#091b2100)}
+.name{font:700 12px/1.3 Georgia,serif;letter-spacing:2px;color:#f4d696;text-transform:uppercase}
+.edition{font-size:10px;color:#c2d4c8;margin-top:5px}
+.readout{display:flex;gap:7px}.pill{border:1px solid #e6c58d66;background:#0d2229d9;padding:8px 10px;border-radius:9px;text-align:center;min-width:64px;color:#f9efdd;font-size:12px;font-weight:700}
+.pill small{display:block;color:#c3c8bd;font-size:8px;font-weight:600;letter-spacing:1px;margin-top:3px}
+#toolbar{position:fixed;right:13px;z-index:5;top:calc(env(safe-area-inset-top,0px) + 88px);display:flex;flex-direction:column;gap:8px}
+#toolbar button,#attack{border:1px solid #f2d6a878;background:#10232de6;color:#fff0c6;border-radius:12px;box-shadow:0 6px 22px #05100e88;font-weight:750}
+#toolbar button{min-width:48px;height:42px;font-size:14px}
+#attack{position:fixed;z-index:6;right:20px;bottom:calc(env(safe-area-inset-bottom,0px) + 52px);width:100px;height:100px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#7e6645,#2c3030 67%,#111c20);font-size:14px;letter-spacing:1px}
+#attack span{display:block;font-size:30px;margin-bottom:3px}
+#attack:active{transform:scale(.96)}
+#stick{display:none;position:fixed;z-index:4;width:110px;height:110px;border-radius:50%;border:1px solid #f2e5c183;background:#dfeada19;pointer-events:none}
+#knob{position:absolute;width:51px;height:51px;left:29px;top:29px;border-radius:50%;border:2px solid #f7eddaaa;background:#e2e8dcb4}
+#info{position:fixed;z-index:4;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);left:14px;right:140px;font-size:10px;color:#e9e4d1cc;text-shadow:0 1px 4px #07120f;pointer-events:none;line-height:1.55}
+#menu{position:fixed;z-index:12;inset:0;display:grid;place-items:center;padding:18px;background:linear-gradient(#09171ac7,#071414eb)}
+#menu[hidden]{display:none}
+.panel{max-width:470px;width:100%;text-align:center;padding:28px 22px;border-radius:20px;background:#14242cf1;border:1px solid #dfc18791;box-shadow:0 20px 90px #0009}
+.kicker{letter-spacing:3px;font-size:10px;font-weight:700;color:#ddbe86}
+h1{font:700 32px/1.13 Georgia,serif;color:#f0d099;margin:12px 0}
+p{font-size:13px;line-height:1.65;color:#d5e1d8}
+#start{margin-top:17px;display:block;width:100%;border:1px solid #f4e2ae;background:linear-gradient(#f6e1a4,#c9a262);color:#172329;padding:15px;border-radius:12px;font-size:14px;font-weight:850}
+#start:disabled{opacity:.5}
+#status{font-size:10px;color:#d3c398;margin-top:11px}
+@media(min-width:760px){#attack{width:85px;height:85px}#info{right:120px}}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<header id="head">
+<div><div class="name">Projeto Ascensão</div><div class="edition">Estúdio de Movimento · <span id="version">Phaser carregando</span></div></div>
+<div class="readout"><div class="pill"><span id="state">IDLE</span><small>ANIMAÇÃO</small></div><div class="pill"><span id="hits">0</span><small>ACERTOS</small></div></div>
+</header>
+<div id="toolbar"><button id="slow" aria-label="Velocidade da animação">1×</button><button id="zoomin" aria-label="Aproximar câmera">＋</button><button id="zoomout" aria-label="Afastar câmera">−</button></div>
+<button id="attack" aria-label="Executar espadada"><span>⚔</span>GOLPE</button>
+<div id="stick"><div id="knob"></div></div>
+<div id="info">WASD / SETAS ou toque para andar · ESPAÇO ou GOLPE para atacar<br>Atlas atual de 5 poses: protótipo de timing, não arte final</div>
+<section id="menu"><div class="panel"><div class="kicker">FLUIDEZ ANTES DE MECÂNICAS</div><h1>Estúdio de Movimento</h1>
+<p>Protótipo isolado para avaliar os movimentos do herói, preparação e contato da espada, ritmo das passadas e reações dos inimigos.</p>
+<p>Estamos usando temporariamente o atlas antigo de cinco poses. A arquitetura permite substituir por animações completas sem reescrever o combate.</p>
+<button id="start" disabled>INICIAR EXPERIMENTO</button><div id="status">Carregando motor e arte…</div>
+</div></section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.90.0/phaser.min.js"></script>
+<script src="./assets-data-v07.js"></script>
+<script src="./tree-data-v07.js"></script>
+<script src="./terrain-data-v07.js"></script>
+<script src="./motion-studio.js?v=1"></script>
+</body>
+</html>
