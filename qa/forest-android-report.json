@@ -1,4 +1,66 @@
 {
+  "directionTest": [
+    {
+      "expected": 0,
+      "actual": 0,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 1,
+      "actual": 1,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 2,
+      "actual": 2,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 3,
+      "actual": 3,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 4,
+      "actual": 4,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 5,
+      "actual": 5,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 6,
+      "actual": 6,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 7,
+      "actual": 7,
+      "hit": true,
+      "started": true
+    }
+  ],
+  "upgrades": {
+    "basic": {
+      "radius": 83.9,
+      "spread": 1.34,
+      "cuts": 1
+    },
+    "upgraded": {
+      "radius": 138.9,
+      "spread": 1.6150000000000002,
+      "cuts": 4
+    }
+  },
   "art": {
     "illustrated": {
       "loaded": {
@@ -12,7 +74,7 @@
         "beast": false
       },
       "framesDrawn": {
-        "hero": 4,
+        "hero": 6,
         "wraith": 0,
         "beast": 0,
         "fallback": 0
@@ -22,6 +84,8 @@
       "outlined": true,
       "sharpened": true,
       "interpolatedMotion": true,
+      "directionalSecondaryMotion": true,
+      "footfallRhythm": true,
       "frameHeights": {
         "hero": [
           88,
@@ -60,14 +124,14 @@
       "baseRadiusY": 20.768786070495842,
       "collisions": 0,
       "footsteps": 0,
-      "draws": 24,
+      "draws": 36,
       "worldCanvas": true
     },
     "wind": {
-      "paints": 8,
+      "paints": 12,
       "cachedSprites": true,
       "worldSpaceLeaves": true,
-      "leafDraws": 100
+      "leafDraws": 150
     }
   },
   "world": {
@@ -77,11 +141,11 @@
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
-    "footsteps": 5,
-    "draws": 735,
+    "footsteps": 7,
+    "draws": 862,
     "worldCanvas": true
   },
-  "shakeEvents": 0,
+  "shakeEvents": 1,
   "collision": {
     "hit": true,
     "radiusX": 38.57060270234942,
@@ -89,22 +153,22 @@
     "normalized": 1.0006786812285675
   },
   "combat": {
-    "meleeHits": 1,
+    "meleeHits": 9,
     "enemyStrikes": 1,
     "projectiles": 0,
-    "swordSwings": 1
+    "swordSwings": 11
   },
   "browser": "chromium-mobile",
   "status": "PASS",
-  "time": "2.2",
-  "enemies": 3,
+  "time": "2.5",
+  "enemies": 2,
   "kills": 0,
-  "playerMovePx": 41,
-  "motionDuringMove": 0.9577369137305449,
-  "motionIdle": 0.0027052818184526107,
+  "playerMovePx": 27,
+  "motionDuringMove": 0.6646068364699228,
+  "motionIdle": 0.008218669345636814,
   "color": {
-    "meanBrightness": 97,
-    "greenMinusRed": 23
+    "meanBrightness": 98,
+    "greenMinusRed": 20
   },
   "errors": [],
   "failedResources": []
