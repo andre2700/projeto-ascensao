@@ -5,8 +5,8 @@
   "enemies": 4,
   "kills": 2,
   "playerMovePx": 281,
-  "motionDuringMove": 0.9999999995729899,
-  "motionIdle": 2.4255529985077666e-8,
+  "motionDuringMove": 0.9999999995738376,
+  "motionIdle": 2.416681052158137e-8,
   "visualSprites": {
     "loaded": {
       "hero": true,
@@ -20,13 +20,13 @@
     },
     "framesDrawn": {
       "hero": 401,
-      "wraith": 25,
-      "beast": 207,
+      "wraith": 188,
+      "beast": 131,
       "fallback": 1
     }
   },
   "wind": {
-    "paints": 1206,
+    "paints": 1209,
     "cachedSprites": true
   },
   "framesPerSecond": 60,
