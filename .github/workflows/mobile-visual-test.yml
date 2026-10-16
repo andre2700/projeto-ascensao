@@ -35,6 +35,7 @@ on:
       - 'preview-v10.html'
       - 'katana-v11.js'
       - 'game-v11.js'
+      - 'style-v11.css'
       - 'preview-v11.html'
       - 'index.html'
       - 'tests/**'
