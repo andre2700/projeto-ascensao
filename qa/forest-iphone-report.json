@@ -1,213 +1,151 @@
 {
-  "katana": [
-    {
-      "stage": 0,
-      "range": 127,
-      "size": 44,
-      "numberOfWaves": 0,
-      "uniqueDirections": 0,
-      "expectedCuts": 1
-    },
-    {
-      "stage": 1,
-      "range": 298,
-      "size": 77,
-      "numberOfWaves": 2,
-      "uniqueDirections": 1,
-      "expectedCuts": 2
-    },
-    {
-      "stage": 2,
-      "range": 542,
-      "size": 117,
-      "numberOfWaves": 6,
-      "uniqueDirections": 6,
-      "expectedCuts": 6
-    }
-  ],
-  "contact": {
-    "before": false,
-    "onContact": true,
-    "behind": false
-  },
-  "initialZoom": 0.9011484075951699,
-  "cameraZoom": 0.8949551098351054,
-  "evolved": {
-    "stage": 2,
-    "waveHits": 3,
-    "totalWaves": 2,
-    "cameraZoom": 0.8545176596395745
-  },
-  "directionTest": [
-    {
-      "expected": 0,
-      "actual": 0,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 1,
-      "actual": 1,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 2,
-      "actual": 2,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 3,
-      "actual": 3,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 4,
-      "actual": 4,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 5,
-      "actual": 5,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 6,
-      "actual": 6,
-      "hit": true,
-      "started": true
-    },
-    {
-      "expected": 7,
-      "actual": 7,
-      "hit": true,
-      "started": true
-    }
-  ],
-  "upgrades": {
-    "basic": {
-      "radius": 83.9,
-      "spread": 1.34,
-      "cuts": 1
-    },
-    "upgraded": {
-      "radius": 138.9,
-      "spread": 1.6150000000000002,
-      "cuts": 4
-    }
-  },
-  "art": {
-    "illustrated": {
-      "loaded": {
-        "hero": true,
-        "wraith": true,
-        "beast": true
-      },
-      "failed": {
-        "hero": false,
-        "wraith": false,
-        "beast": false
-      },
-      "framesDrawn": {
-        "hero": 1,
-        "wraith": 0,
-        "beast": 0,
-        "fallback": 0
-      },
-      "normalized": true,
-      "lockedWraithLantern": true,
-      "outlined": true,
-      "sharpened": true,
-      "interpolatedMotion": true,
-      "directionalSecondaryMotion": true,
-      "footfallRhythm": true,
-      "frameHeights": {
-        "hero": [
-          88,
-          78,
-          64,
-          75,
-          72
-        ],
-        "wraith": [
-          81,
-          75,
-          74,
-          70
-        ],
-        "beast": [
-          70,
-          61,
-          65,
-          61
-        ]
-      }
-    },
-    "terrain": {
-      "loaded": true,
-      "failed": false,
-      "preparations": 1,
-      "sharpened": true,
-      "gradient": 20,
-      "tileSize": 640
-    },
-    "tree": {
-      "spriteReady": true,
-      "failed": false,
-      "trees": 334,
-      "baseRadiusX": 38.57060270234942,
-      "baseRadiusY": 20.768786070495842,
-      "collisions": 0,
-      "footsteps": 0,
-      "draws": 6,
-      "worldCanvas": true
-    },
-    "wind": {
-      "paints": 2,
-      "cachedSprites": true,
-      "worldSpaceLeaves": true,
-      "leafDraws": 20
-    }
-  },
-  "world": {
-    "spriteReady": true,
-    "failed": false,
-    "trees": 334,
-    "baseRadiusX": 38.57060270234942,
-    "baseRadiusY": 20.768786070495842,
-    "collisions": 1,
-    "footsteps": 12,
-    "draws": 221,
-    "worldCanvas": true
-  },
-  "shakeEvents": 2,
-  "collision": {
-    "hit": true,
-    "radiusX": 38.57060270234942,
-    "radiusY": 20.768786070495842,
-    "normalized": 1.0006786812285675
-  },
-  "combat": {
-    "meleeHits": 13,
-    "enemyStrikes": 1,
-    "projectiles": 0,
-    "swordSwings": 16
-  },
   "browser": "webkit-iphone",
-  "status": "PASS",
-  "time": "3.1",
-  "enemies": 2,
-  "kills": 0,
-  "playerMovePx": 41,
-  "motionDuringMove": 0.8053758024579362,
-  "motionIdle": 0.010204213572474858,
-  "color": {
-    "meanBrightness": 97,
-    "greenMinusRed": 23
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: o guerreiro deve desenhar os novos quadros de corrida",
+  "captured": {
+    "lastError": null,
+    "debug": {
+      "mode": "play",
+      "seconds": 1.0530000000000006,
+      "x": 80.52950703302169,
+      "y": -46.186040798350696,
+      "motion": 0.004106361646078524,
+      "attackPulse": 0.30799999999999994,
+      "kills": 0,
+      "enemies": 3,
+      "shots": 0,
+      "projectiles": 0,
+      "meleeHits": 9,
+      "swordSwings": 12,
+      "enemyStrikes": 0,
+      "coinsCollected": 0,
+      "combatMode": "evolving-katana",
+      "waveCount": 0,
+      "totalWaves": 0,
+      "waveHits": 0,
+      "cameraZoom": 0.9064333435254369,
+      "cameraTargetZoom": 0.9054,
+      "katanaStage": 0,
+      "direction": 2,
+      "heading": 1.5707963267948966,
+      "areaLevel": 0,
+      "multiLevel": 0,
+      "comboLeft": 0,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 1,
+      "stick": null,
+      "touchActive": false,
+      "terrain": "Floresta da Aurora",
+      "illustrated": {
+        "loaded": {
+          "hero": true,
+          "wraith": true,
+          "beast": true
+        },
+        "failed": {
+          "hero": false,
+          "wraith": false,
+          "beast": false
+        },
+        "framesDrawn": {
+          "hero": 15,
+          "wraith": 10,
+          "beast": 9,
+          "fallback": 0
+        },
+        "normalized": true,
+        "lockedWraithLantern": true,
+        "outlined": true,
+        "sharpened": true,
+        "interpolatedMotion": true,
+        "directionalSecondaryMotion": true,
+        "footfallRhythm": true,
+        "virtualStrideFrames": 16,
+        "creaturePhaseFrames": {
+          "beast": 12,
+          "wraith": 10
+        },
+        "creatureDraws": {
+          "beast": 7,
+          "wraith": 10
+        },
+        "runFrameBuildMs": 217,
+        "runDraws": 1,
+        "attackDraws": 6,
+        "hitDraws": 0,
+        "frameHeights": {
+          "hero": [
+            88,
+            78,
+            64,
+            75,
+            72
+          ],
+          "wraith": [
+            81,
+            75,
+            74,
+            70
+          ],
+          "beast": [
+            70,
+            61,
+            65,
+            61
+          ]
+        }
+      },
+      "wind": {
+        "paints": 30,
+        "cachedSprites": true,
+        "worldSpaceLeaves": true,
+        "leafDraws": 310
+      },
+      "tree": {
+        "spriteReady": true,
+        "failed": false,
+        "trees": 334,
+        "baseRadiusX": 38.57060270234942,
+        "baseRadiusY": 20.768786070495842,
+        "collisions": 4,
+        "footsteps": 2,
+        "draws": 83,
+        "worldCanvas": true
+      },
+      "terrainDetails": {
+        "loaded": true,
+        "failed": false,
+        "preparations": 1,
+        "sharpened": true,
+        "gradient": 20,
+        "tileSize": 640
+      },
+      "shakeEvents": 0,
+      "shakeLevel": 0,
+      "hitSparks": 2,
+      "version": "0.12.0"
+    },
+    "pointerTrace": [
+      {
+        "event": "touchstart",
+        "identifier": 7,
+        "x": 120.9,
+        "y": 498
+      },
+      {
+        "event": "touchmove",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      },
+      {
+        "event": "touchend",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      }
+    ]
   },
   "errors": [],
   "failedResources": []
