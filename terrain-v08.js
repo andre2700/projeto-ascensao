@@ -20,7 +20,7 @@ function crisp(c){
   if(x%41===0&&y%41===0){gradient+=Math.abs(src[p]-src[p+4])+Math.abs(src[p+1]-src[p+5]);samples++}
  }
  // Sem grandes faixas desfocadas nas bordas: correção apenas a 6 px.
- const seam=6;
+ const seam=18;
  for(let k=0;k<seam;k++){
   const a=.47*(1-k/seam)**2;
   for(let y=0;y<TILE;y++)for(let channel=0;channel<3;channel++){
