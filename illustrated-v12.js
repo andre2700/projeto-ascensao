@@ -7,7 +7,7 @@ const fallbackHero=motion.hero,fallbackEnemy=motion.drawEnemy;
 const input=root.AscensionIllustrationData||{},TAU=Math.PI*2;
 const specs={hero:{n:5,w:128,h:117,visual:91},wraith:{n:4,w:128,h:117,visual:71},beast:{n:4,w:128,h:117,visual:64}};
 const states={},counts={hero:0,wraith:0,beast:0,fallback:0};
-const STRIDE_FRAMES=16;let runningFrames=null,runFrameBuildMs=0,runDraws=0,hitDraws=0,attackDraws=0;
+const STRIDE_FRAMES=16;let runningFrames=null,runFrameBuildMs=0,runDraws=0,hitDraws=0,attackDraws=0;const creatureFrames={},creatureDraws={beast:0,wraith:0};
 function clean(canvas){
  const c=canvas.getContext('2d',{willReadFrequently:true});
  const pixels=c.getImageData(0,0,canvas.width,canvas.height),p=pixels.data;
@@ -48,7 +48,7 @@ for(const [name,spec] of Object.entries(specs)){
  img.onload=()=>{
   try{st.frames=makeFrames(name,img);st.ready=img.naturalWidth===spec.w*spec.n&&st.frames.every(Boolean);
    st.failed=!st.ready;st.details=st.frames.map(f=>f?({h:f.visibleH,pivot:Math.round(f.footX)}):null);
-   if(name==='hero'&&st.ready){try{prepareRunningFrames()}catch(error){console.warn('[Ascensão] caminhada sintética indisponível',error)}}
+   if(st.ready){try{if(name==='hero')prepareRunningFrames();else prepareCreatureFrames(name)}catch(error){console.warn('[Ascensão] animação por fase indisponível: '+name,error)}}
   }catch(e){st.failed=true;console.error('[Art] recorte '+name,e)}
  };
  img.onerror=()=>st.failed=true;
@@ -136,6 +136,45 @@ function runSprite(ctx,phase,mirror=1){
  ctx.drawImage(f.out,-f.footX/f.factor,-91+13-f.factor*.36,f.out.width/f.factor,f.out.height/f.factor);
  ctx.restore();runDraws++;counts.hero++;return true
 }
+function prepareCreatureFrames(name){
+ if(creatureFrames[name]||!states[name]?.ready)return;
+ const frameCount=name==='beast'?12:10,visualH=name==='beast'?64:70;
+ const source=raster(name,0,visualH);
+ if(!source)return;
+ const w=source.out.width,h=source.out.height,factor=source.factor;
+ const outputs=[];
+ for(let i=0;i<frameCount;i++){
+  const phase=i/frameCount*Math.PI*2,s=Math.sin(phase),k=Math.cos(phase);
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  const c=canvas.getContext('2d');
+  c.save();
+  const x=source.footX,base=h-factor*.8;
+  c.translate(x,base);
+  if(name==='beast'){
+   const step=Math.sin(phase*2);
+   c.translate(s*factor*1.2,-Math.max(0,step)*factor*1.25);
+   c.rotate(s*.035);c.transform(1,0,s*.032,1,0,0);
+   c.scale(1+Math.cos(phase*2)*.017,1-Math.cos(phase*2)*.024);
+  }else{
+   c.translate(Math.cos(phase*.72)*factor*1.1,-Math.sin(phase)*factor*2.0);
+   c.rotate(s*.027);
+   c.transform(1,0,Math.sin(phase+.3)*.028,1,0,0);
+  }
+  c.drawImage(source.out,-x,-base);
+  c.restore();
+  outputs.push({out:canvas,footX:source.footX,paintH:visualH,factor});
+ }
+ creatureFrames[name]=outputs
+}
+function creatureSprite(ctx,name,phase,mirror=1){
+ const arr=creatureFrames[name];if(!arr?.length)return sprite(ctx,name,0,name==='beast'?64:70,mirror);
+ const t=((phase%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+ const f=arr[Math.floor(t/(Math.PI*2)*arr.length)%arr.length];
+ ctx.save();ctx.scale(mirror,1);
+ ctx.drawImage(f.out,-f.footX/f.factor,-f.paintH+13-f.factor*.36,
+   f.out.width/f.factor,f.out.height/f.factor);
+ ctx.restore();counts[name]++;creatureDraws[name]++;return true
+}
 function sprite(ctx,name,index,visualH,mirror=1){
  const st=states[name];if(!st.ready)return false;
  const f=raster(name,index,visualH);if(!f)return false;
@@ -195,7 +234,8 @@ function enemy(c,e,t){
    c.scale(1+Math.max(0,anticipation)*.08,1-Math.max(0,anticipation)*.07)
  }
  if(beast)c.rotate(Math.sin(phase*.4)*.025);else c.rotate(Math.sin(phase*.66)*.028);
- sprite(c,name,cell,beast?64:70,e.face===-1?-1:1);
+ if(attacking||hit)sprite(c,name,cell,beast?64:70,e.face===-1?-1:1);
+ else creatureSprite(c,name,phase,e.face===-1?-1:1);
  if(!beast){ // brilho da lanterna sempre do mesmo lado do sprite
   const side=e.face===-1?-1:1;
   c.save();c.globalAlpha=.35+.22*Math.sin(t*5+e.phase);c.shadowColor='#82fbdc';c.shadowBlur=13;
@@ -214,7 +254,7 @@ motion.hero=hero;motion.drawEnemy=enemy;
 root.AscensionIllustrated={ready:()=>Object.values(states).every(v=>v.ready),stats:()=>({
  loaded:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.ready])),
  failed:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.failed])),
- framesDrawn:{...counts},normalized:true,lockedWraithLantern:true,outlined:true,sharpened:true,interpolatedMotion:true,directionalSecondaryMotion:true,footfallRhythm:true,virtualStrideFrames:runningFrames?.length||0,runFrameBuildMs,runDraws,attackDraws,hitDraws,
+ framesDrawn:{...counts},normalized:true,lockedWraithLantern:true,outlined:true,sharpened:true,interpolatedMotion:true,directionalSecondaryMotion:true,footfallRhythm:true,virtualStrideFrames:runningFrames?.length||0,creaturePhaseFrames:{beast:creatureFrames.beast?.length||0,wraith:creatureFrames.wraith?.length||0},creatureDraws:{...creatureDraws},runFrameBuildMs,runDraws,attackDraws,hitDraws,
  frameHeights:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.details.map(d=>d?.h||0)]))
 })};
 })(window);
