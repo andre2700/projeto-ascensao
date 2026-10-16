@@ -37,6 +37,9 @@ on:
       - 'game-v11.js'
       - 'style-v11.css'
       - 'preview-v11.html'
+      - 'game-v12.js'
+      - 'illustrated-v12.js'
+      - 'preview-v12.html'
       - 'index.html'
       - 'tests/**'
       - '.github/workflows/mobile-visual-test.yml'
@@ -73,7 +76,7 @@ jobs:
           npm install --no-save playwright@1.56.1 pngjs@7.0.0
           npx playwright install --with-deps webkit chromium
       - name: Testar inicio, controle, animacoes e floresta
-        run: node tests/mobile-smoke-v11.cjs
+        run: node tests/mobile-smoke-v12.cjs
       - name: Guardar capturas e relatorios para revisao visual
         if: always()
         uses: actions/upload-artifact@v4
