@@ -361,7 +361,7 @@ class ForestGame extends Phaser.Scene{
  endRun(){this.playing=false;diagnostic.playing=false;this.paused=true;UI.hud.hidden=true;UI.pause.hidden=true;UI.defeat.hidden=false;
   UI.defeatInfo.textContent=this.kills+' inimigos derrotados · '+Math.floor(this.elapsed)+'s sobrevividos'}
  stats(){
-  return {version:diagnostic.version,ready:diagnostic.ready,playing:this.playing,paused:this.paused,hero:{x:this.hero?.x,y:this.hero?.y},
+  return {version:diagnostic.version,ready:diagnostic.ready,playing:this.playing,paused:this.paused,hero:{x:this.hero?.x,y:this.hero?.y,angle:this.hero?.angle,displayWidth:this.hero?.displayWidth,displayHeight:this.hero?.displayHeight,frame:this.hero?.frame?.name,flipX:this.hero?.flipX},
    elapsed:this.elapsed,kills:this.kills,attacks:this.attacks,hits:this.hits,level:this.level,xp:this.xp,
    build:{...this.build},gems:this.gems.length,trees:this.trunks.length,enemies:this.enemies.length,
    zoom:this.cameras.main.zoom,renderer:this.game.renderer.type===Phaser.WEBGL?'WebGL':'Canvas',
