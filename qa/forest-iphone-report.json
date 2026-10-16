@@ -6,7 +6,7 @@
     "lastError": null,
     "debug": {
       "mode": "play",
-      "seconds": 0.6350000000000003,
+      "seconds": 0.5820000000000003,
       "x": 0,
       "y": 0,
       "motion": 0,
@@ -16,7 +16,7 @@
       "shots": 0,
       "tiles": 4,
       "props": 1556,
-      "fps": 4,
+      "fps": 6,
       "stick": null,
       "touchActive": false,
       "terrain": "Floresta da Aurora",
