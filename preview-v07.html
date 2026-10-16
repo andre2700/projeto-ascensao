@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#090f1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Projeto Ascensão — uma jornada de fantasia elemental.">
+<title>Projeto Ascensão — Alpha 0.7 — Floresta Viva</title>
+<link rel="stylesheet" href="./style-v04.css?v=6.2.0">
+</head>
+<body>
+<canvas id="game" aria-label="Arena de combate do Projeto Ascensão"></canvas>
+<div id="veil"></div>
+<div id="hud" class="hidden">
+  <div class="hudrow">
+    <div class="sigil"><span>✦</span></div>
+    <div class="hudleft">
+      <div class="hudtitle"><span id="level">NV. 1</span><em id="hpText">125 / 125</em></div>
+      <div class="meter hp"><div class="fill" id="hpFill"></div></div>
+      <div class="meter xp"><div class="fill" id="xpFill"></div></div>
+    </div>
+    <div class="hudright">
+      <div class="counter"><b id="clock">00:00</b><small>TEMPO</small></div>
+      <div class="counter"><b id="kills">0</b><small>ABATES</small></div>
+    </div>
+  </div>
+  <div class="hudbottom"><span class="progress-pill" id="objective">Sobreviva até o Guardião</span><strong class="hint" id="buffs">⚔ 1 🔥 0 ❄ 0 ⚡ 0</strong></div>
+</div>
+<button id="pause" class="pause hidden" aria-label="Pausar partida">Ⅱ</button>
+<div id="bossbar">GUARDIÃO DAS RUÍNAS<div class="meter"><div id="bossFill" class="fill" style="width:100%"></div></div></div>
+<div id="joystick"><div id="knob"></div></div>
+<div id="toast"></div>
+<div id="footer">✦ &nbsp; A FLORESTA DA AURORA &nbsp; ✦</div>
+<div id="overlay"><div id="panel" class="panel"></div></div>
+<script src="./forest-v06.js?v=7.0.0"></script>
+<script src="./motion-v06.js?v=7.0.0"></script>
+<script src="./cache-v06.js?v=7.0.0"></script>
+<script src="./wind-v07.js?v=7.0.0"></script>
+<script src="./assets-data-v07.js?v=7.0.0"></script>
+<script src="./illustrated-v07.js?v=7.0.0"></script>
+<script src="./game-v07.js?v=7.0.0"></script>
+</body></html>
