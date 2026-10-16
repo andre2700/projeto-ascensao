@@ -11,7 +11,7 @@ fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.json':'application/json'};
 const server=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://localhost');
- let requestPath=decodeURIComponent(u.pathname);if(requestPath==='/')requestPath='/preview-v07.html';
+ let requestPath=decodeURIComponent(u.pathname);if(requestPath==='/')requestPath='/preview-v08.html';
  const file=path.resolve(root,'.'+requestPath);
  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end('Not found: '+requestPath)}
  res.writeHead(200,{'content-type':mime[path.extname(file)]||'application/octet-stream','cache-control':'no-store'});
@@ -36,17 +36,26 @@ async function testEngine(kind,device){
  page.on('response',r=>{if(r.status()>=400&&new URL(r.url()).origin==='http://127.0.0.1:8765')failedResources.push(r.url()+' '+r.status())});
  let label=kind===webkit?'webkit-iphone':'chromium-mobile';
  try{
-  await page.goto('http://127.0.0.1:8765/preview-v07.html?test='+label,{waitUntil:'load',timeout:45000});
+  await page.goto('http://127.0.0.1:8765/preview-v08.html?test='+label,{waitUntil:'load',timeout:45000});
   await page.waitForFunction(()=>!!window.AscensionGame,{timeout:45000});
-  await page.waitForFunction(()=>window.AscensionIllustrated?.ready?.()&&window.AscensionTerrain?.ready?.()&&window.AscensionTree?.ready?.(),{timeout:25000});
-  const art=await page.evaluate(()=>({illustrated:window.AscensionIllustrated.stats(),terrain:window.AscensionTerrain.stats(),tree:window.AscensionTree.stats()}));
+  await page.waitForFunction(()=>window.AscensionIllustrated?.ready?.()&&window.AscensionTerrain?.ready?.()&&window.AscensionWorld?.stats?.().spriteReady,{timeout:25000});
+  const art=await page.evaluate(()=>({illustrated:window.AscensionIllustrated.stats(),terrain:window.AscensionTerrain.stats(),tree:window.AscensionWorld.stats(),wind:window.AscensionWind.stats()}));
   assert.equal(art.illustrated.loaded.hero,true,'sprite do heroi ilustrado carregado');
+  assert.equal(art.illustrated.normalized,true,'personagens com escala e pivô padronizados');
+  assert.equal(art.illustrated.lockedWraithLantern,true,'lanterna do espectro deve ficar na mesma mão');
+  assert.equal(art.tree.worldCanvas,true,'árvores devem pertencer ao canvas do mundo');
+  assert(art.tree.trees>50,'colisores reais de tronco devem existir');
+  assert.equal(art.wind.worldSpaceLeaves,true,'folhas devem usar coordenadas de mundo');
+  assert.equal(art.terrain.sharpened,true,'textura do solo deve receber nitidez');
+  assert.equal(await page.locator('#forest-tree-layer').count(),0,'nenhuma arvore em camada DOM separada');
   assert.equal(art.illustrated.loaded.wraith,true,'espectro ilustrado carregado');
   assert.equal(art.illustrated.loaded.beast,true,'fera ilustrada carregada');
   let init=await page.evaluate(()=>window.AscensionGame.debug());
   assert.equal(init.mode,'menu','deve abrir no menu');
   assert.equal(init.tiles,4,'precisa gerar quatro texturas de floresta antes de jogar');
   assert(init.props>1000,'precisa preparar árvores, folhagens e elementos de cenário');
+  const collision=await page.evaluate(()=>{let t=window.AscensionWorld.trees[0];let r=window.AscensionWorld.resolve(t.x,t.y+9,13);return{radius:Math.hypot(r.x-t.x,r.y-(t.y+9)),required:t.radius+13,hit:r.collided}});
+  assert(collision.hit&&collision.radius>=collision.required-.5,'colisão sólida: tronco não atravessável '+JSON.stringify(collision));
   await page.screenshot({path:path.join(out,label+'-menu.png')});
   await page.getByRole('button',{name:/INICIAR JORNADA/i}).click({timeout:12000});
   await page.waitForFunction(()=>window.AscensionGame.mode()==='play',{timeout:12000});
@@ -91,6 +100,7 @@ async function testEngine(kind,device){
   }
   assert.notEqual(state.mode,'error','o motor gráfico não pode mostrar erro de recuperação');
   assert.equal(errors.length,0,'sem erros JavaScript ou falhas de renderização: '+errors.join(' | '));
+  assert(state.shakeEvents<=3,'tremidas não podem acontecer continuamente: '+state.shakeEvents);
   const latestError=await page.evaluate(()=>window.__ascensionLastError||null);
   assert.equal(latestError,null,'nenhuma falha gráfica silenciosa durante a partida');
   assert.equal(failedResources.length,0,'sem arquivos ausentes '+failedResources.join(','));
@@ -99,7 +109,7 @@ async function testEngine(kind,device){
   const image=fs.readFileSync(path.join(out,label+'-game.png')),pixels=brightness(image);
   assert(pixels.meanBrightness>65,'floresta deve ser CLARA; brilho='+pixels.meanBrightness);
   assert(pixels.greenMinusRed>=-10,'floresta deve ter predominância verde; diferença='+pixels.greenMinusRed);
-  const report={art,browser:label,status:'PASS',time:state.seconds.toFixed(1),enemies:state.enemies,kills:state.kills,playerMovePx:Math.round(dis),motionDuringMove:moving.motion,motionIdle:still.motion,color:pixels,errors,failedResources};
+  const report={art,world:state.tree,shakeEvents:state.shakeEvents,collision,browser:label,status:'PASS',time:state.seconds.toFixed(1),enemies:state.enemies,kills:state.kills,playerMovePx:Math.round(dis),motionDuringMove:moving.motion,motionIdle:still.motion,color:pixels,errors,failedResources};
   fs.writeFileSync(path.join(out,label+'-report.json'),JSON.stringify(report,null,2));
   console.log(JSON.stringify(report));
   return report;
