@@ -11,7 +11,7 @@ const palette={
 function G(c,x,y,r,colors){let g=c.createRadialGradient(x-r*.23,y-r*.3,1,x,y,r);for(let i=0;i<colors.length;i++)g.addColorStop(i/(colors.length-1),colors[i]);return g}
 function L(c,x1,y1,x2,y2,colors){let g=c.createLinearGradient(x1,y1,x2,y2);for(let i=0;i<colors.length;i++)g.addColorStop(i/(colors.length-1),colors[i]);return g}
 function smooth(c,points,fill,outline,width=1.4){const n=points.length;if(n<3)return;c.beginPath();let last=points[n-1],first=points[0];c.moveTo((last[0]+first[0])/2,(last[1]+first[1])/2);for(let i=0;i<n;i++){let p=points[i],next=points[(i+1)%n];c.quadraticCurveTo(p[0],p[1],(p[0]+next[0])/2,(p[1]+next[1])/2)}c.closePath();if(fill){c.fillStyle=fill;c.fill()}if(outline){c.lineJoin='round';c.strokeStyle=outline;c.lineWidth=width;c.stroke()}}
-function vein(c,pts,color,width=1.5){c.beginPath();c.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++){let p=pts[i];if(p.length===4)c.bezierCurveTo(p[0],p[1],p[2],p[3]);else c.lineTo(p[0],p[1])}c.lineWidth=width;c.lineCap='round';c.strokeStyle=color;c.stroke()}
+function vein(c,pts,color,width=1.5){c.beginPath();c.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++){let p=pts[i];if(p.length===4)c.quadraticCurveTo(p[0],p[1],p[2],p[3]);else c.lineTo(p[0],p[1])}c.lineWidth=width;c.lineCap='round';c.strokeStyle=color;c.stroke()}
 function orb(c,x,y,r,color){c.fillStyle=color;c.beginPath();c.ellipse(x,y,r,r,0,0,TAU);c.fill()}
 function light(c,x,y,r,color){let g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color);g.addColorStop(1,'transparent');c.fillStyle=g;c.fillRect(x-r,y-r,r*2,r*2)}
 function bristle(c,x,y,dx,dy,color,w=1){c.strokeStyle=color;c.lineWidth=w;c.beginPath();c.moveTo(x,y);c.lineTo(x+dx,y+dy);c.stroke()}
