@@ -71,6 +71,7 @@ async function testEngine(kind,device){
   assert(!errors.some(x=>/TypeError|Not enough arguments|ReferenceError|SyntaxError|Error:/i.test(x)),'erros de JavaScript: '+errors.join(' | '));
   assert.equal(failedResources.length,0,'sem arquivos ausentes '+failedResources.join(','));
   await page.screenshot({path:path.join(out,label+'-game.png')});
+  await page.screenshot({path:path.join(out,label+'-game.jpg'),type:'jpeg',quality:78});
   const image=fs.readFileSync(path.join(out,label+'-game.png')),pixels=brightness(image);
   assert(pixels.meanBrightness>65,'floresta deve ser CLARA; brilho='+pixels.meanBrightness);
   assert(pixels.greenMinusRed>=-10,'floresta deve ter predominância verde; diferença='+pixels.greenMinusRed);
