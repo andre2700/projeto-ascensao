@@ -98,7 +98,7 @@ async function testEngine(kind,device){
   assert(still.motion<moving.motion,'personagem precisa voltar à pose parada');
   // QA determinístico: inimigo real ao alcance da espada, sem projéteis.
   assert.equal(await page.evaluate(()=>!!window.AscensionQATools),true,'ganchos de QA devem existir apenas com ?qa=1');
-  await page.evaluate(()=>{window.AscensionQATools.clear();window.AscensionQATools.spawn('hound',48,0,320)});
+  await page.evaluate(()=>{window.AscensionQATools.clear();window.AscensionQATools.spawn('hound',33,0,320)});
   const beforeAttack=await page.evaluate(()=>window.AscensionGame.debug());
   await page.waitForFunction(before=>{const now=window.AscensionGame?.debug?.();return now&&now.meleeHits>before.meleeHits&&now.enemyStrikes>before.enemyStrikes},beforeAttack,{timeout:55000,polling:180});
   let action=await page.evaluate(()=>window.AscensionGame.debug());
