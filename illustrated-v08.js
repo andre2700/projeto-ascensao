@@ -1,0 +1,109 @@
+/* Projeto Ascensão 0.8 — recorte limpo, pivô nos pés e consistência de quadros */
+(function(root){
+'use strict';
+const motion=root.AscensionMotion;
+if(!motion)throw Error('Animacoes iniciais ausentes');
+const fallbackHero=motion.hero,fallbackEnemy=motion.drawEnemy;
+const input=root.AscensionIllustrationData||{},TAU=Math.PI*2;
+const specs={hero:{n:5,w:128,h:117,visual:91},wraith:{n:4,w:128,h:117,visual:71},beast:{n:4,w:128,h:117,visual:64}};
+const states={},counts={hero:0,wraith:0,beast:0,fallback:0};
+function clean(canvas){
+ const c=canvas.getContext('2d',{willReadFrequently:true});
+ const pixels=c.getImageData(0,0,canvas.width,canvas.height),p=pixels.data;
+ for(let k=0;k<p.length;k+=4){
+  const a=p[k+3];
+  if(a<24){p[k+3]=0;p[k]=0;p[k+1]=0;p[k+2]=0}
+  else if(a<155)p[k+3]=Math.min(255,Math.round((a-17)*255/238));
+ }
+ c.putImageData(pixels,0,0);
+ return canvas;
+}
+function makeFrames(name,img){
+ const spec=specs[name],frames=[];
+ for(let j=0;j<spec.n;j++){
+  const cv=document.createElement('canvas');cv.width=spec.w;cv.height=spec.h;
+  const c=cv.getContext('2d',{willReadFrequently:true});c.drawImage(img,j*spec.w,0,spec.w,spec.h,0,0,spec.w,spec.h);
+  clean(cv);
+  const a=c.getImageData(0,0,spec.w,spec.h).data;
+  let loX=spec.w,hiX=0,loY=spec.h,hiY=0,weight=0,sumX=0;
+  for(let y=0;y<spec.h;y++)for(let x=0;x<spec.w;x++){
+   let alpha=a[(y*spec.w+x)*4+3];
+   if(alpha>50){loX=Math.min(loX,x);hiX=Math.max(hiX,x);loY=Math.min(loY,y);hiY=Math.max(hiY,y)}
+  }
+  if(hiY<=loY){frames.push(null);continue}
+  // Âncora horizontal pelos pixels na faixa inferior (pernas), não pela espada.
+  let ankleStart=loY+(hiY-loY)*.73;
+  for(let y=Math.floor(ankleStart);y<=hiY;y++)for(let x=loX;x<=hiX;x++){
+   let alpha=a[(y*spec.w+x)*4+3];
+   if(alpha>75){let w=alpha/255;sumX+=x*w;weight+=w}
+  }
+  const footX=weight>0?sumX/weight:(loX+hiX)/2;
+  frames.push({image:cv,crop:{x:Math.max(0,loX-1),y:Math.max(0,loY-1),w:Math.min(spec.w-loX+1,hiX-loX+3),h:Math.min(spec.h-loY+1,hiY-loY+3)},footX,footY:hiY,visibleH:hiY-loY+1});
+ }
+ return frames
+}
+for(const [name,spec] of Object.entries(specs)){
+ const img=new Image(),st={img,frames:[],ready:false,failed:false,details:[]};states[name]=st;
+ img.onload=()=>{
+  try{st.frames=makeFrames(name,img);st.ready=img.naturalWidth===spec.w*spec.n&&st.frames.every(Boolean);
+   st.failed=!st.ready;st.details=st.frames.map(f=>f?({h:f.visibleH,pivot:Math.round(f.footX)}):null)
+  }catch(e){st.failed=true;console.error('[Art] recorte '+name,e)}
+ };
+ img.onerror=()=>st.failed=true;
+ if(typeof input[name]==='string'&&input[name].startsWith('data:image/'))img.src=input[name];else st.failed=true;
+}
+function sprite(ctx,name,index,visualH,mirror=1){
+ const st=states[name],f=st.frames[index]||st.frames[0];
+ if(!st.ready||!f)return false;
+ const cr=f.crop,h=visualH,scale=h/cr.h,dw=cr.w*scale;
+ // A âncora de cada quadro é a média dos pés: elimina o 'encolhe e cresce'.
+ const footX=(f.footX-cr.x)*scale;
+ ctx.save();ctx.scale(mirror,1);
+ ctx.drawImage(f.image,cr.x,cr.y,cr.w,cr.h,-footX,-h+13,dw,h);
+ ctx.restore();counts[name]++;return true
+}
+function contact(c,x,y,rx,ry,alpha){if(root.AscensionWorld?.contact)root.AscensionWorld.contact(c,x,y,rx,ry,alpha)}
+function hero(c,p,t,g){
+ if(!states.hero.ready){counts.fallback++;return fallbackHero(c,p,t,g)}
+ const moving=(p.motion||0)>.12,atk=(p.attackPulse||0)>0,hit=(p.hurt||0)>0;
+ const v=atk?Math.max(0,1-(p.attackPulse||0)/.32):0;
+ const frame=hit?4:atk?(v<.42?2:3):moving?(Math.sin((p.move||0))>.08?1:0):0;
+ const phase=p.move||0,bounce=moving?Math.abs(Math.sin(phase))*1.8*Math.min(1,p.motion):Math.sin(t*2.8)*.65;
+ c.save();c.translate(p.x,p.y-bounce);
+ c.rotate(moving?Math.sin(phase)*.024:0);
+ const ok=sprite(c,'hero',frame,states.hero.specH||91,p.face===-1?-1:1);
+ if(atk){const force=Math.sin(Math.min(1,v)*Math.PI),color=g?.fire>0?'#ffaf68':g?.ice>0?'#a6f8ff':'#d6f2ff';
+ if(force>.12){c.save();c.globalAlpha=force*.66;c.strokeStyle=color;c.shadowColor=color;c.shadowBlur=12;c.lineWidth=2.4+force*3;
+ c.beginPath();c.arc(2,-37,47,-1.3,.17+v*.4);c.stroke();c.restore()}}
+ if(hit){c.globalAlpha=Math.min(.15,p.hurt*.4);c.fillStyle='#fff7e5';c.beginPath();c.ellipse(0,-29,25,33,0,0,TAU);c.fill()}
+ c.restore();
+ if(!ok){counts.fallback++;fallbackHero(c,p,t,g)}
+}
+function enemy(c,e,t){
+ const name=e.kind==='hound'?'beast':e.kind==='wraith'?'wraith':null;
+ if(!name||!states[name].ready){counts.fallback++;return fallbackEnemy.call(motion,c,e,t)}
+ const beast=name==='beast',phase=e.phase||0,attacking=(e.attackT||0)>.08,hit=(e.flash||0)>0;
+ // Espectro: mesma silhueta e mesma mao segurando lanterna em TODOS os frames.
+ // Animar flutuação/tecido e partículas, sem trocar mão/arma nas poses.
+ const cell=name==='wraith'?0:hit?3:attacking?2:(e.motion||0)>.2?(Math.sin(phase)>.08?1:0):0;
+ c.save();c.translate(e.x,e.y);
+ const bob=beast?Math.abs(Math.sin(phase*1.4))*1.1:Math.sin(phase*.82)*3.2;
+ c.translate(0,-bob);if(beast)c.rotate(Math.sin(phase*.4)*.018);else c.rotate(Math.sin(phase*.66)*.028);
+ sprite(c,name,cell,beast?64:70,e.face===-1?-1:1);
+ if(!beast){ // brilho da lanterna sempre do mesmo lado do sprite
+  const side=e.face===-1?-1:1;
+  c.save();c.globalAlpha=.35+.22*Math.sin(t*5+e.phase);c.shadowColor='#82fbdc';c.shadowBlur=13;
+  c.fillStyle='#a2ffe9';c.beginPath();c.arc(side*23,-25,3.3,0,TAU);c.fill();c.restore()
+ }
+ if(hit){c.globalAlpha=.16;c.fillStyle='#fff6e7';c.beginPath();c.ellipse(0,-26,beast?29:19,beast?22:32,0,0,TAU);c.fill()}
+ if(e.burn>0||e.slow>0){c.save();c.globalAlpha=.20;c.fillStyle=e.burn>0?'#ffb067':'#aaf6ff';c.beginPath();c.ellipse(0,-26,beast?30:22,beast?23:36,0,0,TAU);c.fill();c.restore()}
+ c.restore();
+}
+motion.hero=hero;motion.drawEnemy=enemy;
+root.AscensionIllustrated={ready:()=>Object.values(states).every(v=>v.ready),stats:()=>({
+ loaded:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.ready])),
+ failed:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.failed])),
+ framesDrawn:{...counts},normalized:true,lockedWraithLantern:true,
+ frameHeights:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.details.map(d=>d?.h||0)]))
+})};
+})(window);
