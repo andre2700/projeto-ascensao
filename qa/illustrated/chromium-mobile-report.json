@@ -4,9 +4,9 @@
   "time": "6.0",
   "enemies": 4,
   "kills": 2,
-  "playerMovePx": 281,
-  "motionDuringMove": 0.9999999995738394,
-  "motionIdle": 1.8584773218491773e-8,
+  "playerMovePx": 285,
+  "motionDuringMove": 0.9999999996805952,
+  "motionIdle": 2.708919384827283e-9,
   "visualSprites": {
     "loaded": {
       "hero": true,
@@ -19,20 +19,20 @@
       "beast": false
     },
     "framesDrawn": {
-      "hero": 408,
-      "wraith": 48,
-      "beast": 0,
-      "fallback": 0
+      "hero": 402,
+      "wraith": 51,
+      "beast": 113,
+      "fallback": 38
     }
   },
   "wind": {
-    "paints": 1227,
+    "paints": 1209,
     "cachedSprites": true
   },
   "framesPerSecond": 60,
   "color": {
-    "meanBrightness": 120,
-    "greenMinusRed": 32
+    "meanBrightness": 115,
+    "greenMinusRed": 25
   },
   "errors": [],
   "failedResources": []
