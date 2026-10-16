@@ -12,37 +12,85 @@
         "beast": false
       },
       "framesDrawn": {
-        "hero": 3,
+        "hero": 4,
         "wraith": 0,
         "beast": 0,
-        "fallback": 1
+        "fallback": 0
+      },
+      "normalized": true,
+      "lockedWraithLantern": true,
+      "frameHeights": {
+        "hero": [
+          88,
+          78,
+          64,
+          75,
+          72
+        ],
+        "wraith": [
+          81,
+          75,
+          74,
+          70
+        ],
+        "beast": [
+          70,
+          61,
+          65,
+          61
+        ]
       }
     },
     "terrain": {
       "loaded": true,
       "failed": false,
-      "preparations": 1
+      "preparations": 1,
+      "sharpened": true,
+      "gradient": 17,
+      "tileSize": 640
     },
     "tree": {
-      "loaded": true,
+      "spriteReady": true,
       "failed": false,
-      "drawn": 12,
-      "visible": 4,
-      "total": 340,
-      "dom": true
+      "trees": 334,
+      "collisions": 0,
+      "footsteps": 0,
+      "draws": 24,
+      "worldCanvas": true
+    },
+    "wind": {
+      "paints": 8,
+      "cachedSprites": true,
+      "worldSpaceLeaves": true,
+      "leafDraws": 100
     }
+  },
+  "world": {
+    "spriteReady": true,
+    "failed": false,
+    "trees": 334,
+    "collisions": 1,
+    "footsteps": 2,
+    "draws": 1325,
+    "worldCanvas": true
+  },
+  "shakeEvents": 0,
+  "collision": {
+    "radius": 34.80777588337662,
+    "required": 34.757775883376596,
+    "hit": true
   },
   "browser": "chromium-mobile",
   "status": "PASS",
-  "time": "5.9",
-  "enemies": 4,
-  "kills": 2,
-  "playerMovePx": 281,
-  "motionDuringMove": 0.9999999995729899,
-  "motionIdle": 2.42112105955382e-8,
+  "time": "4.0",
+  "enemies": 3,
+  "kills": 1,
+  "playerMovePx": 41,
+  "motionDuringMove": 0.957736913730545,
+  "motionIdle": 0.014262405125017858,
   "color": {
-    "meanBrightness": 95,
-    "greenMinusRed": 20
+    "meanBrightness": 99,
+    "greenMinusRed": 21
   },
   "errors": [],
   "failedResources": []
