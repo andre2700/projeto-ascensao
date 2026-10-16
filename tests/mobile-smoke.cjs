@@ -40,6 +40,8 @@ async function testEngine(kind,device){
   await page.waitForFunction(()=>!!window.AscensionGame,{timeout:45000});
   let init=await page.evaluate(()=>window.AscensionGame.debug());
   assert.equal(init.mode,'menu','deve abrir no menu');
+  assert.equal(init.tiles,4,'precisa gerar quatro texturas de floresta antes de jogar');
+  assert(init.props>1000,'precisa preparar árvores, folhagens e elementos de cenário');
   await page.screenshot({path:path.join(out,label+'-menu.png')});
   await page.getByRole('button',{name:/INICIAR JORNADA/i}).click({timeout:12000});
   await page.waitForFunction(()=>window.AscensionGame.mode()==='play',{timeout:12000});
