@@ -11,8 +11,11 @@ on:
       - 'tests/**'
       - '.github/workflows/mobile-visual-test.yml'
   workflow_dispatch:
+concurrency:
+  group: ascension-visual-test
+  cancel-in-progress: true
 permissions:
-  contents: read
+  contents: write
 jobs:
   mobile-browsers:
     name: iPhone WebKit + Android Chromium
@@ -36,3 +39,19 @@ jobs:
           name: mobile-visual-smoke
           path: test-output/
           retention-days: 7
+      - name: Salvar capturas e diagnosticos no proprio repositorio
+        if: always()
+        run: |
+          mkdir -p qa
+          cp test-output/webkit-iphone-game.jpg qa/forest-iphone.jpg 2>/dev/null || true
+          cp test-output/chromium-mobile-game.jpg qa/forest-android.jpg 2>/dev/null || true
+          cp test-output/webkit-iphone-report.json qa/forest-iphone-report.json 2>/dev/null || true
+          cp test-output/chromium-mobile-report.json qa/forest-android-report.json 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add qa/
+          if ! git diff --cached --quiet; then
+            git commit -m "test: atualizar capturas reais da floresta"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
