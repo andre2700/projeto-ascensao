@@ -1,68 +1,38 @@
 {
   "browser": "webkit-iphone",
-  "status": "FAIL",
-  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=0 FPS=0 stick={\"dx\":0.8674570262744272,\"dy\":-0.49751211801033324} eventos=[{\"event\":\"touchstart\",\"identifier\":7,\"x\":120.9,\"y\":498},{\"event\":\"touchmove\",\"identifier\":7,\"x\":188.9,\"y\":459}]",
-  "captured": {
-    "lastError": null,
-    "debug": {
-      "mode": "play",
-      "seconds": 0.8110000000000005,
-      "x": 23.421339709409533,
-      "y": -13.432827186278995,
-      "motion": 0.000015811502735076003,
-      "attackPulse": 0.29600000000000004,
-      "kills": 0,
-      "enemies": 0,
-      "shots": 0,
-      "tiles": 4,
-      "props": 1556,
-      "fps": 3,
-      "stick": null,
-      "touchActive": false,
-      "terrain": "Floresta da Aurora",
-      "illustrated": {
-        "loaded": {
-          "hero": true,
-          "wraith": true,
-          "beast": true
-        },
-        "failed": {
-          "hero": false,
-          "wraith": false,
-          "beast": false
-        },
-        "framesDrawn": {
-          "hero": 13,
-          "wraith": 0,
-          "beast": 0,
-          "fallback": 0
-        }
-      },
-      "wind": {
-        "paints": 39
-      },
-      "version": "0.7.0"
+  "status": "PASS",
+  "time": "4.4",
+  "enemies": 3,
+  "kills": 1,
+  "playerMovePx": 54,
+  "motionDuringMove": 0.9919019582816255,
+  "motionIdle": 1.9363461185732757e-8,
+  "visualSprites": {
+    "loaded": {
+      "hero": true,
+      "wraith": true,
+      "beast": true
     },
-    "pointerTrace": [
-      {
-        "event": "touchstart",
-        "identifier": 7,
-        "x": 120.9,
-        "y": 498
-      },
-      {
-        "event": "touchmove",
-        "identifier": 7,
-        "x": 188.9,
-        "y": 459
-      },
-      {
-        "event": "touchend",
-        "identifier": 7,
-        "x": 188.9,
-        "y": 459
-      }
-    ]
+    "failed": {
+      "hero": false,
+      "wraith": false,
+      "beast": false
+    },
+    "framesDrawn": {
+      "hero": 59,
+      "wraith": 25,
+      "beast": 0,
+      "fallback": 0
+    }
+  },
+  "wind": {
+    "paints": 177,
+    "cachedSprites": true
+  },
+  "framesPerSecond": 12,
+  "color": {
+    "meanBrightness": 133,
+    "greenMinusRed": 27
   },
   "errors": [],
   "failedResources": []
