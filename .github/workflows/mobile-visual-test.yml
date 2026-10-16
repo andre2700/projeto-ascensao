@@ -40,6 +40,9 @@ on:
       - 'game-v12.js'
       - 'illustrated-v12.js'
       - 'preview-v12.html'
+      - 'run-art-v14.js'
+      - 'illustrated-v14.js'
+      - 'preview-art-v14.html'
       - 'index.html'
       - 'tests/**'
       - '.github/workflows/mobile-visual-test.yml'
@@ -80,6 +83,8 @@ jobs:
       - name: Capturar sequencia de quadros para revisao artistica
         if: always()
         run: node tests/motion-review.cjs
+      - name: Capturar prévia ilustrada — sem publicar como jogo principal
+        run: node tests/motion-review-art-v14.cjs
       - name: Guardar capturas e relatorios para revisao visual
         if: always()
         uses: actions/upload-artifact@v4
@@ -94,6 +99,8 @@ jobs:
           cp test-output/webkit-iphone-game.jpg qa/forest-iphone.jpg 2>/dev/null || true
           cp test-output/motion-review.png qa/motion-review.png 2>/dev/null || true
           cp test-output/motion-review.jpg qa/motion-review.jpg 2>/dev/null || true
+          cp test-output/art-preview-v14.jpg qa/art-preview-v14.jpg 2>/dev/null || true
+          cp test-output/art-preview-v14.json qa/art-preview-v14.json 2>/dev/null || true
           cp test-output/motion-review.json qa/motion-review.json 2>/dev/null || true
           cp test-output/webkit-iphone-katana-evolved.jpg qa/katana-iphone.jpg 2>/dev/null || true
           cp test-output/chromium-mobile-katana-evolved.jpg qa/katana-android.jpg 2>/dev/null || true
