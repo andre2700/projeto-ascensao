@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Projeto Ascensão — uma jornada de fantasia elemental.">
-<title>Projeto Ascensão — Alpha 0.6 — Floresta da Aurora</title>
-<link rel="stylesheet" href="./style-v04.css?v=6.0.0">
+<title>Projeto Ascensão — Alpha 0.6.2 — Floresta da Aurora</title>
+<link rel="stylesheet" href="./style-v04.css?v=6.2.0">
 </head>
 <body>
 <canvas id="game" aria-label="Arena de combate do Projeto Ascensão"></canvas>
@@ -34,8 +34,9 @@
 <div id="toast"></div>
 <div id="footer">✦ &nbsp; A FLORESTA DA AURORA &nbsp; ✦</div>
 <div id="overlay"><div id="panel" class="panel"></div></div>
-<script src="./forest-v06.js?v=6.0.0"></script>
-<script src="./motion-v06.js?v=6.0.0"></script>
+<script src="./forest-v06.js?v=6.2.0"></script>
+<script src="./motion-v06.js?v=6.2.0"></script>
+<script src="./cache-v06.js?v=6.2.0"></script>
 <script>
 (function(){
   const stable=new URLSearchParams(location.search).get('engine')==='stable';
@@ -45,13 +46,13 @@
     ov.classList.remove('hidden');
     p.innerHTML='<div class="eyebrow">RECUPERAÇÃO DO JOGO</div><h1>VAMOS TENTAR OUTRA VEZ</h1><p class="lead">O navegador não conseguiu carregar o motor do jogo. Você pode abrir a versão estável sem perder o acesso ao Projeto Ascensão.</p><button class="button" id="emergencyStart">JOGAR VERSÃO ESTÁVEL</button><p class="fine" id="errorInfo"></p>';
     document.getElementById('errorInfo').textContent=message||'Falha na inicialização';
-    document.getElementById('emergencyStart').onclick=function(){location.href='./?engine=stable&v=6.0.0'};
+    document.getElementById('emergencyStart').onclick=function(){location.href='./?engine=stable&v=6.2.0'};
   }
   window.addEventListener('error',function(e){
     if(e.target&&e.target.tagName==='SCRIPT'&&!stable)recovery('Não foi possível carregar um arquivo do jogo.');
   },true);
   var sc=document.createElement('script');
-  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v06.js?v=6.0.0';
+  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v06.js?v=6.2.0';
   sc.onerror=function(){recovery('Arquivo do motor indisponível.')};
   sc.onload=function(){if(!stable&&!window.AscensionGame)recovery('Motor gráfico não iniciou.')};
   document.body.appendChild(sc);
