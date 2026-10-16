@@ -234,5 +234,18 @@ cv.addEventListener('touchend',finishTouch,{passive:false});cv.addEventListener(
 addEventListener('blur',()=>{keys=Object.create(null);resetStick();if(mode==='play')pause()});addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();if(e.key==='Escape'&&mode==='play')pause()});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 function endResult(won){mode=won?'won':'lost';hud.classList.add('hidden');el('pause').classList.add('hidden');bossbar.classList.remove('visible');show('<div class="eyebrow">'+(won?'A LENDA FOI ESCRITA':'A JORNADA CONTINUA')+'</div><div class="emblem">'+crest+'</div><h1>'+(won?'GUARDIÃO DERROTADO':'A NOITE VENCEU')+'</h1><p class="lead">'+(won?'Você sobreviveu às ruínas e venceu o Guardião. Sua ascensão está apenas começando.':'Cada batalha revela um novo caminho. Reúna forças e tente novamente.')+'</p><div class="result-grid"><div><b>'+game.level+'</b><span>NÍVEL</span></div><div><b>'+game.kills+'</b><span>ELIMINAÇÕES</span></div><div><b>'+Math.floor(game.elapsed/60)+':'+String(Math.floor(game.elapsed%60)).padStart(2,'0')+'</b><span>TEMPO</span></div><div><b>'+game.score+'</b><span>PONTOS</span></div></div><button class="button" id="again">NOVA JORNADA</button><button class="button alt" id="home">MENU PRINCIPAL</button>');el('again').onclick=start;el('home').onclick=menu}
 function win(){if(mode==='play'&&!game.winPending){game.winPending=.8;hitstop=Math.max(hitstop,.085)}}function lose(){if(mode==='play')endResult(false)}
+// Ferramenta de QA habilitada somente com ?qa=1, nunca na partida normal.
+if(new URLSearchParams(location.search).get('qa')==='1'){
+ window.AscensionQATools={
+  clear:()=>{enemies=[];orbs=[]},
+  spawn:(kind='hound',dx=48,dy=0,hp=250)=>{
+   if(!game||mode!=='play')return false;
+   const p=game.p,e={x:p.x+dx,y:p.y+dy,kind,hp,maxHp:hp,r:kind==='boss'?39:kind==='hound'?16:18,
+    speed:kind==='wraith'?0:0,damage:6,burn:0,slow:0,flash:0,phase:0,face:-1,attackT:0,
+    attackWindup:0,attackCooldown:.04,motion:0};enemies.push(e);return true
+  },
+  heroStats:()=>({hp:game?.p.hp||0,x:game?.p.x||0,y:game?.p.y||0})
+ };
+}
 makeWorld();menu();window.AscensionGame={start,mode:()=>mode,debug:()=>({mode,seconds:game?.elapsed||0,x:game?.p.x||0,y:game?.p.y||0,motion:game?.p.motion||0,attackPulse:game?.p.attackPulse||0,kills:game?.kills||0,enemies:enemies.length,shots:shots.length,projectiles:shots.length,meleeHits,swordSwings:totalSwings,enemyStrikes,coinsCollected,combatMode:'sword',tiles:tiles.length,props:props.length,fps:currentFps,stick:stick?{dx:stick.dx,dy:stick.dy}:null,touchActive:touchId!==null,terrain:'Floresta da Aurora',illustrated:window.AscensionIllustrated?.stats()||null,wind:AscensionWind.stats(),tree:AscensionWorld.stats(),terrainDetails:window.AscensionTerrain?.stats()||null,shakeEvents,shakeLevel:shake,version:'0.9.0'})};document.addEventListener('pointerup',e=>{if(mode==='menu'&&e.target&&e.target.closest&&e.target.closest('#start'))start()},{capture:true});document.addEventListener('touchend',e=>{if(mode==='menu'&&e.target&&e.target.closest&&e.target.closest('#start')){e.preventDefault();start()}},{capture:true,passive:false});requestAnimationFrame(frame);
 })();
