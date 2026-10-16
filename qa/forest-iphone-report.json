@@ -6,11 +6,11 @@
     "lastError": null,
     "debug": {
       "mode": "play",
-      "seconds": 0.9680000000000006,
+      "seconds": 0.9700000000000006,
       "x": 23.421339709409533,
       "y": -13.432827186278995,
-      "motion": 4.898177790829721e-7,
-      "attackPulse": 0.138,
+      "motion": 5.068662215455821e-7,
+      "attackPulse": 0.14200000000000002,
       "kills": 0,
       "enemies": 0,
       "shots": 0,
@@ -32,10 +32,10 @@
           "beast": false
         },
         "framesDrawn": {
-          "hero": 13,
+          "hero": 15,
           "wraith": 0,
           "beast": 0,
-          "fallback": 1
+          "fallback": 0
         },
         "normalized": true,
         "lockedWraithLantern": true,
@@ -62,10 +62,10 @@
         }
       },
       "wind": {
-        "paints": 28,
+        "paints": 30,
         "cachedSprites": true,
         "worldSpaceLeaves": true,
-        "leafDraws": 574
+        "leafDraws": 300
       },
       "tree": {
         "spriteReady": true,
@@ -73,7 +73,7 @@
         "trees": 334,
         "collisions": 1,
         "footsteps": 0,
-        "draws": 63,
+        "draws": 68,
         "worldCanvas": true
       },
       "terrainDetails": {
