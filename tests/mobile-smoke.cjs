@@ -80,8 +80,9 @@ async function testEngine(kind,device){
   console.log(JSON.stringify(report));
   return report;
  }catch(e){
-  try{await page.screenshot({path:path.join(out,label+'-FAILED.png')})}catch{}
-  let report={browser:label,status:'FAIL',error:String(e),errors,failedResources};
+  try{await page.screenshot({path:path.join(out,label+'-FAILED.png')});await page.screenshot({path:path.join(out,label+'-FAILED.jpg'),type:'jpeg',quality:80})}catch{}
+  const captured=await page.evaluate(()=>window.__ascensionLastError||null).catch(()=>null);
+  let report={browser:label,status:'FAIL',error:String(e),captured,errors,failedResources};
   fs.writeFileSync(path.join(out,label+'-report.json'),JSON.stringify(report,null,2));
   console.error(JSON.stringify(report));
   throw e;
