@@ -163,7 +163,7 @@ let p=game.p;game.elapsed+=dt;
  if(moved>.01){
   const angle=snap(Math.atan2(p.y-wasY,p.x-wasX));
   if(p.attackPulse<=.08){p.heading=angle;p.direction=((Math.round(angle/OCT)%8)+8)%8}
-  if(Math.abs(p.x-wasX)>1)p.face=p.x<wasX?-1:1;
+  if(Math.abs(p.x-wasX)>1&&p.attackPulse<=.08)p.face=p.x<wasX?-1:1;
   p.move+=moved*.070;
   p.footT+=moved;if(p.footT>37){p.footT%=37;AscensionWorld.footstep(p.x,p.y,'hero',worldTime,moving)}
  }else p.move+=dt*.12;
