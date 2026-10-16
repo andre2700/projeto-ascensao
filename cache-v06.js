@@ -36,7 +36,7 @@ function paintEnemy(ctx,e,t){
  const image=getChar(key,w,h,c=>{
   c.translate(centerX,centerY);
   const r=kind==='boss'?39:kind==='hound'?16:kind==='sentinel'?23:18;
-  origEnemy(c,{x:0,y:0,face:1,kind,r,phase:frame/n*TAU,hp:100,maxHp:100,attackT:attacking?.22:0,flash:0,burn:0,slow:0},frame/n*TAU);
+  origEnemy.call(motion,c,{x:0,y:0,face:1,kind,r,phase:frame/n*TAU,hp:100,maxHp:100,attackT:attacking?.22:0,flash:0,burn:0,slow:0},frame/n*TAU);
  });
  ctx.save();ctx.translate(e.x,e.y);ctx.scale(e.face===-1?-1:1,1);
  // show weight shifts and recoil even between keyframes
