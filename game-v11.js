@@ -271,16 +271,17 @@ for(const o of orbs)AscensionCombatFX.loot(ctx,o,worldTime);
 const scene=[];
 for(const tr of AscensionWorld.trees)if(tr.x>left&&tr.x<right&&tr.y>top&&tr.y<bottom)scene.push({kind:'tree',y:tr.y+10,ref:tr});
 for(const enemy of enemies)if(enemy.x>left-30&&enemy.x<right+30&&enemy.y>top-30&&enemy.y<bottom+30)scene.push({kind:'enemy',y:enemy.y,ref:enemy});
+for(const w of waves)if(w.x>left&&w.x<right&&w.y>top&&w.y<bottom)scene.push({kind:'wave',y:w.y,ref:w});
 if(game)scene.push({kind:'hero',y:game.p.y,ref:game.p});else scene.push({kind:'hero',y:0,ref:{x:0,y:0,face:1,move:worldTime*.4,motion:0,hurt:0}});
 scene.sort((a,b)=>a.y-b.y);
 for(const item of scene){
  if(item.kind==='tree')AscensionWorld.drawTree(ctx,item.ref,worldTime);
+ else if(item.kind==='wave')AscensionKatana.drawCrescent(ctx,item.ref,worldTime);
  else if(item.kind==='hero'){AscensionWorld.contact(ctx,item.ref.x,item.ref.y+9,15.5,5.5,.85);hero(item.ref.x,item.ref.y,item.ref);for(const sw of swings)AscensionCombatFX.slash(ctx,sw,item.ref,game)}
  else {const e=item.ref;AscensionWorld.contact(ctx,e.x,e.y+8,e.kind==='hound'?23:e.kind==='boss'?31:15,e.kind==='hound'?6:4.8,.75);enemySprite(e);AscensionCombatFX.enemyStrike(ctx,e)}
 }
 
 // A espada possui o proprio VFX de arco, sem projeteis.
-for(const w of waves)AscensionKatana.drawCrescent(ctx,w,worldTime);
 for(let r of rings){ctx.save();ctx.globalAlpha=clamp(r.life/r.max,0,1)*.8;ctx.strokeStyle=r.color;ctx.lineWidth=3;ctx.shadowColor=r.color;ctx.shadowBlur=12;ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,TAU);ctx.stroke();ctx.restore()}
 for(let f of particles){ctx.globalAlpha=clamp(f.life/f.max,0,1);ctx.fillStyle=f.color;ctx.fillRect(f.x,f.y,f.size,f.size)}ctx.globalAlpha=1;
 ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='700 14px Outfit,system-ui';for(let f of floaters){if(f.text.includes('CRÍTICO'))ctx.font='700 11px Outfit,system-ui';else ctx.font='700 14px Outfit,system-ui';ctx.globalAlpha=clamp(f.life/f.max,0,1);ctx.strokeStyle='#060d1c';ctx.lineWidth=3;ctx.strokeText(f.text,f.x,f.y);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y)}ctx.globalAlpha=1;AscensionWind.air(ctx,camera,vw,vh,worldTime);ctx.restore();
