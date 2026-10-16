@@ -119,6 +119,7 @@ async function testEngine(kind,device){
   let dis=Math.hypot(moving.x-before.x,moving.y-before.y);
   assert(dis>25,'jogador deve se mover com joystick; inicio='+JSON.stringify(before)+' fim='+JSON.stringify(moving)+' deslocamento='+dis+' FPS='+moving.fps+' eventos='+JSON.stringify(gestureEvents));
   assert(moving.motion>.12,'animação de caminhada deve ser ativada; valor='+moving.motion);
+  await page.waitForFunction(()=>window.AscensionIllustrated?.stats?.().runDraws>0,null,{timeout:35000,polling:200});
   const animationStats=await page.evaluate(()=>window.AscensionIllustrated.stats());
   assert(animationStats.runDraws>0,'o guerreiro deve desenhar os novos quadros de corrida');
   assert(animationStats.creatureDraws.beast+animationStats.creatureDraws.wraith>0,
