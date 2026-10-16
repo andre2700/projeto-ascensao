@@ -2,11 +2,11 @@
   "browser": "chromium-mobile",
   "status": "PASS",
   "time": "6.2",
-  "enemies": 5,
-  "kills": 2,
+  "enemies": 4,
+  "kills": 3,
   "playerMovePx": 281,
-  "motionDuringMove": 0.9999999995729881,
-  "motionIdle": 2.3963278055436882e-9,
+  "motionDuringMove": 0.9999999999028004,
+  "motionIdle": 1.3521255772187933e-9,
   "color": {
     "meanBrightness": 120,
     "greenMinusRed": 33
