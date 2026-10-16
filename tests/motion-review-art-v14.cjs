@@ -1,6 +1,6 @@
 /* Projeto Ascensão — revisão VISUAL temporal.
    Captura uma sequência real da partida. Não atesta qualidade artística automaticamente. */
-const {chromium,devices}=require('playwright');
+const {webkit,devices}=require('playwright');
 const {PNG}=require('pngjs');
 const jpeg=require('jpeg-js');
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path');
@@ -35,7 +35,7 @@ function contactSheet(buffers,columns=4,targetWidth=198){
 }
 (async()=>{
  await new Promise(r=>server.listen(8766,'127.0.0.1',r));
- const browser=await chromium.launch({headless:true,args:['--disable-dev-shm-usage']});
+ const browser=await webkit.launch({headless:true});
  const ctx=await browser.newContext({...devices['iPhone 13'],reducedMotion:'no-preference'});
  const page=await ctx.newPage(),issues=[],frames=[],records=[];
  page.on('pageerror',e=>issues.push(String(e)));
@@ -81,7 +81,7 @@ function contactSheet(buffers,columns=4,targetWidth=198){
   fs.writeFileSync(path.join(output,'art-preview-v14.jpg'),
     jpeg.encode({data:sheet.data,width:sheet.width,height:sheet.height},72).data);
   const outcome={version:(await page.evaluate(()=>window.AscensionGame.debug().version)),sampledFrames:frames.length,
-   method:'12 gameplay screenshots: 6 run poses without enemies and 6 action frames with combat. Preview art only.',artStats:art,
+   method:'WebKit (Safari engine): 12 screenshots, 6 run poses and 6 combat. Preview art only.',artStats:art,
    frameSequence:records,exceptions:issues,
    artisticStatus:'REQUIRES HUMAN VISUAL REVIEW: never infer visual quality from green browser tests'};
   fs.writeFileSync(path.join(output,'art-preview-v14.json'),JSON.stringify(outcome,null,2));
