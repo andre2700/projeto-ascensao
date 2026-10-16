@@ -7,7 +7,7 @@
 const P=root.Phaser,TAU=Math.PI*2,WORLD=2600,MID=WORLD/2;
 const $=id=>document.getElementById(id);
 const ui={menu:$('menu'),start:$('start'),status:$('status'),version:$('version'),state:$('state'),hits:$('hits'),
- stick:$('stick'),knob:$('knob'),attack:$('attack'),slow:$('slow'),zoomin:$('zoomin'),zoomout:$('zoomout')};
+ stick:$('stick'),knob:$('knob'),attack:$('attack'),slow:$('slow'),auto:$('auto'),zoomin:$('zoomin'),zoomout:$('zoomout')};
 const metrics={ready:false,playing:false,errors:[],hits:0,swings:0,contactEvents:0,frameIndex:0,
  state:'idle',heroX:MID,heroY:MID,actorCount:0};
 root.AscensionMotionStudio={debug:()=>({...metrics,phaser:P?.VERSION||null})};
@@ -70,7 +70,7 @@ class Studio extends P.Scene{
   this.joy={x:0,y:0};this.joyId=null;this.joyOrigin=null;this.hitstop=0;
   this.attack={active:false,t:0,duration:.48,aim:0,variant:1,hit:false};
   this.vel={x:0,y:0};this.facing=1;this.moveClock=0;this.manualQueue=false;
-  this.cooldown=0;this.timeScale=1;this.lastState=''
+  this.cooldown=0;this.timeScale=1;this.auto=false;this.lastState=''
  }
  preload(){
   if(!root.AscensionIllustrationData?.hero||!root.AscensionForestTextureData||!root.AscensionTreeData)
@@ -117,8 +117,8 @@ class Studio extends P.Scene{
   };
   this.input.on('pointerup',release);this.input.on('pointerupoutside',release);
   this.input.on('gameout',()=>{this.joyId=null;this.joyOrigin=null;this.joy.x=this.joy.y=0;ui.stick.style.display='none'});
-  ui.attack.addEventListener('pointerdown',e=>{e.preventDefault();this.manualQueue=true});
   ui.attack.addEventListener('click',()=>{this.manualQueue=true});
+  ui.auto.addEventListener('click',()=>{this.auto=!this.auto;ui.auto.textContent=this.auto?'AUTO ON':'AUTO OFF';ui.auto.setAttribute('aria-pressed',String(this.auto))});
   ui.slow.addEventListener('click',()=>{this.timeScale=this.timeScale===1?.5:1;ui.slow.textContent=this.timeScale===1?'1×':'½×'});
   ui.zoomin.addEventListener('click',()=>this.cameras.main.setZoom(clamp(this.cameras.main.zoom+.10,.65,1.20)));
   ui.zoomout.addEventListener('click',()=>this.cameras.main.setZoom(clamp(this.cameras.main.zoom-.10,.65,1.20)));
@@ -186,7 +186,8 @@ class Studio extends P.Scene{
   }
  }
  burst(x,y,color){
-  this.cameras.main.flash(36,252,235,195,false,()=>{});
+  const flash=this.add.circle(x,y-30,11,0xfff8dd,.55).setDepth(y+51);
+  this.tweens.add({targets:flash,alpha:0,scale:2.5,duration:145,onComplete:()=>flash.destroy()});
   for(let i=0;i<7;i++){
    const a=i*TAU/7+this.seed()*.25,r=12+this.seed()*21;
    const obj=this.add.circle(x,y,1.6+this.seed()*2.2,i<2?0xffffff:color,.92).setDepth(y+50);
@@ -231,9 +232,12 @@ class Studio extends P.Scene{
   else{pose(this.hero,0);this.setState('GUARDA')}
   metrics.heroX=this.hero.x;metrics.heroY=this.hero.y;
   this.cooldown=Math.max(0,this.cooldown-dt);
+  this.hero.body.setScale(1,!moving&&!this.attack.active?1+.005*Math.sin(this.elapsed*2.0):1);
   if(this.keys?.SPACE.isDown)this.manualQueue=true;
   if(this.manualQueue&&!this.attack.active&&this.cooldown<=0){
    const target=this.nearest(190);this.beginAttack(target,true);this.manualQueue=false
+  }else if(this.auto&&!this.attack.active&&this.cooldown<=0){
+   const target=this.nearest(124);if(target)this.beginAttack(target,false)
   }
  }
  nearest(radius){
@@ -278,11 +282,8 @@ class Studio extends P.Scene{
      else pose(foe,0); // O espectro paira; não simular passada humana nele.
     }else if(foe.atkCd<=0&&d<109){
      foe.atkT=.40;foe.atkCd=1.15+this.seed()*.45
-    }else{
-     if(foe.atkT>0){foe.atkT=Math.max(0,foe.atkT-dt);pose(foe,2)}
-     else pose(foe,0)
-    }
-    // Para o ataque: não sobrepor os ciclos da corrida e do golpe.
+    }else if(foe.atkT<=0)pose(foe,0);
+    // Ataque prevalece sobre idle/movimento, com duração estável.
     if(foe.atkT>0){foe.atkT=Math.max(0,foe.atkT-dt);pose(foe,2)}
     foe.body.setFlipX(dx<0)
    }
