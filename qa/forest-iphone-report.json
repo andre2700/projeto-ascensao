@@ -1,0 +1,9 @@
+{
+  "browser": "webkit-iphone",
+  "status": "FAIL",
+  "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /INICIAR JORNADA/i })\n",
+  "errors": [
+    "[Ascensao] renderização TypeError: Type error"
+  ],
+  "failedResources": []
+}
