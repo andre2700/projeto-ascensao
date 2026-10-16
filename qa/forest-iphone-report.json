@@ -1,15 +1,47 @@
 {
   "browser": "webkit-iphone",
-  "status": "PASS",
-  "time": "5.1",
-  "enemies": 3,
-  "kills": 2,
-  "playerMovePx": 145,
-  "motionDuringMove": 0.9999974731987624,
-  "motionIdle": 3.4234070543939828e-9,
-  "color": {
-    "meanBrightness": 126,
-    "greenMinusRed": 29
+  "status": "FAIL",
+  "error": "AssertionError [ERR_ASSERTION]: jogador deve se mover com joystick; deslocamento=18.675 FPS=0 stick={\"dx\":0.8674570262744272,\"dy\":-0.49751211801033324} eventos=[{\"event\":\"touchstart\",\"identifier\":7,\"x\":120.9,\"y\":498},{\"event\":\"touchmove\",\"identifier\":7,\"x\":188.9,\"y\":459}]",
+  "captured": {
+    "lastError": null,
+    "debug": {
+      "mode": "play",
+      "seconds": 0.8030000000000005,
+      "x": 39.62109967508446,
+      "y": -22.72386599012197,
+      "motion": 0.00001707277615422874,
+      "attackPulse": 0.32,
+      "kills": 0,
+      "enemies": 0,
+      "shots": 0,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 2,
+      "stick": null,
+      "touchActive": false,
+      "terrain": "Floresta da Aurora",
+      "version": "0.6.2"
+    },
+    "pointerTrace": [
+      {
+        "event": "touchstart",
+        "identifier": 7,
+        "x": 120.9,
+        "y": 498
+      },
+      {
+        "event": "touchmove",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      },
+      {
+        "event": "touchend",
+        "identifier": 7,
+        "x": 188.9,
+        "y": 459
+      }
+    ]
   },
   "errors": [],
   "failedResources": []
