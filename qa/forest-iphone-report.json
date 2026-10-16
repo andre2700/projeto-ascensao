@@ -140,9 +140,9 @@
     "trees": 334,
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
-    "collisions": 7,
-    "footsteps": 6,
-    "draws": 139,
+    "collisions": 1,
+    "footsteps": 5,
+    "draws": 118,
     "worldCanvas": true
   },
   "shakeEvents": 1,
@@ -163,12 +163,12 @@
   "time": "2.1",
   "enemies": 3,
   "kills": 0,
-  "playerMovePx": 55,
-  "motionDuringMove": 0.8948650571781942,
-  "motionIdle": 0.059286850476658326,
+  "playerMovePx": 41,
+  "motionDuringMove": 0.8053758024579362,
+  "motionIdle": 0.007936555815185127,
   "color": {
-    "meanBrightness": 97,
-    "greenMinusRed": 23
+    "meanBrightness": 98,
+    "greenMinusRed": 24
   },
   "errors": [],
   "failedResources": []
