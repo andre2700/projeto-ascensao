@@ -124,17 +124,19 @@ function createSwordCut(p){
  swings.push(sw);totalSwings++;p.attackPulse=.36;p.attackAim=aim;
  if(Math.abs(Math.cos(aim))>.10)p.face=Math.cos(aim)<0?-1:1;
  burst(p.x+Math.cos(aim)*25,p.y-19+Math.sin(aim)*25,game.fire>0?'#ffc16c':'#faf0c8',2,27);
- // A katana evolui de um arco de curto alcance para um crescente que atravessa o mundo.
- if(game.blade>=3||game.area>=2||game.multi>=2){
-  const config=AscensionKatana.waveConfig(game.blade,game.area,game.multi);
-  if(waves.length<38){
-   waves.push({x:p.x+Math.cos(aim)*55,y:p.y+Math.sin(aim)*55,
-    aim,speed:config.speed,height:config.height,width:config.width,maxDistance:config.range,
-    distance:0,damage:config.damage,pierce:config.pierce,hit:new Set(),phase:worldTime*.51,
-    evolution:config.evolution,expired:false});
-   totalWaves++;
-  }
- }
+ // Configura o crescente, mas só libera quando a espada conclui a preparação do golpe.
+ sw.waveConfig=(game.blade>=3||game.area>=2||game.multi>=2)?
+   AscensionKatana.waveConfig(game.blade,game.area,game.multi):null;
+}
+function emitSwordWave(sw,p){
+ const config=sw.waveConfig;
+ if(!config||waves.length>=38)return;
+ const aim=sw.aim;
+ waves.push({x:p.x+Math.cos(aim)*(29+sw.radius*.20),y:p.y+Math.sin(aim)*(29+sw.radius*.20),
+  aim,speed:config.speed,height:config.height,width:config.width,
+  maxDistance:config.range,distance:0,damage:config.damage,pierce:config.pierce,
+  hit:new Set(),phase:worldTime*.51,evolution:config.evolution,expired:false});
+ totalWaves++
 }
 function resolveSword(sw){
  const p=game.p,found=[],fx=p.x+Math.cos(sw.aim)*(18+sw.radius*.30),fy=p.y+Math.sin(sw.aim)*(18+sw.radius*.30)*.74;
@@ -227,7 +229,7 @@ if(p.comboLeft>0){p.comboDelay-=dt;if(p.comboDelay<=0){createSwordCut(p);p.combo
 // A arma principal é exclusivamente corpo a corpo. Nenhum projétil da espada.
  for(let sw of swings){
   sw.time+=dt;
-  if(!sw.hit&&sw.time>=.165){sw.hit=true;resolveSword(sw)}
+  if(!sw.hit&&sw.time>=.165){sw.hit=true;resolveSword(sw);emitSwordWave(sw,p)}
  }
  swings=swings.filter(sw=>sw.time<sw.duration);
 // Ondas da espada em coordenadas do mundo, com trajetória e dano coerentes.
@@ -322,7 +324,7 @@ if(new URLSearchParams(location.search).get('qa')==='1'){
      game.blade=setup.blade;game.area=setup.area;game.multi=setup.multi;
      p.comboAim=0;p.comboVariant=0;waves=[];swings=[];
      const config=AscensionKatana.waveConfig(game.blade,game.area,game.multi);
-     for(let i=0;i<Math.max(1,1+game.multi);i++)createSwordCut(p);
+     for(let i=0;i<Math.max(1,1+game.multi);i++){createSwordCut(p);emitSwordWave(swings[swings.length-1],p)}
      reports.push({stage:config.evolution,range:config.range,size:config.height,
        numberOfWaves:waves.length,uniqueDirections:new Set(waves.map(w=>Math.round(w.aim/OCT))).size,
        expectedCuts:1+game.multi});
