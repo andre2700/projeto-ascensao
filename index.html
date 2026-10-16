@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Projeto Ascensão — uma jornada de fantasia elemental.">
-<title>Projeto Ascensão — Alpha 0.5</title>
-<link rel="stylesheet" href="./style-v04.css?v=5.0.0">
+<title>Projeto Ascensão — Alpha 0.5.1</title>
+<link rel="stylesheet" href="./style-v04.css?v=5.1.1">
 </head>
 <body>
 <canvas id="game" aria-label="Arena de combate do Projeto Ascensão"></canvas>
@@ -34,7 +34,29 @@
 <div id="toast"></div>
 <div id="footer">✦ &nbsp; AS RUÍNAS ESTÃO VIVAS &nbsp; ✦</div>
 <div id="overlay"><div id="panel" class="panel"></div></div>
-<script src="./art-v05.js?v=5.0.0"></script>
-<script src="./game-v05.js?v=5.0.0"></script>
+<script src="./art-v05.js?v=5.1.1"></script>
+<script>
+(function(){
+  const stable=new URLSearchParams(location.search).get('engine')==='stable';
+  function recovery(message){
+    const ov=document.getElementById('overlay'),p=document.getElementById('panel');
+    if(!ov||!p||document.getElementById('emergencyStart'))return;
+    ov.classList.remove('hidden');
+    p.innerHTML='<div class="eyebrow">RECUPERAÇÃO DO JOGO</div><h1>VAMOS TENTAR OUTRA VEZ</h1><p class="lead">O navegador não conseguiu carregar o motor do jogo. Você pode abrir a versão estável sem perder o acesso ao Projeto Ascensão.</p><button class="button" id="emergencyStart">JOGAR VERSÃO ESTÁVEL</button><p class="fine" id="errorInfo"></p>';
+    document.getElementById('errorInfo').textContent=message||'Falha na inicialização';
+    document.getElementById('emergencyStart').onclick=function(){location.href='./?engine=stable&v=5.1.1'};
+  }
+  window.addEventListener('error',function(e){
+    if(e.target&&e.target.tagName==='SCRIPT'&&!stable)recovery('Não foi possível carregar um arquivo do jogo.');
+  },true);
+  var sc=document.createElement('script');
+  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v05.js?v=5.1.1';
+  sc.onerror=function(){recovery('Arquivo do motor indisponível.')};
+  sc.onload=function(){if(!stable&&!window.AscensionGame)recovery('Motor gráfico não iniciou.')};
+  document.body.appendChild(sc);
+  // Se houver falha de rede ou carregamento incompleto, nunca deixar o botão sem resposta.
+  if(!stable)setTimeout(function(){if(!window.AscensionGame)recovery('Inicialização excedeu o tempo de espera.')},8000);
+})();
+</script>
 </body>
 </html>
