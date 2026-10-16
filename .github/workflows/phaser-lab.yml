@@ -3,6 +3,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'phaser-next.html'
+      - 'phaser-next.js'
+      - 'tests/phaser-next-smoke.cjs'
       - 'phaser-lab.html'
       - 'phaser-lab.js'
       - 'tests/phaser-lab-smoke.cjs'
@@ -28,12 +31,16 @@ jobs:
           npx playwright install --with-deps webkit chromium
       - name: Testar Phaser WebKit e Chromium
         run: node tests/phaser-lab-smoke.cjs
+      - name: Testar vertical slice Phaser Safari e Android
+        run: node tests/phaser-next-smoke.cjs
       - name: Arquivar as capturas
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: phaser-lab-mobile
-          path: test-output/phaser-lab-*
+          path: |
+            test-output/phaser-lab-*
+            test-output/phaser-next-*
           retention-days: 7
       - name: Salvar evidências no repositório
         if: always()
@@ -42,9 +49,14 @@ jobs:
           cp test-output/phaser-lab-iphone.jpg qa/phaser-lab-iphone.jpg 2>/dev/null || true
           cp test-output/phaser-lab-android.jpg qa/phaser-lab-android.jpg 2>/dev/null || true
           cp test-output/phaser-lab-report.json qa/phaser-lab-report.json 2>/dev/null || true
+          cp test-output/phaser-next-iphone.jpg qa/phaser-next-iphone.jpg 2>/dev/null || true
+          cp test-output/phaser-next-android.jpg qa/phaser-next-android.jpg 2>/dev/null || true
+          cp test-output/phaser-next-report.json qa/phaser-next-report.json 2>/dev/null || true
+          cp test-output/phaser-next-iphone-FAILED.jpg qa/phaser-next-iphone-FAILED.jpg 2>/dev/null || true
+          cp test-output/phaser-next-android-FAILED.jpg qa/phaser-next-android-FAILED.jpg 2>/dev/null || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add qa/phaser-lab-*
+          git add qa/phaser-lab-* qa/phaser-next-*
           if ! git diff --cached --quiet; then
             git commit -m "qa: evidencias do motor Phaser"
             git pull --rebase origin main
