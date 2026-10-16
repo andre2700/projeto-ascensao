@@ -3,8 +3,11 @@
 'use strict';
 const forest=root.AscensionForest;if(!forest)throw Error('Mundo da floresta ausente');
 const previous=forest.prop,tree=new Image();
-let loaded=false,failed=false,drawn=0;
-tree.onload=()=>{loaded=tree.naturalWidth>=300&&tree.naturalHeight>=270;failed=!loaded};
+let loaded=false,failed=false,drawn=0,raster=null;
+tree.onload=()=>{
+ loaded=tree.naturalWidth>=300&&tree.naturalHeight>=270;failed=!loaded;
+ if(loaded){raster=document.createElement('canvas');raster.width=222;raster.height=198;raster.getContext('2d').drawImage(tree,0,0,222,198)}
+};
 tree.onerror=()=>{loaded=false;failed=true};
 if(typeof root.AscensionTreeData==='string')tree.src=root.AscensionTreeData;
 else failed=true;
@@ -17,8 +20,8 @@ forest.prop=function(ctx,o,t){
  // A brisa oscila delicadamente toda a silhueta enquanto as folhas se movem por cima.
  ctx.rotate(Math.sin(t*1.17+o.x*.013+o.y*.016)*.012);
  ctx.scale(s*flip,s);
- ctx.drawImage(tree,-111,-183,222,198);
+ ctx.drawImage(raster,-111,-183,222,198);
  ctx.restore();
 };
-root.AscensionTree={ready:()=>loaded,stats:()=>({loaded,failed,drawn})};
+root.AscensionTree={ready:()=>loaded,stats:()=>({loaded,failed,drawn,cached:!!raster})};
 })(window);
