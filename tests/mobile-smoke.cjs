@@ -54,28 +54,21 @@ async function testEngine(kind,device){
       },{passive:true});
     }
   });
-  // Emulação de eventos Touch nativos em WebKit/iPhone, além de capturar seu estado.
+  // Evento compatível com Touch para exercitar o handler REAL do Safari, sem API Touch ilegal no Linux.
   let x=device.viewport.width*.31,y=device.viewport.height*.75;
   await page.evaluate(({x,y})=>{
     let cv=document.getElementById('game');
-    let touch=new Touch({identifier:7,target:cv,clientX:x,clientY:y});
-    cv.dispatchEvent(new TouchEvent('touchstart',{bubbles:true,cancelable:true,touches:[touch],changedTouches:[touch],targetTouches:[touch]}));
-    window.__testGesture={x,y};
+    function touch(type,px,py){let e=new Event(type,{bubbles:true,cancelable:true});
+      Object.defineProperty(e,'changedTouches',{value:[{identifier:7,clientX:px,clientY:py}]});cv.dispatchEvent(e)}
+    window.__testTouch=touch;
+    touch('touchstart',x,y);
   },{x,y});
-  await page.evaluate(({x,y})=>{
-    let cv=document.getElementById('game');
-    let touch=new Touch({identifier:7,target:cv,clientX:x+68,clientY:y-39});
-    cv.dispatchEvent(new TouchEvent('touchmove',{bubbles:true,cancelable:true,touches:[touch],changedTouches:[touch],targetTouches:[touch]}));
-  },{x,y});
-  await sleep(1150);
+  await page.evaluate(({x,y})=>window.__testTouch('touchmove',x+68,y-39),{x,y});
+  await sleep(1250);
   const moving=await page.evaluate(()=>window.AscensionGame.debug());
   const gestureEvents=await page.evaluate(()=>window.__ascensionPointerTrace||[]);
   await page.screenshot({path:path.join(out,label+'-moving.png')});
-  await page.evaluate(({x,y})=>{
-    let cv=document.getElementById('game');
-    let touch=new Touch({identifier:7,target:cv,clientX:x+68,clientY:y-39});
-    cv.dispatchEvent(new TouchEvent('touchend',{bubbles:true,cancelable:true,touches:[],changedTouches:[touch],targetTouches:[]}));
-  },{x,y});
+  await page.evaluate(({x,y})=>window.__testTouch('touchend',x+68,y-39),{x,y});
   let dis=Math.hypot(moving.x-before.x,moving.y-before.y);
   assert(dis>25,'jogador deve se mover com joystick; deslocamento='+dis+' FPS='+moving.fps+' stick='+JSON.stringify(moving.stick)+' eventos='+JSON.stringify(gestureEvents));
   assert(moving.motion>.12,'animação de caminhada deve ser ativada; valor='+moving.motion);
