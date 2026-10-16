@@ -50,7 +50,7 @@ function drawWorld(){const vw=W/camera.zoom,vh=H/camera.zoom;let left=camera.x-v
 function ritual(x,y,r){}
 function deco(o){AscensionForest.prop(ctx,o,worldTime)}
 function newGame(){game={p:{x:0,y:0,r:17,hp:125,maxHp:125,speed:225,face:1,move:0,motion:0,vx:0,vy:0,heading:PI/2,direction:2,hurt:0,attackPulse:0,attackAim:0,footT:0,comboLeft:0,comboDelay:0,comboAim:0,comboVariant:0},elapsed:0,kills:0,level:1,xp:0,need:8,blade:1,fire:0,ice:0,lightning:0,multi:0,area:0,reload:0,storm:0,boss:false,bossDead:false,attack:0,spawn:1,levelQueue:0,score:0};camera.x=0;camera.y=0;camera.zoom=.90;camera.targetZoom=.90;enemies=[];shots=[];swings=[];waves=[];totalWaves=0;waveHits=0;meleeHits=0;totalSwings=0;enemyStrikes=0;coinsCollected=0;orbs=[];particles=[];rings=[];floaters=[];shake=0;flash=0;hitstop=0;impactZoom=0;shakeCooldown=0;worldTime=0;bossbar.classList.remove('visible');updateHUD(true)}
-function toast(message){let t=el('toast');t.textContent=message;t.classList.add('visible');toastT=1.65}
+function toast(message){let t=el('toast');t.textContent=message;t.classList.add('visible');toastT=message.includes('GUARDIÃO')?1.6:1.02}
 function show(html){panel.innerHTML=html;overlay.classList.remove('hidden')}
 function hide(){overlay.classList.add('hidden')}
 const crest='<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M50 6 86 24v25c0 23-16 34-36 46C30 83 14 72 14 49V24L50 6Z" stroke="currentColor" stroke-width="4"/><path d="M50 16v65M31 38l19 12 19-12M28 63l22 15 22-15" stroke="currentColor" stroke-width="5"/><path d="m50 24 8 16-8 9-8-9 8-16Z" fill="currentColor"/></svg>';
@@ -94,9 +94,9 @@ function impact(e,damageAmount,crit=false,flavor='physical'){
  rings.push({x:e.x,y:e.y,r:5,life:duration,max:duration,color,growth:radius*3.2});
  if(power>5)rings.push({x:e.x,y:e.y,r:9,life:duration+.1,max:duration+.1,color:'#fff0d3',growth:radius*2.3});
  burst(e.x,e.y,color,Math.min(24,Math.ceil(power*1.5)),52+power*14);
- if(crit&&floaters.length<40)floaters.push({x:e.x,y:e.y-e.r-33,text:'✦ CRÍTICO!',color:'#ffdf87',life:.8,max:.8,vx:0});
+ if(crit&&floaters.length<40)floaters.push({x:e.x,y:e.y-e.r-39,text:'✦ CRÍTICO',color:'#ffdf87',life:.72,max:.72,vx:0});
 }
-function damage(e,n,kind){if(e.hp<=0)return;e.hp-=n;e.flash=.13;if(game){let dx=e.x-game.p.x,dy=e.y-game.p.y,dist=length(dx,dy)||1,kick=Math.min(6,Math.pow(n,.62)*.45);e.x+=dx/dist*kick;e.y+=dy/dist*kick;}let color=kind==='fire'?'#ffad63':kind==='ice'?'#85efff':kind==='lightning'?'#f6ed96':'#f6dba3';textAt(e.x+rnd(-12,12),e.y-e.r-8,n,color);if(kind==='fire')e.burn=Math.max(e.burn,2.8);if(kind==='ice')e.slow=Math.max(e.slow,2.5);burst(e.x+rnd(-5,5),e.y+rnd(-5,5),color,4,74);if(e.hp<=0)die(e)}
+function damage(e,n,kind,quiet=false){if(e.hp<=0)return;e.hp-=n;e.flash=.13;if(game&&(!quiet||kind==='physical')){let dx=e.x-game.p.x,dy=e.y-game.p.y,dist=length(dx,dy)||1,kick=Math.min(6,Math.pow(n,.62)*.45);e.x+=dx/dist*kick;e.y+=dy/dist*kick;}let color=kind==='fire'?'#ffad63':kind==='ice'?'#85efff':kind==='lightning'?'#f6ed96':'#f6dba3';if(!quiet)textAt(e.x+rnd(-9,9),e.y-e.r-8,n,color);if(kind==='fire')e.burn=Math.max(e.burn,2.8);if(kind==='ice')e.slow=Math.max(e.slow,2.5);burst(e.x+rnd(-5,5),e.y+rnd(-5,5),color,4,74);if(e.hp<=0)die(e)}
 function attack(){
  const p=game.p,reach=82+game.area*11+game.blade*1.9;
  let nearest=null,range=Infinity;
@@ -156,7 +156,8 @@ function resolveSword(sw){
   if(e.hp<=0)continue;
   const main=(20+game.blade*10)*(sw.crit?2.3:1),fire=game.fire>0?3+game.fire*3:0,
   ice=game.ice>0?2+game.ice*2:0,bolt=game.lightning>0?4+game.lightning*4:0,total=main+fire+ice+bolt;
-  damage(e,main,'physical');if(fire)damage(e,fire,'fire');if(ice)damage(e,ice,'ice');if(bolt)damage(e,bolt,'lightning');
+  textAt(e.x+rnd(-6,6),e.y-e.r-9,total,fire?'#ffcb92':ice?'#a4eefa':'#f6dfab');
+  damage(e,main,'physical',true);if(fire)damage(e,fire,'fire',true);if(ice)damage(e,ice,'ice',true);if(bolt)damage(e,bolt,'lightning',true);
   if(game.lightning>0&&Math.random()<.28){
    const chain=enemies.find(o=>o!==e&&o.hp>0&&Math.hypot(o.x-e.x,o.y-e.y)<110+game.area*9);
    if(chain)damage(chain,5+game.lightning*4,'lightning')
@@ -189,8 +190,8 @@ AscensionWorld.update(dt);
 // Câmera mais distante quando há muitos inimigos ou a katana alcança longe.
 // Os ajustes são graduais e não afetam a HUD nem a interface de toque.
 const density=Math.min(.092,enemies.length*.0032);
-const reachZoom=Math.min(.052,(game.area+Math.max(0,game.blade-2)*.4)*.0065);
-camera.targetZoom=clamp((W<520?.915:.975)-density-reachZoom,.775,1);
+const reachZoom=Math.min(.145,game.area*.015+Math.max(0,game.blade-2)*.006+game.multi*.004);
+camera.targetZoom=clamp((W<520?.915:.975)-density-reachZoom,.765,1);
 camera.zoom=lerp(camera.zoom,camera.targetZoom,1-Math.exp(-dt*1.35));
 camera.x=lerp(camera.x,p.x+p.vx*.09,1-Math.exp(-dt*7.5));
 camera.y=lerp(camera.y,p.y+p.vy*.09,1-Math.exp(-dt*7.5));p.hurt=Math.max(0,p.hurt-dt);p.attackPulse=Math.max(0,(p.attackPulse||0)-dt);
@@ -240,9 +241,10 @@ for(const w of waves){
   if(e.hp<=0||w.hit.has(e))continue;
   if(!AscensionKatana.hitTest(w,e,oldX,oldY))continue;
   w.hit.add(e);waveHits++;
-  damage(e,w.damage,'physical');
-  if(game.fire>0)damage(e,game.fire*2,'fire');
-  if(game.ice>0)damage(e,game.ice*2,'ice');
+  textAt(e.x+rnd(-7,7),e.y-e.r-8,w.damage+game.fire*2+game.ice*2,game.fire?'#ffca91':'#d6efff');
+  damage(e,w.damage,'physical',true);
+  if(game.fire>0)damage(e,game.fire*2,'fire',true);
+  if(game.ice>0)damage(e,game.ice*2,'ice',true);
   impact(e,w.damage,false,game.fire>0?'fire':'physical');
   if(w.hit.size>=w.pierce){w.expired=true;break}
  }
@@ -281,7 +283,7 @@ for(const item of scene){
 for(const w of waves)AscensionKatana.drawCrescent(ctx,w,worldTime);
 for(let r of rings){ctx.save();ctx.globalAlpha=clamp(r.life/r.max,0,1)*.8;ctx.strokeStyle=r.color;ctx.lineWidth=3;ctx.shadowColor=r.color;ctx.shadowBlur=12;ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,TAU);ctx.stroke();ctx.restore()}
 for(let f of particles){ctx.globalAlpha=clamp(f.life/f.max,0,1);ctx.fillStyle=f.color;ctx.fillRect(f.x,f.y,f.size,f.size)}ctx.globalAlpha=1;
-ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='700 15px Outfit,system-ui';for(let f of floaters){ctx.globalAlpha=clamp(f.life/f.max,0,1);ctx.strokeStyle='#060d1c';ctx.lineWidth=3;ctx.strokeText(f.text,f.x,f.y);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y)}ctx.globalAlpha=1;AscensionWind.air(ctx,camera,vw,vh,worldTime);ctx.restore();
+ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='700 14px Outfit,system-ui';for(let f of floaters){if(f.text.includes('CRÍTICO'))ctx.font='700 11px Outfit,system-ui';else ctx.font='700 14px Outfit,system-ui';ctx.globalAlpha=clamp(f.life/f.max,0,1);ctx.strokeStyle='#060d1c';ctx.lineWidth=3;ctx.strokeText(f.text,f.x,f.y);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y)}ctx.globalAlpha=1;AscensionWind.air(ctx,camera,vw,vh,worldTime);ctx.restore();
 // Luz natural da floresta: sem vignette ou filtros em tela cheia a cada quadro.
 if(flash>0){ctx.fillStyle='rgba(235,41,80,'+(flash*.24)+')';ctx.fillRect(0,0,W,H)}
 }
