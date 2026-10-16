@@ -11,7 +11,7 @@ fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html','.js':'application/javascript','.css':'text/css','.png':'image/png','.json':'application/json'};
 const server=http.createServer((req,res)=>{
  const u=new URL(req.url,'http://localhost');
- let requestPath=decodeURIComponent(u.pathname);if(requestPath==='/')requestPath='/preview-v09.html';
+ let requestPath=decodeURIComponent(u.pathname);if(requestPath==='/')requestPath='/index.html';
  const file=path.resolve(root,'.'+requestPath);
  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)||!fs.statSync(file).isFile()){res.writeHead(404);return res.end('Not found: '+requestPath)}
  res.writeHead(200,{'content-type':mime[path.extname(file)]||'application/octet-stream','cache-control':'no-store'});
@@ -36,7 +36,7 @@ async function testEngine(kind,device){
  page.on('response',r=>{if(r.status()>=400&&new URL(r.url()).origin==='http://127.0.0.1:8765')failedResources.push(r.url()+' '+r.status())});
  let label=kind===webkit?'webkit-iphone':'chromium-mobile';
  try{
-  await page.goto('http://127.0.0.1:8765/preview-v09.html?test='+label+'&qa=1',{waitUntil:'load',timeout:45000});
+  await page.goto('http://127.0.0.1:8765/index.html?test='+label+'&qa=1',{waitUntil:'load',timeout:45000});
   await page.waitForFunction(()=>!!window.AscensionGame,{timeout:45000});
   await page.waitForFunction(()=>window.AscensionIllustrated?.ready?.()&&window.AscensionTerrain?.ready?.()&&window.AscensionWorld?.stats?.().spriteReady,{timeout:25000});
   const art=await page.evaluate(()=>({illustrated:window.AscensionIllustrated.stats(),terrain:window.AscensionTerrain.stats(),tree:window.AscensionWorld.stats(),wind:window.AscensionWind.stats()}));
