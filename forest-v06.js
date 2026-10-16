@@ -15,16 +15,24 @@ function grass(c,x,y,h,shade,bend=0){
 function leaf(c,x,y,dx,dy,fill){c.save();c.translate(x,y);c.rotate(Math.atan2(dy,dx));path(c,[[0,0],[dx>0?11:8,-4],[18,0],[9,5]],fill);c.restore()}
 function floorTile(seed){
  let tile=document.createElement('canvas');tile.width=tile.height=640;let c=tile.getContext('2d'),R=rand(seed);
+ const wrap=(x,y,r,draw)=>{
+   const xs=[0],ys=[0];if(x<r)xs.push(640);if(x>640-r)xs.push(-640);
+   if(y<r)ys.push(640);if(y>640-r)ys.push(-640);
+   for(let dx of xs)for(let dy of ys)draw(x+dx,y+dy);
+ };
  c.fillStyle='#729d71';c.fillRect(0,0,640,640);
- // broad painterly patches; no artificial square tile grid
- for(let i=0;i<205;i++){let x=R()*640,y=R()*640,rx=28+R()*85,ry=11+R()*47,rot=R()*TAU;
-  ell(c,x,y,rx,ry,R()<.52?'#5a925f2a':'#caaf7d20',rot)}
- for(let i=0;i<5500;i++){let x=R()*640,y=R()*640,rr=.4+R()*2;
-  let tone=R();ell(c,x,y,rr,rr*.55,tone<.25?'#d0c89a49':tone<.5?'#2c6f5360':tone<.77?'#c8da9a4c':'#83b88a51',R()*TAU)}
- // wind-bent blades pre-rendered, varied long/short
- for(let i=0;i<310;i++){let x=R()*640,y=R()*640;grass(c,x,y,2+R()*7,R()<.5?'#34775c4f':'#decc8254',R()*2-1)}
- for(let i=0;i<22;i++){let x=R()*640,y=R()*640;ell(c,x,y,4+R()*13,2+R()*5,'#305d4270',R()*TAU)}
- for(let i=0;i<40;i++){let x=R()*640,y=R()*640;let color=R()<.65?'#f7efc7':'#ffdf9d';ell(c,x,y,2.8,1.3,color);ell(c,x+2,y-1,1.6,1,'#e09c5f')}
+ // Estas manchas ultrapassam as bordas de forma periódica. Sem cortes em quadrícula.
+ for(let i=0;i<190;i++){let x=R()*640,y=R()*640,rx=28+R()*85,ry=11+R()*47,rot=R()*TAU,tone=R()<.52?'#5a925f2a':'#caaf7d20';
+  wrap(x,y,120,(px,py)=>ell(c,px,py,rx,ry,tone,rot))}
+ for(let i=0;i<3800;i++){let x=R()*640,y=R()*640,rr=.4+R()*2,tone=R();
+  let color=tone<.25?'#d0c89a49':tone<.5?'#2c6f5360':tone<.77?'#c8da9a4c':'#83b88a51',rot=R()*TAU;
+  wrap(x,y,4,(px,py)=>ell(c,px,py,rr,rr*.55,color,rot))}
+ for(let i=0;i<310;i++){let x=R()*640,y=R()*640,h=2+R()*7,tone=R()<.5?'#34775c4f':'#decc8254',bend=R()*2-1;
+  wrap(x,y,12,(px,py)=>grass(c,px,py,h,tone,bend))}
+ for(let i=0;i<22;i++){let x=R()*640,y=R()*640,rr=4+R()*13,ry=2+R()*5,rot=R()*TAU;
+  wrap(x,y,19,(px,py)=>ell(c,px,py,rr,ry,'#305d4270',rot))}
+ for(let i=0;i<40;i++){let x=R()*640,y=R()*640,color=R()<.65?'#f7efc7':'#ffdf9d';
+  wrap(x,y,6,(px,py)=>{ell(c,px,py,2.8,1.3,color);ell(c,px+2,py-1,1.6,1,'#e09c5f')})}
  return tile;
 }
 function clearing(c,x,y,r,t){
