@@ -12,7 +12,7 @@ on:
       - '.github/workflows/illustrated-visual-test.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: ascension-illustrated-visual-test
   cancel-in-progress: true
@@ -22,6 +22,18 @@ jobs:
     timeout-minutes: 22
     steps:
       - uses: actions/checkout@v4
+      - name: Identificar a execucao de teste
+        run: |
+          mkdir -p qa
+          echo "$GITHUB_RUN_ID" > qa/last-illustrated-run.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add qa/last-illustrated-run.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "qa: registrar teste da fase ilustrada"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -38,3 +50,19 @@ jobs:
           name: ascensao-v07-visual-QA
           path: test-output-illustrated/
           retention-days: 7
+
+      - name: Arquivar diagnosticos e imagens de teste no projeto
+        if: always()
+        run: |
+          mkdir -p qa/illustrated
+          cp test-output-illustrated/*-game.jpg qa/illustrated/ 2>/dev/null || true
+          cp test-output-illustrated/*-FAILED.jpg qa/illustrated/ 2>/dev/null || true
+          cp test-output-illustrated/*-report.json qa/illustrated/ 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add qa/illustrated/
+          if ! git diff --cached --quiet; then
+            git commit -m "qa: atualizar capturas reais da alpha ilustrada"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
