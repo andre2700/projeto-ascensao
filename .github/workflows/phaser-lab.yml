@@ -22,6 +22,18 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Registrar execução dos testes Phaser
+        run: |
+          mkdir -p qa
+          echo "$GITHUB_RUN_ID" > qa/last-phaser-run.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add qa/last-phaser-run.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "qa: registrar execução Phaser"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
