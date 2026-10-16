@@ -1,28 +1,15 @@
 {
   "browser": "webkit-iphone",
-  "status": "FAIL",
-  "error": "Error: page.evaluate: TypeError: Illegal constructor",
-  "captured": {
-    "lastError": null,
-    "debug": {
-      "mode": "play",
-      "seconds": 0.5820000000000003,
-      "x": 0,
-      "y": 0,
-      "motion": 0,
-      "attackPulse": 0,
-      "kills": 0,
-      "enemies": 0,
-      "shots": 0,
-      "tiles": 4,
-      "props": 1556,
-      "fps": 6,
-      "stick": null,
-      "touchActive": false,
-      "terrain": "Floresta da Aurora",
-      "version": "0.6.2"
-    },
-    "pointerTrace": []
+  "status": "PASS",
+  "time": "5.1",
+  "enemies": 3,
+  "kills": 2,
+  "playerMovePx": 145,
+  "motionDuringMove": 0.9999974731987624,
+  "motionIdle": 3.4234070543939828e-9,
+  "color": {
+    "meanBrightness": 126,
+    "greenMinusRed": 29
   },
   "errors": [],
   "failedResources": []
