@@ -1,0 +1,24 @@
+[
+  {
+    "result": "PASS",
+    "browser": "iphone",
+    "engine": "3.90.0",
+    "trees": 38,
+    "foeCount": 12,
+    "traveled": 179.36605972143732,
+    "zoomBefore": 0.89,
+    "zoomAfter": 0.79,
+    "errors": []
+  },
+  {
+    "result": "PASS",
+    "browser": "android",
+    "engine": "3.90.0",
+    "trees": 38,
+    "foeCount": 12,
+    "traveled": 322.31925341604654,
+    "zoomBefore": 0.89,
+    "zoomAfter": 0.79,
+    "errors": []
+  }
+]
