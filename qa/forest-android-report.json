@@ -34,15 +34,15 @@
   },
   "browser": "chromium-mobile",
   "status": "PASS",
-  "time": "5.8",
+  "time": "5.9",
   "enemies": 4,
   "kills": 2,
   "playerMovePx": 281,
-  "motionDuringMove": 0.9999999995729866,
-  "motionIdle": 2.70395159429422e-9,
+  "motionDuringMove": 0.9999999995729899,
+  "motionIdle": 2.42112105955382e-8,
   "color": {
-    "meanBrightness": 97,
-    "greenMinusRed": 19
+    "meanBrightness": 95,
+    "greenMinusRed": 20
   },
   "errors": [],
   "failedResources": []

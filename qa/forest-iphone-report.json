@@ -34,15 +34,15 @@
   },
   "browser": "webkit-iphone",
   "status": "PASS",
-  "time": "5.2",
+  "time": "3.8",
   "enemies": 3,
-  "kills": 2,
-  "playerMovePx": 164,
-  "motionDuringMove": 0.9999994519079164,
-  "motionIdle": 1.2063008710031463e-9,
+  "kills": 1,
+  "playerMovePx": 27,
+  "motionDuringMove": 0.91001088,
+  "motionIdle": 1.5190774663649227e-8,
   "color": {
-    "meanBrightness": 103,
-    "greenMinusRed": 19
+    "meanBrightness": 101,
+    "greenMinusRed": 25
   },
   "errors": [],
   "failedResources": []
