@@ -1,0 +1,40 @@
+name: Ascensão 0.7 — Teste visual real
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'game-v07.js'
+      - 'assets-data-v07.js'
+      - 'illustrated-v07.js'
+      - 'wind-v07.js'
+      - 'preview-v07.html'
+      - 'tests/mobile-illustrated.cjs'
+      - '.github/workflows/illustrated-visual-test.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ascension-illustrated-visual-test
+  cancel-in-progress: true
+jobs:
+  iphone-and-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar Playwright e navegadores reais
+        run: |
+          npm install --no-save playwright@1.56.1 pngjs@7.0.0
+          npx playwright install --with-deps webkit chromium
+      - name: Testar sprites ilustrados, animacao, vento, jogabilidade e screenshots
+        run: node tests/mobile-illustrated.cjs
+      - name: Guardar imagens e relatorios para inspecao visual
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ascensao-v07-visual-QA
+          path: test-output-illustrated/
+          retention-days: 7
