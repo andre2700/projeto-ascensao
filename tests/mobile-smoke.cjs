@@ -78,7 +78,7 @@ async function testEngine(kind,device){
     touch('touchstart',x,y);
   },{x,y});
   await page.evaluate(({x,y})=>window.__testTouch('touchmove',x+68,y-39),{x,y});
-  await sleep(1250);
+  await page.waitForFunction(start=>window.AscensionGame?.debug?.().seconds >= start+.8,before.seconds,{timeout:75000,polling:250});
   const moving=await page.evaluate(()=>window.AscensionGame.debug());
   const gestureEvents=await page.evaluate(()=>window.__ascensionPointerTrace||[]);
   await page.screenshot({path:path.join(out,label+'-moving.png')});
@@ -86,7 +86,7 @@ async function testEngine(kind,device){
   let dis=Math.hypot(moving.x-before.x,moving.y-before.y);
   assert(dis>25,'jogador deve se mover com joystick; deslocamento='+dis+' FPS='+moving.fps+' stick='+JSON.stringify(moving.stick)+' eventos='+JSON.stringify(gestureEvents));
   assert(moving.motion>.12,'animação de caminhada deve ser ativada; valor='+moving.motion);
-  await sleep(1100);
+  await page.waitForFunction(()=>window.AscensionGame?.debug?.().motion <.11,null,{timeout:60000,polling:250});
   const still=await page.evaluate(()=>window.AscensionGame.debug());
   assert(still.motion<moving.motion,'personagem precisa voltar à pose parada');
   // Ataque automático por mais alguns segundos, sem sobreposição nem travamento.
