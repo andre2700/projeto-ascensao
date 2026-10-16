@@ -11,9 +11,9 @@
       "beast": false
     },
     "framesDrawn": {
-      "hero": 52,
-      "wraith": 27,
-      "beast": 27,
+      "hero": 54,
+      "wraith": 26,
+      "beast": 26,
       "fallback": 0
     },
     "normalized": true,
@@ -29,12 +29,12 @@
       "wraith": 10
     },
     "creatureDraws": {
-      "beast": 19,
-      "wraith": 27
+      "beast": 18,
+      "wraith": 26
     },
-    "runFrameBuildMs": 95,
-    "runDraws": 3,
-    "attackDraws": 27,
+    "runFrameBuildMs": 84,
+    "runDraws": 4,
+    "attackDraws": 26,
     "hitDraws": 0,
     "frameHeights": {
       "hero": [
@@ -89,13 +89,13 @@
     "onContact": true,
     "behind": false
   },
-  "initialZoom": 0.9012916491106016,
-  "cameraZoom": 0.8964778317883945,
+  "initialZoom": 0.901593626863378,
+  "cameraZoom": 0.8996761927257115,
   "evolved": {
     "stage": 2,
     "waveHits": 2,
     "totalWaves": 1,
-    "cameraZoom": 0.8284735093038497
+    "cameraZoom": 0.8605891271968208
   },
   "directionTest": [
     {
@@ -193,7 +193,7 @@
         "beast": 0,
         "wraith": 0
       },
-      "runFrameBuildMs": 95,
+      "runFrameBuildMs": 84,
       "runDraws": 0,
       "attackDraws": 0,
       "hitDraws": 0,
@@ -253,10 +253,10 @@
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
     "footsteps": 3,
-    "draws": 1211,
+    "draws": 987,
     "worldCanvas": true
   },
-  "shakeEvents": 0,
+  "shakeEvents": 2,
   "collision": {
     "hit": true,
     "radiusX": 38.57060270234942,
@@ -264,19 +264,19 @@
     "normalized": 1.0006786812285675
   },
   "combat": {
-    "meleeHits": 14,
+    "meleeHits": 13,
     "enemyStrikes": 1,
     "projectiles": 0,
-    "swordSwings": 16
+    "swordSwings": 17
   },
   "browser": "chromium-mobile",
   "status": "PASS",
-  "time": "3.7",
+  "time": "2.9",
   "enemies": 3,
   "kills": 0,
-  "playerMovePx": 34,
-  "motionDuringMove": 0.747301202061878,
-  "motionIdle": 0.0068652762244569305,
+  "playerMovePx": 31,
+  "motionDuringMove": 0.7084111208116289,
+  "motionIdle": 0.10272451584296094,
   "color": {
     "meanBrightness": 100,
     "greenMinusRed": 20
