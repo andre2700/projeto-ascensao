@@ -338,10 +338,10 @@ if(new URLSearchParams(location.search).get('qa')==='1'){
   verifyWaveContact:()=>{
    if(!game||mode!=='play')return null;
    const cfg=AscensionKatana.waveConfig(6,6,3);
-   const w={x:40,y:0,aim:0,width:cfg.width,height:cfg.height},dummy={x:92,y:0,r:16};
+   const w={x:40,y:0,aim:0,width:cfg.width,height:cfg.height},dummy={x:180,y:0,r:16};
    const before=AscensionKatana.hitTest(w,dummy,20,0);
-   w.x=89;const onContact=AscensionKatana.hitTest(w,dummy,40,0);
-   const behind=AscensionKatana.hitTest(w,{x:30,y:0,r:16},89,0);
+   w.x=175;const onContact=AscensionKatana.hitTest(w,dummy,140,0);
+   const behind=AscensionKatana.hitTest(w,{x:30,y:0,r:16},140,0);
    return{before,onContact,behind}
   },
   verifyDirections:()=>{
