@@ -12,7 +12,7 @@
         "beast": false
       },
       "framesDrawn": {
-        "hero": 4,
+        "hero": 5,
         "wraith": 0,
         "beast": 0,
         "fallback": 0
@@ -55,26 +55,26 @@
       "trees": 334,
       "collisions": 0,
       "footsteps": 0,
-      "draws": 24,
+      "draws": 30,
       "worldCanvas": true
     },
     "wind": {
-      "paints": 8,
+      "paints": 10,
       "cachedSprites": true,
       "worldSpaceLeaves": true,
-      "leafDraws": 100
+      "leafDraws": 125
     }
   },
   "world": {
     "spriteReady": true,
     "failed": false,
     "trees": 334,
-    "collisions": 2,
-    "footsteps": 6,
-    "draws": 1320,
+    "collisions": 1,
+    "footsteps": 4,
+    "draws": 1333,
     "worldCanvas": true
   },
-  "shakeEvents": 1,
+  "shakeEvents": 0,
   "collision": {
     "radius": 34.80777588337662,
     "required": 34.757775883376596,
@@ -85,12 +85,12 @@
   "time": "4.0",
   "enemies": 3,
   "kills": 1,
-  "playerMovePx": 45,
-  "motionDuringMove": 0.9683238168410434,
-  "motionIdle": 0.0020737327712282653,
+  "playerMovePx": 41,
+  "motionDuringMove": 0.957821496291458,
+  "motionIdle": 0.0186143784089266,
   "color": {
     "meanBrightness": 99,
-    "greenMinusRed": 23
+    "greenMinusRed": 21
   },
   "errors": [],
   "failedResources": []
