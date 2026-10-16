@@ -134,7 +134,7 @@ class ForestGame extends Phaser.Scene{
   this.sparkles=sparkle;
   this.contact=this.add.ellipse(CENTER,CENTER+11,41,12,0x153725,.45).setDepth(CENTER-2);
   this.hero=this.add.sprite(CENTER,CENTER,'warrior',0).setOrigin(.5,.89).setDisplaySize(106,97).setDepth(CENTER);
-  this.hero.setPipeline('TextureTintPipeline'); // Renderizador Phaser mantém upscale uniforme
+  // A textura usa o pipeline nativo de sprites do Phaser; sem forçar pipeline incompatível.
   this.cameras.main.startFollow(this.hero,true,.075,.075);
   this.cameras.main.setBounds(0,0,WORLD,WORLD);
   this.cameras.main.setZoom(.90);
@@ -145,11 +145,11 @@ class ForestGame extends Phaser.Scene{
     if(!this.playing||this.paused||this.inputId!==null)return;
     if(p.y<150&&p.x>this.scale.width-120)return;
     this.inputId=p.id;this.touchStart={x:p.x,y:p.y};
-    UI.stick.style.display='block';UI.stick.style.left=(p.x-57)+'px';UI.stick.style.top=(p.y-57)+'px';
+    UI.stick.hidden=false;UI.stick.style.left=(p.x-57)+'px';UI.stick.style.top=(p.y-57)+'px';
     this.setStick(p)
   });
   this.input.on('pointermove',p=>{if(p.id===this.inputId&&this.touchStart)this.setStick(p)});
-  const up=p=>{if(p.id===this.inputId){this.inputId=null;this.touchStart=null;this.joy.x=0;this.joy.y=0;UI.stick.style.display='none';UI.knob.style.transform='translate(0px,0px)'}};
+  const up=p=>{if(p.id===this.inputId){this.inputId=null;this.touchStart=null;this.joy.x=0;this.joy.y=0;UI.stick.hidden=true;UI.knob.style.transform='translate(0px,0px)'}};
   this.input.on('pointerup',up);this.input.on('pointerupoutside',up);
   UI.start.disabled=false;UI.loading.textContent='Motor Phaser '+Phaser.VERSION+' pronto.';
   UI.start.onclick=()=>this.startRun();
@@ -173,7 +173,7 @@ class ForestGame extends Phaser.Scene{
    this.input.addPointer(2);
  }
  pauseRun(){if(!this.playing||this.paused)return;
-  this.paused=true;UI.pauseMenu.hidden=false;UI.pause.hidden=true;this.joy.x=this.joy.y=0;this.inputId=null;UI.stick.style.display='none'
+  this.paused=true;UI.pauseMenu.hidden=false;UI.pause.hidden=true;this.joy.x=this.joy.y=0;this.inputId=null;UI.stick.hidden=true
  }
  resumeRun(){if(!this.paused)return;this.paused=false;UI.pauseMenu.hidden=true;UI.pause.hidden=false}
  restartRun(){window.location.reload()}
