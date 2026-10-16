@@ -2,6 +2,7 @@
    Captura uma sequência real da partida. Não atesta qualidade artística automaticamente. */
 const {chromium,devices}=require('playwright');
 const {PNG}=require('pngjs');
+const jpeg=require('jpeg-js');
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path');
 const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),output=path.join(root,'test-output');
@@ -71,7 +72,11 @@ function contactSheet(buffers,columns=4,targetWidth=198){
    frames.push(await page.screenshot({type:'png'}));
    records.push(await page.evaluate(()=>{let d=window.AscensionGame.debug();return{seconds:d.seconds,x:d.x,y:d.y,motion:d.motion,fps:d.fps,heroDraws:window.AscensionIllustrated.stats().framesDrawn.hero}}))
   }
-  fs.writeFileSync(path.join(output,'motion-review.png'),contactSheet(frames));
+  const sheetPng=contactSheet(frames);
+  fs.writeFileSync(path.join(output,'motion-review.png'),sheetPng);
+  const sheet=PNG.sync.read(sheetPng);
+  fs.writeFileSync(path.join(output,'motion-review.jpg'),
+    jpeg.encode({data:sheet.data,width:sheet.width,height:sheet.height},72).data);
   const outcome={version:(await page.evaluate(()=>window.AscensionGame.debug().version)),sampledFrames:frames.length,
    method:'12 successive screenshots of gameplay under held touch: 6 running and 6 combat',
    frameSequence:records,exceptions:issues,
