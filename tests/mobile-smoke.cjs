@@ -46,16 +46,25 @@ async function testEngine(kind,device){
   await page.getByRole('button',{name:/INICIAR JORNADA/i}).click({timeout:12000});
   await page.waitForFunction(()=>window.AscensionGame.mode()==='play',{timeout:12000});
   const before=await page.evaluate(()=>window.AscensionGame.debug());
+  await page.evaluate(()=>{
+    window.__ascensionPointerTrace=[];
+    for(const event of ['pointerdown','pointermove','pointerup','pointercancel','lostpointercapture']){
+      document.getElementById('game').addEventListener(event,e=>{
+        if(window.__ascensionPointerTrace.length<28)window.__ascensionPointerTrace.push({event,identifier:e.pointerId,x:e.clientX,y:e.clientY});
+      },{passive:true});
+    }
+  });
   // Arraste o joystick de forma persistente: testamos deslocamento e alternância de pernas.
   let x=device.viewport.width*.31,y=device.viewport.height*.75;
   await page.mouse.move(x,y);await page.mouse.down();
   await page.mouse.move(x+68,y-39,{steps:12});
   await sleep(950);
   const moving=await page.evaluate(()=>window.AscensionGame.debug());
+  const gestureEvents=await page.evaluate(()=>window.__ascensionPointerTrace||[]);
   await page.screenshot({path:path.join(out,label+'-moving.png')});
   await page.mouse.up();
   let dis=Math.hypot(moving.x-before.x,moving.y-before.y);
-  assert(dis>25,'jogador deve se mover com joystick; deslocamento='+dis);
+  assert(dis>25,'jogador deve se mover com joystick; deslocamento='+dis+' FPS='+moving.fps+' stick='+JSON.stringify(moving.stick)+' eventos='+JSON.stringify(gestureEvents));
   assert(moving.motion>.12,'animação de caminhada deve ser ativada; valor='+moving.motion);
   await sleep(1100);
   const still=await page.evaluate(()=>window.AscensionGame.debug());
@@ -83,7 +92,7 @@ async function testEngine(kind,device){
   return report;
  }catch(e){
   try{await page.screenshot({path:path.join(out,label+'-FAILED.png')});await page.screenshot({path:path.join(out,label+'-FAILED.jpg'),type:'jpeg',quality:80})}catch{}
-  const captured=await page.evaluate(()=>window.__ascensionLastError||null).catch(()=>null);
+  const captured=await page.evaluate(()=>({lastError:window.__ascensionLastError||null,debug:window.AscensionGame?.debug()||null,pointerTrace:window.__ascensionPointerTrace||[]})).catch(()=>null);
   let report={browser:label,status:'FAIL',error:String(e),captured,errors,failedResources};
   fs.writeFileSync(path.join(out,label+'-report.json'),JSON.stringify(report,null,2));
   console.error(JSON.stringify(report));
