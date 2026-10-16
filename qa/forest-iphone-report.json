@@ -1,18 +1,29 @@
 {
   "browser": "webkit-iphone",
-  "status": "PASS",
-  "time": "4.3",
-  "enemies": 3,
-  "kills": 1,
-  "playerMovePx": 27,
-  "motionDuringMove": 0.91001088,
-  "motionIdle": 9.519595898379764e-9,
-  "color": {
-    "meanBrightness": 132,
-    "greenMinusRed": 29
+  "status": "FAIL",
+  "error": "Error: page.evaluate: TypeError: Illegal constructor",
+  "captured": {
+    "lastError": null,
+    "debug": {
+      "mode": "play",
+      "seconds": 0.6350000000000003,
+      "x": 0,
+      "y": 0,
+      "motion": 0,
+      "attackPulse": 0,
+      "kills": 0,
+      "enemies": 0,
+      "shots": 0,
+      "tiles": 4,
+      "props": 1556,
+      "fps": 4,
+      "stick": null,
+      "touchActive": false,
+      "terrain": "Floresta da Aurora",
+      "version": "0.6.2"
+    },
+    "pointerTrace": []
   },
-  "errors": [
-    "[Ascensao] renderização drawEnemy@http://127.0.0.1:8765/motion-v06.js:180:77\n@http://127.0.0.1:8765/cache-v06.js:39:12\nmkCanvas@http://127.0.0.1:8765/cache-v06.js:8:183\ngetChar@http://127.0.0.1:8765/cache-v06.js:10:98\npaintEnemy@http://127.0.0.1:8765/cache-v06.js:36:21\nenemySprite@http://127.0.0.1:8765/game-v06.js:119:50\nrender@http://127.0.0.1:8765/game-v06.js:123:134\nframe@http://127.0.0.1:8765/game-v06.js:133:320"
-  ],
+  "errors": [],
   "failedResources": []
 }
