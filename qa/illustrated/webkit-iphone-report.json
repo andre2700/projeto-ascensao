@@ -6,11 +6,11 @@
     "lastError": null,
     "debug": {
       "mode": "play",
-      "seconds": 0.7730000000000005,
+      "seconds": 0.8610000000000005,
       "x": 23.421339709409533,
       "y": -13.432827186278995,
-      "motion": 0.000018145128138746853,
-      "attackPulse": 0,
+      "motion": 0.0000035146597193747245,
+      "attackPulse": 0.25,
       "kills": 0,
       "enemies": 0,
       "shots": 0,
@@ -32,20 +32,21 @@
           "beast": false
         },
         "framesDrawn": {
-          "hero": 14,
+          "hero": 15,
           "wraith": 0,
           "beast": 0,
           "fallback": 0
         }
       },
       "wind": {
-        "paints": 42,
+        "paints": 45,
         "cachedSprites": true
       },
       "tree": {
         "loaded": true,
         "failed": false,
-        "drawn": 19
+        "drawn": 21,
+        "cached": true
       },
       "version": "0.7.2"
     },
