@@ -88,6 +88,10 @@ async function testEngine(kind,device){
   assert(!contact.before&&contact.onContact&&!contact.behind,'trajetória das ondas deve colidir corretamente '+JSON.stringify(contact));
   const initialZoom=await page.evaluate(()=>window.AscensionGame.debug().cameraZoom);
   assert(initialZoom>.74&&initialZoom<.99,'câmera móvel inicia enquadrada com afastamento');
+  await page.evaluate(()=>{
+    window.AscensionQATools.spawn('hound',86,22,550);
+    window.AscensionQATools.spawn('wraith',-84,36,550);
+  });
   const before=await page.evaluate(()=>window.AscensionGame.debug());
   await page.evaluate(()=>{
     window.__ascensionPointerTrace=[];
