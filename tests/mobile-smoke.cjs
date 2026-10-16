@@ -92,7 +92,9 @@ async function testEngine(kind,device){
     state=await page.evaluate(()=>window.AscensionGame.debug());
   }
   assert.notEqual(state.mode,'error','o motor gráfico não pode mostrar erro de recuperação');
-  assert(!errors.some(x=>/TypeError|Not enough arguments|ReferenceError|SyntaxError|Error:/i.test(x)),'erros de JavaScript: '+errors.join(' | '));
+  assert.equal(errors.length,0,'sem erros JavaScript ou falhas de renderização: '+errors.join(' | '));
+  const latestError=await page.evaluate(()=>window.__ascensionLastError||null);
+  assert.equal(latestError,null,'nenhuma falha gráfica silenciosa durante a partida');
   assert.equal(failedResources.length,0,'sem arquivos ausentes '+failedResources.join(','));
   await page.screenshot({path:path.join(out,label+'-game.png')});
   await page.screenshot({path:path.join(out,label+'-game.jpg'),type:'jpeg',quality:78});
