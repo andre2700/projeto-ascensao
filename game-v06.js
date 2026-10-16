@@ -30,7 +30,7 @@ function glow(c,x,y,r,color){let g=c.createRadialGradient(x,y,0,x,y,r);g.addColo
 function stroke(c,pts,color,w=1){c.strokeStyle=color;c.lineWidth=w;c.beginPath();c.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length;i++)c.lineTo(pts[i][0],pts[i][1]);c.stroke()}
 function drawFloorTile(seedNum){return AscensionForest.floorTile(seedNum)}
 function makeWorld(){
- tiles=[drawFloorTile(1927),drawFloorTile(7291),drawFloorTile(3119),drawFloorTile(9184)];
+ const seamless=drawFloorTile(1927);tiles=[seamless,seamless,seamless,seamless];
  props=[];let R=seed(190203);
  const kinds=['tree','fern','brush','rock','flower','mushroom','log','crystal'];
  const weights=[.20,.34,.55,.68,.86,.93,.96,1];
