@@ -78,7 +78,7 @@
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
     "footsteps": 4,
-    "draws": 91,
+    "draws": 105,
     "worldCanvas": true
   },
   "shakeEvents": 0,
@@ -96,14 +96,14 @@
   },
   "browser": "webkit-iphone",
   "status": "PASS",
-  "time": "1.5",
+  "time": "1.6",
   "enemies": 2,
   "kills": 0,
   "playerMovePx": 27,
   "motionDuringMove": 0.91001088,
-  "motionIdle": 0.020522761350285152,
+  "motionIdle": 0.005350825529378058,
   "color": {
-    "meanBrightness": 99,
+    "meanBrightness": 100,
     "greenMinusRed": 24
   },
   "errors": [],
