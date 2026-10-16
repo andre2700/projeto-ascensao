@@ -311,6 +311,39 @@ if(new URLSearchParams(location.search).get('qa')==='1'){
   },
   heroStats:()=>({hp:game?.p.hp||0,x:game?.p.x||0,y:game?.p.y||0}),
   setBuild:(area=0,multi=0)=>{game.area=area;game.multi=multi},
+  verifyKatanaEvolution:()=>{
+   if(!game||mode!=='play')return null;
+   const p=game.p,backup={blade:game.blade,area:game.area,multi:game.multi,
+     comboAim:p.comboAim,comboVariant:p.comboVariant,attackPulse:p.attackPulse,attackAim:p.attackAim,face:p.face,
+     waves,swings,totalWaves,totalSwings},reports=[];
+   try{
+    const setups=[{blade:1,area:0,multi:0},{blade:3,area:3,multi:1},{blade:7,area:7,multi:5}];
+    for(const setup of setups){
+     game.blade=setup.blade;game.area=setup.area;game.multi=setup.multi;
+     p.comboAim=0;p.comboVariant=0;waves=[];swings=[];
+     const config=AscensionKatana.waveConfig(game.blade,game.area,game.multi);
+     for(let i=0;i<Math.max(1,1+game.multi);i++)createSwordCut(p);
+     reports.push({stage:config.evolution,range:config.range,size:config.height,
+       numberOfWaves:waves.length,uniqueDirections:new Set(waves.map(w=>Math.round(w.aim/OCT))).size,
+       expectedCuts:1+game.multi});
+    }
+    return reports
+   }finally{
+    game.blade=backup.blade;game.area=backup.area;game.multi=backup.multi;
+    p.comboAim=backup.comboAim;p.comboVariant=backup.comboVariant;p.attackPulse=backup.attackPulse;
+    p.attackAim=backup.attackAim;p.face=backup.face;
+    waves=backup.waves;swings=backup.swings;totalWaves=backup.totalWaves;totalSwings=backup.totalSwings
+   }
+  },
+  verifyWaveContact:()=>{
+   if(!game||mode!=='play')return null;
+   const cfg=AscensionKatana.waveConfig(6,6,3);
+   const w={x:40,y:0,aim:0,width:cfg.width,height:cfg.height},dummy={x:92,y:0,r:16};
+   const before=AscensionKatana.hitTest(w,dummy,20,0);
+   w.x=89;const onContact=AscensionKatana.hitTest(w,dummy,40,0);
+   const behind=AscensionKatana.hitTest(w,{x:30,y:0,r:16},89,0);
+   return{before,onContact,behind}
+  },
   verifyDirections:()=>{
    if(!game||mode!=='play')return [];
    const p=game.p,saveEnemies=enemies,saveSwings=swings,saveCombo={left:p.comboLeft,aim:p.comboAim,variant:p.comboVariant},reports=[];
