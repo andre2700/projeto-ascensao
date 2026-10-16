@@ -2,6 +2,11 @@
   "browser": "webkit-iphone",
   "status": "FAIL",
   "error": "TimeoutError: locator.click: Timeout 12000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /INICIAR JORNADA/i })\n",
+  "captured": {
+    "where": "renderização",
+    "message": "Type error",
+    "stack": "drawImage@[native code]\ndrawWorld@http://127.0.0.1:8765/game-v06.js:49:309\nrender@http://127.0.0.1:8765/game-v06.js:120:465\nframe@http://127.0.0.1:8765/game-v06.js:133:101"
+  },
   "errors": [
     "[Ascensao] renderização drawImage@[native code]\ndrawWorld@http://127.0.0.1:8765/game-v06.js:49:309\nrender@http://127.0.0.1:8765/game-v06.js:120:465\nframe@http://127.0.0.1:8765/game-v06.js:133:101"
   ],
