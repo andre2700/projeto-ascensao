@@ -70,7 +70,7 @@
       this.input.on('pointermove',pointer=>{if(pointer.id===this.pointerId&&this.stickOrigin)this.setJoystick(pointer)});
       const stop=pointer=>{if(pointer.id===this.pointerId){this.pointerId=null;this.stickOrigin=null;this.joy.x=0;this.joy.y=0;ui.stick.style.display='none';ui.knob.style.transform='translate(0,0)'}};
       this.input.on('pointerup',stop);this.input.on('pointerupoutside',stop);
-      this.input.keyboard?.on('keydown',()=>{});
+      this.keys=this.input.keyboard?.addKeys?.('W,A,S,D,UP,DOWN,LEFT,RIGHT')||null;
       ui.zoomIn.addEventListener('click',()=>this.cameras.main.setZoom(num(this.cameras.main.zoom+.10,.68,1.18)));
       ui.zoomOut.addEventListener('click',()=>this.cameras.main.setZoom(num(this.cameras.main.zoom-.10,.68,1.18)));
       ui.start.addEventListener('click',()=>this.startGame());
@@ -138,7 +138,7 @@
       let dt=Math.min(.045,dt0/1000);this.tick+=dt;
       if(!this.playing)return;
       this.elapsed+=dt;
-      const curs=this.input.keyboard?.addKeys?.('W,A,S,D,UP,DOWN,LEFT,RIGHT');
+      const curs=this.keys;
       // Keyboard support is optional; on iPhone the floating joystick is the primary control.
       const inputX=this.joy.x+(curs?(curs.D.isDown||curs.RIGHT.isDown?1:0)-(curs.A.isDown||curs.LEFT.isDown?1:0):0);
       const inputY=this.joy.y+(curs?(curs.S.isDown||curs.DOWN.isDown?1:0)-(curs.W.isDown||curs.UP.isDown?1:0):0);
