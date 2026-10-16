@@ -172,6 +172,64 @@ function drawBoss(c,frame){
  smooth(c,[[24,32],[29,48],[10,53],[4,41]],'#667581','#2a3654',1.7);
  etch(c,601+frame*13,73,-45,-65,45,43,['#eee9d824','#09162a28','#d7bdeb25']);
 }
+
+function drawProp(c,o,t){
+ c.save();c.translate(o.x,o.y);c.rotate(o.rot||0);let s=o.s||1;c.scale(s,s);let seed=Math.floor((o.variant||.2)*1000);
+ if(o.type==='rubble'){
+  c.fillStyle='#07101892';c.beginPath();c.ellipse(1,15,42,13,0,0,TAU);c.fill();
+  smooth(c,[[-41,11],[-39,-1],[-29,-19],[-10,-23],[6,-13],[7,3],[-2,15],[-18,19]],L(c,-27,-23,5,18,['#89978c','#516368','#273e4a']),'#152832',1.5);
+  smooth(c,[[2,14],[1,-9],[17,-17],[34,-9],[39,5],[33,18],[16,21]],L(c,4,-14,37,20,['#839289','#4e646b','#253943']),'#142732',1.5);
+  vein(c,[[-31,-9],[-13,-16],[3,-7]],'#cfdbbc65',1.2);
+  vein(c,[[9,2],[23,-10],[34,-5]],'#b7c4bc4f',1);
+  vein(c,[[-22,5],[-14,11],[-7,6]],'#182e34',1.5);
+  for(let i=0;i<6;i++){let x=-33+i*12;orb(c,x,12+(i%2)*4,1.4,'#7c9d6f');vein(c,[[x,11],[x+3,6]],'#719772a0',1)}
+ }
+ if(o.type==='fern'){
+  c.fillStyle='#071a1da0';c.beginPath();c.ellipse(0,10,31,8,0,0,TAU);c.fill();
+  const R=rng(seed+8);
+  for(let i=0;i<9;i++){
+   const a=i*TAU/9+o.rot*.2,r=17+R()*16;
+   let tx=Math.cos(a)*r,ty=Math.sin(a)*r;
+   vein(c,[[0,6],[tx*.45,-3+ty*.35,tx,ty]],'#456b4d',2);
+   for(let j=1;j<5;j++){const f=j/5,x=tx*f,y=ty*f+5,sp=(1-f)*7+2;
+     let side=i%2?1:-1;
+     smooth(c,[[x,y],[x+Math.cos(a+side*.9)*sp*2,y+Math.sin(a+side*.9)*sp*2-2],[x+Math.cos(a)*sp*1.8,y+Math.sin(a)*sp*1.8],[x+Math.cos(a-side*.9)*sp,y+Math.sin(a-side*.9)*sp+1]],L(c,x-8,y-8,x+8,y+8,['#93b482','#567c61','#2b5a50']),null);
+   }
+  }
+  for(let i=0;i<4;i++)orb(c,R()*14-7,R()*10-2,1.5,'#a2bc7a');
+ }
+ if(o.type==='column'){
+  c.fillStyle='#030913ad';c.beginPath();c.ellipse(4,19,45,17,.08,0,TAU);c.fill();
+  smooth(c,[[-26,-1],[-31,-9],[-22,-20],[14,-24],[31,-14],[33,6],[23,22],[-24,19]],L(c,-24,-22,29,21,['#abb0a1','#6b807c','#344953']),'#182932',2.5);
+  smooth(c,[[-24,-21],[-19,-32],[-11,-38],[9,-42],[23,-36],[28,-23],[19,-11],[-17,-12]],L(c,-19,-42,27,-11,['#d0cfb5','#81938c','#3d555b']),'#283b46',1.8);
+  smooth(c,[[-19,-29],[-8,-33],[8,-32],[20,-28],[14,-19],[-13,-19]],'#4b6367','#b0b6a36b',1);
+  vein(c,[[-8,-19],[-11,-2],[-2,9]],'#243944',2.6);
+  vein(c,[[14,-15],[12,-1],[24,6]],'#a9b3a26e',1);
+  for(let i=0;i<7;i++){let x=-25+i*8,y=6+Math.sin(i*3+seed)*9;vein(c,[[x,y],[x-2,y-7]],'#517c5e9f',1.5);orb(c,x,y,2,'#648961')}
+ }
+ if(o.type==='crystal'){
+  c.fillStyle='#04121dac';c.beginPath();c.ellipse(0,17,35,12,0,0,TAU);c.fill();light(c,0,0,45,'#45d9e636');
+  smooth(c,[[-17,12],[-13,-4],[-2,-28],[13,-16],[19,9],[9,23],[-10,22]],L(c,-10,-28,18,23,['#b8f4ef','#429fb7','#1b526f','#1b344b']),'#64cfe2',1.8);
+  smooth(c,[[-13,-5],[-2,-28],[2,-5],[-1,16],[-10,21]],'#3a91a9','#b4f9ed9e',1);
+  smooth(c,[[2,-5],[13,-16],[19,9],[9,23],[-1,16]],'#246681','#8bdbde9c',1);
+  smooth(c,[[-30,13],[-24,-11],[-17,13],[-21,22]],'#266a88','#83d4d7',1);
+  vein(c,[[-3,-17],[-5,0],[-1,9]],'#dbfffbb8',1.7);
+  light(c,0,-15,18,'#bbffff5a');
+ }
+ if(o.type==='torch'){
+  c.fillStyle='#051019ac';c.beginPath();c.ellipse(0,16,28,10,0,0,TAU);c.fill();
+  smooth(c,[[-16,8],[-19,3],[-10,-4],[13,-5],[19,8],[12,19],[-8,19]],L(c,-16,-5,19,18,['#a9aaa0','#626f72','#344655']),'#263642',2);
+  vein(c,[[-8,9],[3,10],[13,7]],'#bbc2b166',1);
+  smooth(c,[[-5,3],[-6,-23],[-4,-27],[5,-27],[7,-21],[5,3]],L(c,-5,-26,7,4,['#ac8657','#4f473f','#32363f']),'#242a32',1.5);
+  smooth(c,[[-13,-29],[-10,-36],[10,-37],[14,-29],[8,-24],[-8,-24]],'#8b6c4e','#e1b77a',1.3);
+  let f=Math.sin(t*9+o.x*.1)*3;
+  light(c,0,-40,47,'#ffac4540');
+  smooth(c,[[-7,-32],[-10+f,-44],[-4+f,-54],[1,-67+f],[6,-52],[11-f,-44],[6,-31]],L(c,-4,-66,4,-31,['#fff5ad','#ffb65d','#d6552e']),'#f4a95182',.8);
+  smooth(c,[[-3,-34],[-4,-47],[1,-57+f],[5,-42],[3,-34]],'#fff3a9');
+ }
+ c.restore();
+}
+
 const DRAW={hero:drawHero,wraith:drawWraith,hound:drawHound,sentinel:drawSentinel,boss:drawBoss};
 const SCALE={hero:1,wraith:.82,hound:.83,sentinel:.93,boss:1.10};
 function getSprite(name,frame=0){let key=name+frame;if(cache[key])return cache[key];let size=name==='boss'?240:160;let a=document.createElement('canvas');a.width=a.height=size*2;let c=a.getContext('2d');c.scale(2,2);c.translate(size/2,size/2);c.lineCap='round';c.lineJoin='round';DRAW[name](c,frame);return cache[key]=a}
@@ -205,5 +263,5 @@ function drawEnemyLive(c,e,t){
  c.restore();
  if(e.kind==='boss'){c.fillStyle='#06101abf';c.fillRect(e.x-49,e.y-e.r-78,98,8);c.fillStyle='#d99bce';c.fillRect(e.x-49,e.y-e.r-78,98*Math.max(0,e.hp/e.maxHp),8)}
 }
-root.AscensionArt={drawHero:drawHeroLive,drawEnemy:drawEnemyLive,prewarm:function(){for(let name of Object.keys(DRAW))for(let frame=0;frame<2;frame++)getSprite(name,frame)}};
+root.AscensionArt={drawHero:drawHeroLive,drawEnemy:drawEnemyLive,drawProp:drawProp,prewarm:function(){for(let name of Object.keys(DRAW))for(let frame=0;frame<2;frame++)getSprite(name,frame)}};
 })(window);
