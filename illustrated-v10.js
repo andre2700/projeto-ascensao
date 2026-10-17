@@ -10,7 +10,7 @@ const states={},counts={hero:0,wraith:0,beast:0,fallback:0};
 const idleAtlas=new Image();let idleAtlasReady=false;
 idleAtlas.onload=()=>{idleAtlasReady=idleAtlas.naturalWidth===512&&idleAtlas.naturalHeight===128};
 idleAtlas.onerror=()=>{idleAtlasReady=false};
-idleAtlas.src='./ascensao_idle_4frames.png?v=18.0.0';
+idleAtlas.src=root.AscensionIdleSprite||'';
 function clean(canvas){
  const c=canvas.getContext('2d',{willReadFrequently:true});
  const pixels=c.getImageData(0,0,canvas.width,canvas.height),p=pixels.data;
