@@ -1,155 +1,215 @@
 {
-  "browser": "webkit-iphone",
-  "status": "FAIL",
-  "error": "AssertionError [ERR_ASSERTION]: sem erros JavaScript ou falhas de renderização: Failed to load resource: the server responded with a status of 404 (Not Found)\n\n1 !== 0\n",
-  "captured": {
-    "lastError": null,
-    "debug": {
-      "mode": "play",
-      "seconds": 3.639000000000003,
-      "x": 65.14511770251717,
-      "y": -37.36264103526718,
-      "motion": 7.167380209909573e-16,
-      "attackPulse": 0,
-      "kills": 0,
-      "enemies": 3,
-      "shots": 0,
-      "projectiles": 0,
-      "meleeHits": 17,
-      "swordSwings": 21,
-      "enemyStrikes": 1,
-      "coinsCollected": 0,
-      "combatMode": "evolving-katana",
-      "waveCount": 0,
-      "totalWaves": 6,
-      "waveHits": 6,
-      "cameraZoom": 0.9002094686583162,
-      "cameraTargetZoom": 0.9054,
-      "katanaStage": 0,
-      "direction": 0,
-      "heading": 0,
-      "areaLevel": 0,
-      "multiLevel": 0,
-      "comboLeft": 0,
-      "tiles": 4,
-      "props": 1556,
-      "fps": 1,
-      "stick": null,
-      "touchActive": false,
-      "terrain": "Floresta da Aurora",
-      "illustrated": {
-        "idleFramesReady": false,
-        "loaded": {
-          "hero": true,
-          "wraith": true,
-          "beast": true
-        },
-        "failed": {
-          "hero": false,
-          "wraith": false,
-          "beast": false
-        },
-        "framesDrawn": {
-          "hero": 40,
-          "wraith": 10,
-          "beast": 44,
-          "fallback": 1
-        },
-        "normalized": true,
-        "lockedWraithLantern": true,
-        "outlined": true,
-        "sharpened": true,
-        "interpolatedMotion": true,
-        "directionalSecondaryMotion": true,
-        "footfallRhythm": true,
-        "frameHeights": {
-          "hero": [
-            88,
-            78,
-            64,
-            75,
-            72
-          ],
-          "wraith": [
-            81,
-            75,
-            74,
-            70
-          ],
-          "beast": [
-            70,
-            61,
-            65,
-            61
-          ]
-        }
-      },
-      "wind": {
-        "paints": 80,
-        "cachedSprites": true,
-        "worldSpaceLeaves": true,
-        "leafDraws": 866
-      },
-      "tree": {
-        "spriteReady": true,
-        "failed": false,
-        "trees": 334,
-        "baseRadiusX": 38.57060270234942,
-        "baseRadiusY": 20.768786070495842,
-        "collisions": 3,
-        "footsteps": 13,
-        "draws": 239,
-        "worldCanvas": true
-      },
-      "terrainDetails": {
-        "loaded": true,
-        "failed": false,
-        "preparations": 1,
-        "sharpened": true,
-        "gradient": 20,
-        "tileSize": 640
-      },
-      "shakeEvents": 2,
-      "shakeLevel": 0,
-      "heroArt": null,
-      "version": "0.17.0",
-      "vfx": {
-        "active": 0,
-        "flavors": [
-          "basic",
-          "fire",
-          "ice",
-          "lightning"
-        ],
-        "slashOverridden": true
-      },
-      "showcase": null
+  "katana": [
+    {
+      "stage": 0,
+      "range": 127,
+      "size": 44,
+      "numberOfWaves": 0,
+      "uniqueDirections": 0,
+      "expectedCuts": 1
     },
-    "pointerTrace": [
-      {
-        "event": "touchstart",
-        "identifier": 7,
-        "x": 120.9,
-        "y": 498
-      },
-      {
-        "event": "touchmove",
-        "identifier": 7,
-        "x": 188.9,
-        "y": 459
-      },
-      {
-        "event": "touchend",
-        "identifier": 7,
-        "x": 188.9,
-        "y": 459
-      }
-    ]
-  },
-  "errors": [
-    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    {
+      "stage": 1,
+      "range": 298,
+      "size": 77,
+      "numberOfWaves": 2,
+      "uniqueDirections": 1,
+      "expectedCuts": 2
+    },
+    {
+      "stage": 2,
+      "range": 542,
+      "size": 117,
+      "numberOfWaves": 6,
+      "uniqueDirections": 6,
+      "expectedCuts": 6
+    }
   ],
-  "failedResources": [
-    "http://127.0.0.1:8765/ascensao_idle_4frames.png?v=18.0.0 404"
-  ]
+  "contact": {
+    "before": false,
+    "onContact": true,
+    "behind": false
+  },
+  "initialZoom": 0.9011109577611517,
+  "cameraZoom": 0.8921627066125772,
+  "evolved": {
+    "stage": 2,
+    "waveHits": 2,
+    "totalWaves": 1,
+    "cameraZoom": 0.8578543671311579
+  },
+  "directionTest": [
+    {
+      "expected": 0,
+      "actual": 0,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 1,
+      "actual": 1,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 2,
+      "actual": 2,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 3,
+      "actual": 3,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 4,
+      "actual": 4,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 5,
+      "actual": 5,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 6,
+      "actual": 6,
+      "hit": true,
+      "started": true
+    },
+    {
+      "expected": 7,
+      "actual": 7,
+      "hit": true,
+      "started": true
+    }
+  ],
+  "upgrades": {
+    "basic": {
+      "radius": 83.9,
+      "spread": 1.34,
+      "cuts": 1
+    },
+    "upgraded": {
+      "radius": 138.9,
+      "spread": 1.6150000000000002,
+      "cuts": 4
+    }
+  },
+  "art": {
+    "illustrated": {
+      "idleFramesReady": true,
+      "loaded": {
+        "hero": true,
+        "wraith": true,
+        "beast": true
+      },
+      "failed": {
+        "hero": false,
+        "wraith": false,
+        "beast": false
+      },
+      "framesDrawn": {
+        "hero": 0,
+        "wraith": 0,
+        "beast": 0,
+        "fallback": 0
+      },
+      "normalized": true,
+      "lockedWraithLantern": true,
+      "outlined": true,
+      "sharpened": true,
+      "interpolatedMotion": true,
+      "directionalSecondaryMotion": true,
+      "footfallRhythm": true,
+      "frameHeights": {
+        "hero": [
+          88,
+          78,
+          64,
+          75,
+          72
+        ],
+        "wraith": [
+          81,
+          75,
+          74,
+          70
+        ],
+        "beast": [
+          70,
+          61,
+          65,
+          61
+        ]
+      }
+    },
+    "terrain": {
+      "loaded": true,
+      "failed": false,
+      "preparations": 1,
+      "sharpened": true,
+      "gradient": 20,
+      "tileSize": 640
+    },
+    "tree": {
+      "spriteReady": true,
+      "failed": false,
+      "trees": 334,
+      "baseRadiusX": 38.57060270234942,
+      "baseRadiusY": 20.768786070495842,
+      "collisions": 0,
+      "footsteps": 0,
+      "draws": 0,
+      "worldCanvas": true
+    },
+    "wind": {
+      "paints": 0,
+      "cachedSprites": true,
+      "worldSpaceLeaves": true,
+      "leafDraws": 0
+    }
+  },
+  "world": {
+    "spriteReady": true,
+    "failed": false,
+    "trees": 334,
+    "baseRadiusX": 38.57060270234942,
+    "baseRadiusY": 20.768786070495842,
+    "collisions": 1,
+    "footsteps": 11,
+    "draws": 203,
+    "worldCanvas": true
+  },
+  "shakeEvents": 2,
+  "collision": {
+    "hit": true,
+    "radiusX": 38.57060270234942,
+    "radiusY": 20.768786070495842,
+    "normalized": 1.0006786812285675
+  },
+  "combat": {
+    "meleeHits": 13,
+    "enemyStrikes": 1,
+    "projectiles": 0,
+    "swordSwings": 18
+  },
+  "browser": "webkit-iphone",
+  "status": "PASS",
+  "time": "3.1",
+  "enemies": 2,
+  "kills": 0,
+  "playerMovePx": 41,
+  "motionDuringMove": 0.8053758024579362,
+  "motionIdle": 0.008377359778707799,
+  "color": {
+    "meanBrightness": 98,
+    "greenMinusRed": 23
+  },
+  "errors": [],
+  "failedResources": []
 }
