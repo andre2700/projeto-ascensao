@@ -7,6 +7,10 @@ const fallbackEnemy=motion.drawEnemy;
 const input=root.AscensionIllustrationData||{},TAU=Math.PI*2;
 const specs={hero:{n:5,w:128,h:117,visual:91},wraith:{n:4,w:128,h:117,visual:71},beast:{n:4,w:128,h:117,visual:64}};
 const states={},counts={hero:0,wraith:0,beast:0,fallback:0};
+const idleAtlas=new Image();let idleAtlasReady=false;
+idleAtlas.onload=()=>{idleAtlasReady=idleAtlas.naturalWidth===512&&idleAtlas.naturalHeight===128};
+idleAtlas.onerror=()=>{idleAtlasReady=false};
+idleAtlas.src='./ascensao_idle_4frames.png?v=18.0.0';
 function clean(canvas){
  const c=canvas.getContext('2d',{willReadFrequently:true});
  const pixels=c.getImageData(0,0,canvas.width,canvas.height),p=pixels.data;
@@ -111,7 +115,13 @@ function hero(c,p,t,g){
  c.scale((side?.93:1)+(moving?step*.013:0),1-compression);
  // Perspectiva de recuo discreta sem trocar a escala básica do corpo.
  if(up&&moving)c.transform(1,0,step*.016,1,0,0);
- const ok=sprite(c,'hero',frame,states.hero.specH||91,p.face===-1?-1:1);
+ let ok=false;
+ if(!moving&&!atk&&idleAtlasReady){
+   const seq=[0,1,2,3,2,1],i=seq[Math.floor(t*2.3)%seq.length];
+   c.save();if(p.face===-1)c.scale(-1,1);
+   c.drawImage(idleAtlas,i*128,0,128,128,-50,-97,100,100);
+   c.restore();ok=true;counts.hero++;
+ }else ok=sprite(c,'hero',frame,states.hero.specH||91,p.face===-1?-1:1);
  if(atk){const force=Math.sin(Math.min(1,v)*Math.PI),color=g?.fire>0?'#ffaf68':g?.ice>0?'#a6f8ff':'#d6f2ff';
  if(force>.12){c.save();c.globalAlpha=force*.66;c.strokeStyle=color;c.shadowColor=color;c.shadowBlur=12;c.lineWidth=2.4+force*3;
  c.beginPath();c.arc(2,-37,47,-1.3,.17+v*.4);c.stroke();c.restore()}}
@@ -152,7 +162,7 @@ function enemy(c,e,t){
 }
 motion.hero=hero;motion.drawEnemy=enemy;
 root.AscensionIllustrated={ready:()=>Object.values(states).every(v=>v.ready),stats:()=>({
- loaded:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.ready])),
+ idleFramesReady:idleAtlasReady, loaded:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.ready])),
  failed:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.failed])),
  framesDrawn:{...counts},normalized:true,lockedWraithLantern:true,outlined:true,sharpened:true,interpolatedMotion:true,directionalSecondaryMotion:true,footfallRhythm:true,
  frameHeights:Object.fromEntries(Object.entries(states).map(([n,v])=>[n,v.details.map(d=>d?.h||0)]))
