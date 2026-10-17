@@ -49,51 +49,9 @@ function sword(c,ang,charge,fire,ice,shock,slash){
  c.restore();
  if(slash>0){c.save();c.globalAlpha=slash*.88;c.strokeStyle=elem;c.shadowColor=elem;c.shadowBlur=14;c.lineWidth=3+slash*4;c.lineCap='round';c.beginPath();c.arc(0,-16,49,-1.5+ang*.35,.25+ang*.3);c.stroke();c.lineWidth=1.5;c.globalAlpha=slash*.4;c.beginPath();c.arc(0,-16,56,-1.7+ang*.33,.48+ang*.3);c.stroke();c.restore()}
 }
-function hero(c,p,t,game){
- const mv=clamp(p.motion||0,0,1),step=p.move||0,ga=Math.sin(step),breath=Math.sin(t*2.9)*1.2,
-   hit=clamp(p.attackPulse||0,0,.32),active=hit>0,
-   portion=active?1-hit/.32:0;
- // attack timeline windup 0-.2, strike .2-.72, recovery .72-1
- let pose=0,slash=0,charge=0;
- if(active){if(portion<.2){pose=-.75-(portion/.2)*.6;charge=.32+portion*1.9}else if(portion<.72){let z=(portion-.2)/.52;pose=-1.35+z*2.75;slash=Math.sin(z*Math.PI)*.95;charge=1}else{let z=(portion-.72)/.28;pose=1.4-(z*z)*1.4;charge=1-z}}
- const dx=p.face===-1?-1:1;
- c.save();c.translate(p.x,p.y);shadow(c,0,22,23,8);
- const bob=breath*.45+Math.abs(ga)*mv*1.8;
- c.scale(dx,1);c.translate(0,-bob);
- let lean=mv*ga*.035+(active?Math.sin(portion*Math.PI)*.11:0);
- c.rotate(lean);
- scarf(c,-ga*mv*4-(active?Math.sin(portion*Math.PI)*7:0),breath);
- legs(c,step,mv);
- // left arm swings opposite leg, weight shifts with movement
- bone(c,-15,-24,-22-ga*mv*4,-7+ga*mv*5,11,grad(c,-21,-26,-14,2,['#d6e1d8','#6a8497','#334e64']),'#243c51','#e8e2c577');
- shape(c,[[-26,-25],[-23,-36],[-15,-40],[-9,-30],[-9,-18],[-18,-16]],grad(c,-25,-37,-11,-18,['#f9f1df','#a3b8bf','#486c83']),'#24465f',1.6);
- shape(c,[[-30,-5],[-20,-7],[-17,2],[-25,11],[-31,6]],'#5b758a','#314963',1.1);
- // broad armored torso with curved layered plate and luminous sigil
- shape(c,[[-16,-32],[-9,-38],[8,-38],[19,-29],[19,0],[10,12],[-10,12],[-20,1]],grad(c,-17,-38,16,15,['#edf0df','#91a9ae','#4d7585','#2d4d68']),'#263f55',2.1);
- shape(c,[[-11,-28],[-4,-35],[12,-31],[13,-12],[5,6],[-9,3],[-15,-13]],grad(c,-12,-33,13,8,['#d4dacd','#7695a3','#3d647d']),'#4c7185',1);
- shape(c,[[-3,-24],[2,-30],[8,-22],[5,-6],[-1,2],[-8,-8]],'#557a8b','#bdd7caa0',.9);
- shape(c,[[-5,-20],[0,-27],[6,-20],[4,-8],[-1,-2],[-7,-10]],grad(c,-5,-26,6,-2,['#ffefb9','#cca469','#8a683f']),'#f9e4ad',.7);
- bone(c,-15,1,14,5,8,'#8e6d4a','#4a3e37','#e9c785');
- circle(c,1,3,3,'#f0d495');
- // chest grows with breath
- c.save();c.translate(0,-40+breath*.35);
- shape(c,[[-13,3],[-16,-9],[-12,-22],[-4,-28],[7,-28],[15,-20],[16,-7],[12,4]],grad(c,-13,-23,15,5,['#e8ebdc','#7b97a5','#315069']),'#203c52',1.9);
- shape(c,[[-12,-12],[-6,-24],[5,-26],[12,-12],[9,-2],[-10,-2]],'#152a3e','#9db0b786',1.2);
- shape(c,[[-8,-11],[-3,-14],[1,-10],[-3,-6]],'#9ef4ff');
- shape(c,[[3,-11],[9,-13],[11,-8],[5,-7]],'#8aebff');
- shape(c,[[-16,-17],[-16,-27],[-8,-34],[2,-37],[13,-31],[18,-21],[11,-18],[0,-23],[-11,-20]],grad(c,-14,-35,13,-17,['#f2ecd2','#aac6cd','#466e8b']),'#31516a',1.5);
- shape(c,[[-2,-32],[1,-44],[5,-31],[2,-21]],'#e9c27d','#9f7c47',1);
- c.restore();
- // right shoulder, articulated weapon arm and foreshortened glove
- let reach=active?Math.sin(portion*Math.PI)*7:0;
- let handX=22+reach+ga*mv*2,handY=-10-(active?Math.sin(portion*Math.PI)*6:ga*mv*4);
- bone(c,17,-24,handX,handY,12,grad(c,14,-26,28,0,['#e1e5d6','#6d8796','#34546a']),'#29445b','#d7dfca99');
- shape(c,[[11,-30],[18,-39],[28,-35],[32,-22],[22,-17],[11,-20]],grad(c,11,-38,32,-15,['#f8edd7','#a6b9b9','#5e8193']),'#284860',1.6);
- circle(c,handX,handY,5,'#c3c3ae');
- c.save();c.translate(handX-21,handY+15);sword(c,pose,charge,game?.fire>0,game?.ice>0,game?.lightning>0,slash);c.restore();
- if(p.hurt>0){c.save();c.globalAlpha=.20+Math.abs(Math.sin(t*38))*.2;ell(c,0,-19,25,37,'#fff3ea');c.restore()}
- c.restore();
-}
+// Herói exclusivamente ilustrado; sem desenho geométrico alternativo.
+function hero(){return}
+
 function wraith(c,e,t){
  const phase=e.phase||t*4,sw=Math.sin(phase),flo=Math.sin(phase*.76)*4,attack=(e.attackT||0);
  c.save();c.translate(e.x,e.y);shadow(c,0,16,17,6);c.scale(e.face||1,1);c.translate(0,flo-4);
