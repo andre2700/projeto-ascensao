@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Projeto Ascensão — uma jornada de fantasia elemental.">
-<title>Projeto Ascensão — Alpha 0.14 — Herói Ilustrado</title>
+<title>Projeto Ascensão — Alpha 0.15 — Corrida Corrigida</title>
 <link rel="stylesheet" href="./style-v11.css?v=6.2.0">
 </head>
 <body>
@@ -43,7 +43,7 @@
 <script src="./tree-data-v07.js?v=11.1.0"></script>
 <script src="./clean-props-v07.js?v=11.1.0"></script>
 <script src="./illustrated-v10.js?v=11.1.0"></script>
-<script src="./hero-illustrated-v14.js?v=14.1.0"></script>
+<script src="./hero-pixel-v15.js?v=15.0.0"></script>
 <script src="./terrain-data-v07.js?v=11.1.0"></script>
 <script src="./terrain-v08.js?v=11.1.0"></script>
 <script src="./world-v09.js?v=11.1.0"></script>
@@ -65,7 +65,7 @@
     if(e.target&&e.target.tagName==='SCRIPT'&&!stable)recovery('Não foi possível carregar um arquivo do jogo.');
   },true);
   var sc=document.createElement('script');
-  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v13.js?v=14.1.0';
+  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v13.js?v=15.0.0';
   sc.onerror=function(){recovery('Arquivo do motor indisponível.')};
   sc.onload=function(){if(!stable&&!window.AscensionGame)recovery('Motor gráfico não iniciou.')};
   document.body.appendChild(sc);
