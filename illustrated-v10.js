@@ -3,7 +3,7 @@
 'use strict';
 const motion=root.AscensionMotion;
 if(!motion)throw Error('Animacoes iniciais ausentes');
-const fallbackHero=motion.hero,fallbackEnemy=motion.drawEnemy;
+const fallbackEnemy=motion.drawEnemy;
 const input=root.AscensionIllustrationData||{},TAU=Math.PI*2;
 const specs={hero:{n:5,w:128,h:117,visual:91},wraith:{n:4,w:128,h:117,visual:71},beast:{n:4,w:128,h:117,visual:64}};
 const states={},counts={hero:0,wraith:0,beast:0,fallback:0};
@@ -117,7 +117,7 @@ function hero(c,p,t,g){
  c.beginPath();c.arc(2,-37,47,-1.3,.17+v*.4);c.stroke();c.restore()}}
  if(hit){c.globalAlpha=Math.min(.15,p.hurt*.4);c.fillStyle='#fff7e5';c.beginPath();c.ellipse(0,-29,25,33,0,0,TAU);c.fill()}
  c.restore();
- if(!ok){counts.fallback++;fallbackHero(c,p,t,g)}
+ if(!ok){console.warn('[Ascensao] Sprite ilustrado do heroi indisponivel; render geometrico desativado')}
 }
 function enemy(c,e,t){
  const name=e.kind==='hound'?'beast':e.kind==='wraith'?'wraith':null;
