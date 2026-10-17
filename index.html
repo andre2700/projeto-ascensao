@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Projeto Ascensão — uma jornada de fantasia elemental.">
-<title>Projeto Ascensão — Alpha 0.11 — Katana Ascendente</title>
+<title>Projeto Ascensão — Alpha 0.13 — Artes da Lâmina</title>
 <link rel="stylesheet" href="./style-v11.css?v=6.2.0">
 </head>
 <body>
@@ -43,12 +43,13 @@
 <script src="./tree-data-v07.js?v=11.1.0"></script>
 <script src="./clean-props-v07.js?v=11.1.0"></script>
 <script src="./illustrated-v10.js?v=11.1.0"></script>
-<script src="./hero-pixel-v12.js?v=12.0.0"></script>
+<script src="./hero-pixel-v13.js?v=13.0.0"></script>
 <script src="./terrain-data-v07.js?v=11.1.0"></script>
 <script src="./terrain-v08.js?v=11.1.0"></script>
 <script src="./world-v09.js?v=11.1.0"></script>
 <script src="./combat-v10.js?v=11.1.0"></script>
 <script src="./katana-v11.js?v=11.1.0"></script>
+<script src="./combat-effects-v13.js?v=13.0.0"></script>
 <script>
 (function(){
   const stable=new URLSearchParams(location.search).get('engine')==='stable';
@@ -64,7 +65,7 @@
     if(e.target&&e.target.tagName==='SCRIPT'&&!stable)recovery('Não foi possível carregar um arquivo do jogo.');
   },true);
   var sc=document.createElement('script');
-  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v11.js?v=11.1.0';
+  sc.src=stable?'./game-v04.js?v=4.0.2':'./game-v13.js?v=13.0.0';
   sc.onerror=function(){recovery('Arquivo do motor indisponível.')};
   sc.onload=function(){if(!stable&&!window.AscensionGame)recovery('Motor gráfico não iniciou.')};
   document.body.appendChild(sc);
