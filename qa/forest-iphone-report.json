@@ -30,13 +30,13 @@
     "onContact": true,
     "behind": false
   },
-  "initialZoom": 0.900903166451975,
-  "cameraZoom": 0.8940994473363617,
+  "initialZoom": 0.9012043930972425,
+  "cameraZoom": 0.8935800671272486,
   "evolved": {
     "stage": 2,
     "waveHits": 3,
     "totalWaves": 2,
-    "cameraZoom": 0.8637697264354783
+    "cameraZoom": 0.8566393470510612
   },
   "directionTest": [
     {
@@ -180,11 +180,11 @@
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
     "collisions": 1,
-    "footsteps": 9,
-    "draws": 184,
+    "footsteps": 11,
+    "draws": 209,
     "worldCanvas": true
   },
-  "shakeEvents": 1,
+  "shakeEvents": 2,
   "collision": {
     "hit": true,
     "radiusX": 38.57060270234942,
@@ -199,15 +199,15 @@
   },
   "browser": "webkit-iphone",
   "status": "PASS",
-  "time": "2.8",
-  "enemies": 3,
+  "time": "3.0",
+  "enemies": 2,
   "kills": 0,
-  "playerMovePx": 72,
-  "motionDuringMove": 0.9477602688867819,
-  "motionIdle": 0.05140425424482506,
+  "playerMovePx": 41,
+  "motionDuringMove": 0.8053758024579362,
+  "motionIdle": 0.009767501998522488,
   "color": {
-    "meanBrightness": 99,
-    "greenMinusRed": 21
+    "meanBrightness": 98,
+    "greenMinusRed": 24
   },
   "errors": [],
   "failedResources": []
