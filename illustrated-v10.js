@@ -93,7 +93,7 @@ function sprite(ctx,name,index,visualH,mirror=1){
 }
 function contact(c,x,y,rx,ry,alpha){if(root.AscensionWorld?.contact)root.AscensionWorld.contact(c,x,y,rx,ry,alpha)}
 function hero(c,p,t,g){
- if(!states.hero.ready){counts.fallback++;return fallbackHero(c,p,t,g)}
+ if(!states.hero.ready){return}
  const moving=(p.motion||0)>.12,atk=(p.attackPulse||0)>0,hit=(p.hurt||0)>0;
  const v=atk?Math.max(0,1-(p.attackPulse||0)/.32):0;
  const frame=hit?4:atk?(v<.42?2:3):moving?(Math.sin((p.move||0))>.08?1:0):0;
