@@ -31,12 +31,12 @@
     "behind": false
   },
   "initialZoom": 0.9006593924596838,
-  "cameraZoom": 0.9010471763196839,
+  "cameraZoom": 0.9009479164040753,
   "evolved": {
     "stage": 2,
     "waveHits": 3,
     "totalWaves": 2,
-    "cameraZoom": 0.8629392709612973
+    "cameraZoom": 0.862939661057148
   },
   "directionTest": [
     {
@@ -179,12 +179,12 @@
     "trees": 334,
     "baseRadiusX": 38.57060270234942,
     "baseRadiusY": 20.768786070495842,
-    "collisions": 14,
+    "collisions": 1,
     "footsteps": 8,
     "draws": 1066,
     "worldCanvas": true
   },
-  "shakeEvents": 1,
+  "shakeEvents": 2,
   "collision": {
     "hit": true,
     "radiusX": 38.57060270234942,
@@ -195,7 +195,7 @@
     "meleeHits": 12,
     "enemyStrikes": 1,
     "projectiles": 0,
-    "swordSwings": 15
+    "swordSwings": 16
   },
   "browser": "chromium-mobile",
   "status": "PASS",
@@ -203,8 +203,8 @@
   "enemies": 3,
   "kills": 0,
   "playerMovePx": 27,
-  "motionDuringMove": 0.6651869877598146,
-  "motionIdle": 0.03779291022353688,
+  "motionDuringMove": 0.6648956154018003,
+  "motionIdle": 0.037982678413217855,
   "color": {
     "meanBrightness": 98,
     "greenMinusRed": 23
